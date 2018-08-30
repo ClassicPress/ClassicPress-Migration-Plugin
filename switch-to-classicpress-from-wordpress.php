@@ -1,26 +1,28 @@
 <?php 
 /*
 Plugin Name:       Switch to ClassicPress from WordPress
-Plugin URI:        https://github.com/classicpress/switch-to-classicpress-from-wordpress/
-Description:       ClassicPress migration plugin, and say Goodbye to Gutenberg.
+Plugin URI:        https://github.com/classicpress/classicpress-migration-plugin/
+Description:       Switch to ClassicPress from WordPress and say Goodbye to Gutenberg.
 Version:           1.0.2
 Requires at least: 4.9
 Tested up to:      4.9
 Requires PHP:      5.2.4
 Author:            ClassicPress
-Author URI:        https://classicpress.net/
+Author URI:        https://www.classicpress.net/
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
 Domain Path:       /languages
 Text Domain:       switch-to-classicpress-from-wordpress
 Network:           true
-GitHub Plugin URI: https://github.com/classicpress/switch-to-classicpress-from-wordpress/
+GitHub Plugin URI: https://github.com/classicpress/classicpress-migration-plugin/
 GitHub Branch:     master
 Requires WP:       4.9
 */
 
 	/**
 	 * Switch to ClassicPress from WordPress.
+	 *
+	 * ClassicPress Migration Plugin.
 	 *
 	 * @package Switch_to_ClassicPress_from_WordPress
 	 * @version 1.0.2 - 2018-08-30
