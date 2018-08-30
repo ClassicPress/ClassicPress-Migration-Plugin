@@ -60,6 +60,34 @@ define( 'CLASSICPRESS_MIGRATION_PLUGIN_VERSION', '1.0.1' );
 
 add_filter( 'admin_menu', 'classicpress_remove_gutenberg_demo_menu', 999 );
 add_filter( 'admin_init', 'classicpress_remove_gutenberg_dashboard_widget' );
+add_filter( 'plugins_loaded', 'classicpress_load_plugin_textdomain' );
+add_filter( 'plugins_loaded', 'classicpress_load_muplugin_textdomain' );
+add_filter( 'plugin_row_meta', 'classicpress_adds_row_meta_links', 10, 2 );
+
+/**
+ * Load Plugin Textdomain.
+ */
+function classicpress_load_plugin_textdomain() {
+	load_plugin_textdomain( 'classicpress-migration-plugin', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
+/**
+ * Load MU-Plugin (dir) Textdomain.
+ */
+function classicpress_load_muplugin_textdomain() {
+	load_muplugin_textdomain( 'classicpress-migration-plugin', basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
+/**
+ * Adds Plugin Row Meta Links.
+ */
+function classicpress_adds_row_meta_links( $plugin_meta, $plugin_file ) {
+	if ( $plugin_file == plugin_basename( __FILE__ ) )
+		{
+			$plugin_meta[] .= '<a href="https://www.change.org/p/petition-to-wordpress-no-gutenberg-in-wordpress-core/">' . __( 'Sign ClassicPress Petition', 'classicpress-migration-plugin' ) . '</a>';
+		}
+	return $plugin_meta;
+}
 
 /**
  * Remove Gutenberg Dashboard Widget.
