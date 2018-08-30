@@ -1,7 +1,7 @@
 <?php 
 /*
 Plugin Name:       ClassicPress Migration Plugin
-Plugin URI:        https://github.com/
+Plugin URI:        https://github.com/classicpress/classicpress-migration-plugin/
 Description:       ClassicPress migration plugin, and say Goodbye to Gutenberg.
 Version:           1.0.1
 Requires at least: 4.9
@@ -14,7 +14,7 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
 Domain Path:       /languages
 Text Domain:       classicpress-migration-plugin
 Network:           true
-GitHub Plugin URI: https://github.com/marctenax/hello-classic/
+GitHub Plugin URI: https://github.com/classicpress/classicpress-migration-plugin/
 GitHub Branch:     master
 Requires WP:       4.9
 */
