@@ -1,8 +1,6 @@
 # Switch to ClassicPress from WordPress
 
-ClassicPress Migration Plugin
-
-Switch to ClassicPress from WordPress and say Goodbye to Gutenberg.
+Switch to ClassicPress from WordPress and say Goodbye to Gutenberg. (ClassicPress Migration Plugin)
 
 https://www.ClassicPress.net/ is a new LTS fork actor of fomous CMS.
 
