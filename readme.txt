@@ -1,5 +1,5 @@
-=== ClassicPress Migration Plugin ===
-Contributors: classicpress-contributors
+=== Switch to ClassicPress from WordPress ===
+Contributors: classicpress
 Tags: classicpress, classic-press, classic, press
 Requires PHP: 5.2.4
 Requires at least: 4.9
@@ -16,7 +16,21 @@ Disable Gutenberg call to action inside the dashboard.
 
 == Changelog ==
 
+= 1.0.2 =
+
+* Change slug and name according to ClassicPress community.
+
+= 1.0.1 =
+
+* Extended code and functionality.
+
 = 1.0.0 =
 
 * Initial release.
 * Disable Gutenberg call to action inside the dashboard.
+
+== Upgrade Notice ==
+
+= 1.0.2 =
+
+Change slug and name according to ClassicPress community. Extended code and functionality.
