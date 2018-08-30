@@ -9,7 +9,7 @@ Tested up to:      4.9
 Requires PHP:      5.2.4
 Author:            ClassicPress Contributors
 Author URI:        https://classicpress.net/
-License:           GPLv2 or later (license.txt)
+License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
 Domain Path:       /languages
 Text Domain:       classicpress-migration-plugin
