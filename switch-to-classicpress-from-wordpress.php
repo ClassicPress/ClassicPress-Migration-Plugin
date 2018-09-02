@@ -2,7 +2,7 @@
 /*
 Plugin Name:       Switch to ClassicPress from WordPress
 Plugin URI:        https://github.com/classicpress/classicpress-migration-plugin
-Description:       Switch to ClassicPress from WordPress and say Goodbye to Gutenberg.
+Description:       Switch to ClassicPress from WordPress.
 Version:           1.0.0
 Requires at least: 4.9
 Tested up to:      4.9
@@ -24,10 +24,13 @@ Requires WP:       4.9
 	 *
 	 * ClassicPress Migration Plugin.
 	 *
-	 * @package Switch_to_ClassicPress_from_WordPress
-	 * @version 1.0.0
-	 * @todo    ClassicPress syle:
-	 *           - All changes that reflect new direction.
+	 * @package    ClassicPress
+	 * @subpackage Switch_to_ClassicPress_from_WordPress
+	 * @version    1.0.0
+	 * @todo       ClassicPress syle:
+	 *              - Include plugin code in a class.
+	 *              - Add PHP Constructor.
+	 *              - All changes that reflect new direction.
 	 */
 
 /**
