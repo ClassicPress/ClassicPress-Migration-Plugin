@@ -1,5 +1,4 @@
-# Switch to ClassicPress from WordPress
-
+=== Switch to ClassicPress from WordPress ===
 Contributors: classicpress
 Tags: classicpress, classic-press, classic, press, migration
 Requires PHP: 5.2.4
@@ -11,13 +10,13 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Disable gutenberg call to action inside the dashboard
 
-## Description
+== Description ==
 
 Disable Gutenberg call to action inside the dashboard.
 
-## Changelog
+== Changelog ==
 
-### 1.0.0
+= 1.0.0 =
 
 * Initial release.
 * Disable Gutenberg call to action inside the dashboard.
