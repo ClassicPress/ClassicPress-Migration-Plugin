@@ -1,4 +1,4 @@
-=== Switch to ClassicPress from WordPress ===
+=== Switch to ClassicPress ===
 Contributors: classicpress
 Tags: classicpress, classic-press, classic, press
 Requires PHP: 5.2.4
