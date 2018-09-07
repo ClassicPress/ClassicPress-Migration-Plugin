@@ -24,10 +24,10 @@
  * @todo       ClassicPress syle:
  *              - Include plugin code in a class.
  *              - Add PHP Constructor.
+ *              - Remove Gutenberg Demo Menu.
  *              - All changes that reflect new direction.
  */
 
-add_filter( 'admin_menu', 'classicpress_remove_gutenberg_demo_menu', 999 );
 add_filter( 'admin_init', 'classicpress_remove_gutenberg_dashboard_widget' );
 add_filter( 'plugins_loaded', 'classicpress_load_plugin_textdomain' );
 add_filter( 'plugins_loaded', 'classicpress_load_muplugin_textdomain' );
@@ -51,11 +51,4 @@ function classicpress_load_muplugin_textdomain() {
  */
 function classicpress_remove_gutenberg_dashboard_widget() {
 	remove_filter( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
-}
-
-/*
- * Remove Gutenberg Demo Menu.
- */
-function classicpress_remove_gutenberg_demo_menu() {
-	remove_menu_page( 'gutenberg' );
 }
