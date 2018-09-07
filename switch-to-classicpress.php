@@ -52,4 +52,3 @@ function classicpress_load_muplugin_textdomain() {
 function classicpress_remove_gutenberg_dashboard_widget() {
 	remove_filter( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 }
-
