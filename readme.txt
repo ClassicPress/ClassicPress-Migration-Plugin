@@ -1,6 +1,6 @@
-=== Switch to ClassicPress from WordPress ===
+=== Switch to ClassicPress ===
 Contributors: classicpress
-Tags: classicpress, classic-press, classic, press, migration
+Tags: classicpress, migrate, migration, switch
 Requires PHP: 5.2.4
 Requires at least: 4.9
 Tested up to: 4.9
@@ -8,15 +8,20 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Disable gutenberg call to action inside the dashboard
+Switch your WordPress installation to ClassicPress.
 
 == Description ==
 
-Disable Gutenberg call to action inside the dashboard.
+When it is finished, this plugin will switch a WordPress installation to
+ClassicPress.
+
+For more information, see:
+
+* https://www.classicpress.net
+* https://github.com/ClassicPress/ClassicPress-Migration-Plugin
 
 == Changelog ==
 
-= 1.0.0 =
+= 0.0.1 =
 
-* Initial release.
-* Disable Gutenberg call to action inside the dashboard.
+Stub plugin.
