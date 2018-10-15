@@ -42,6 +42,10 @@ class WP_Filesystem_Shenanigans extends WP_Filesystem_Direct {
 				);
 			} else {
 				classicpress_show_message( 'Failed to override copy during upgrade!' );
+				// Something unexpected happened, so return `false`.  If we
+				// happened to be trying to install a WP upgrade, for example,
+				// this will abort the installation.
+				return false;
 			}
 		}
 		return parent::copy( $source, $destination, $overwrite, $mode );
