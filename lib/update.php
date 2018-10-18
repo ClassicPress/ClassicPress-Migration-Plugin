@@ -118,16 +118,16 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 }
 __JSON__;
 
-	return [
-		'headers'       => [],
+	return array(
+		'headers'       => array(),
 		'body'          => $json,
-		'response'      => [
+		'response'      => array(
 			'code'    => 200,
-			'message' => 'OK'
-		],
-		'cookies'       => [],
-		'http_response' => null
-	];
+			'message' => 'OK',
+		),
+		'cookies'       => array(),
+		'http_response' => null,
+	);
 }
 
 /**
