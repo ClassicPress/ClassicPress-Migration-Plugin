@@ -4,8 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// TODO: If we're now actually ClassicPress we should disable/delete ourself.
-
 /**
  * Show a message on the screen and in the error log.
  *
