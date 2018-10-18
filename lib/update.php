@@ -190,7 +190,13 @@ function classicpress_override_filesystem_method( $method ) {
  * @since 0.0.1
  */
 function classicpress_override_upgrade_page() {
-	if ( ! isset( $_GET['action'] ) || $_GET['action'] !== 'do-core-upgrade' ) {
+	if (
+		! isset( $_GET['action'] ) ||
+		$_GET['action'] !== 'do-core-upgrade' ||
+		! isset( $_GET['migrate'] ) ||
+		$_GET['migrate'] !== 'classicpress'
+		// TODO verify pre-flight checks again here too?
+	) {
 		// Not a page load we're interested in.
 		return;
 	}

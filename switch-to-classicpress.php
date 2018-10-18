@@ -43,9 +43,16 @@ function classicpress_load_plugin_textdomain() {
 }
 
 /**
+ * Load the plugin's admin page.
+ *
+ * @since 0.0.1
+ */
+require_once dirname( __FILE__ ) . '/lib/admin-page.php';
+
+
+/**
  * Load the update hijacking mechanism.
  *
- * TODO: Only load this after pre-flight checks have passed and the user has
- * confirmed that they're ready.
+ * @since 0.0.1
  */
 require_once dirname( __FILE__ ) . '/lib/update.php';
