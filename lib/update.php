@@ -19,7 +19,7 @@ function classicpress_show_message( $message ) {
 }
 
 /**
- * Override the header text during the core update.
+ * Override a few strings during the core update.
  *
  * @since 0.0.1
  *
@@ -29,14 +29,41 @@ function classicpress_show_message( $message ) {
  *
  * @return string              Possibly-overridden translated text.
  */
-function classicpress_override_upgrade_header( $translation, $text, $domain ) {
-	if ( $text === 'Update WordPress' ) {
-		return __(
-			'Migrating WordPress to ClassicPress',
-			'switch-to-classicpress'
-		);
+function classicpress_override_strings( $translation, $text, $domain ) {
+	switch ( $text ) {
+		// Main page header.
+		case 'Update WordPress':
+			return __(
+				'Migrating WordPress to ClassicPress',
+				'switch-to-classicpress'
+			);
+
+		// The rest of these strings appear when the upgrade process is done.
+
+		case 'WordPress updated successfully':
+			return __(
+				'WordPress successfully migrated to ClassicPress!',
+				'switch-to-classicpress'
+			);
+
+		// Note: %1$s placeholder omitted, because it is the WP version, which
+		// we cannot override cleanly.
+
+		case 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.':
+			return __(
+				'Welcome to ClassicPress! You will be redirected to the About ClassicPress screen. If not, click <a href="%2$s">here</a>.',
+				'switch-to-classicpress'
+			);
+
+		case 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.':
+			return __(
+				'Welcome to ClassicPress! <a href="%2$s">Learn more</a>.',
+				'switch-to-classicpress'
+			);
+
+		default:
+			return $translation;
 	}
-	return $translation;
 }
 
 /**
@@ -167,7 +194,7 @@ function classicpress_override_upgrade_page() {
 		// Not a page load we're interested in.
 		return;
 	}
-	add_filter( 'gettext', 'classicpress_override_upgrade_header', 10, 3 );
+	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
 	add_filter( 'filesystem_method', 'classicpress_override_filesystem_method' );
 	// Force loading a fresh response from the update API, which we will
