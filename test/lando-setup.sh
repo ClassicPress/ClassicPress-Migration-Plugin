@@ -50,13 +50,8 @@ lando wp core install \
 
 echo "Testing site URL: $wp_url"
 
-mkdir test/site/wp-content/plugins/switch-to-classicpress
-ln -vs \
-    ../../../../../switch-to-classicpress.php \
-    test/site/wp-content/plugins/switch-to-classicpress/
-ln -vs \
-    ../../../../../lib/ \
-    test/site/wp-content/plugins/switch-to-classicpress/
+./test/copy-plugin.sh
+
 lando wp plugin activate \
     --path=test/site/ \
     switch-to-classicpress
