@@ -13,7 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function classicpress_show_message( $message ) {
 	show_message( "[CP] $message" );
-	error_log( "[CP] $message" );
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		error_log( "[CP] $message" );
+	}
 }
 
 /**
@@ -58,7 +60,6 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 		// Not a request we're interested in; do not override.
 		return $preempt;
 	}
-	error_log( 'classicpress_override_wp_update_api GO!' );
 
 	// TODO:
 	// - pull locale out of $url
