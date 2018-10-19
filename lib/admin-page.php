@@ -155,12 +155,24 @@ function classicpress_show_admin_page() {
 		</button>
 	</form>
 	
-	<p>After clicking the button above, the migration process will start.</p>
-	<p>Without going to deep into technicalities, basically what happens is that all the WordPress files, will be replaced with the ClassicPress files.<br>
-		depending on the server this website is hosted on, this process can take a while.</p>
-	<p>We want to emphasise that <strong>all your own content (wp-config.php file, .htaccess file, themes, plugins, uploads, etc.) is 100% safe</strong> as the migration process is not touching any of that.</p>
-	<p>Once the process has completed, you will see a familiar screen: the about page ClassicPress where you can read more information.</p>
-	<p>We thank you for switching WordPress to ClassicPress! The business-focused CMS. Powerful. Versatile. Predictable.</p>
+	<p>
+		<?php _e( 'First things first, just in case something does not go as planned, <strong>please do make a backup of your site and database</strong>', 'switch-to-classicpress' ); ?>
+	</p>
+	<p>
+		<?php _e( 'After clicking the button above, the migration process will start.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p>
+		<?php _e( 'Without going to deep into technicalities, basically what happens is that all the WordPress files, will be replaced with the ClassicPress files.<br>depending on the server this website is hosted on, this process can take a while.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p>
+		<?php _e( 'We want to emphasise that <strong>all your own content (wp-config.php file, .htaccess file, themes, plugins, uploads, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p>
+		<?php _e( 'Once the process has completed, you will see a familiar screen: the about page ClassicPress where you can read more information.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p>
+		<?php _e( 'We thank you for switching WordPress to ClassicPress! The business-focused CMS. Powerful. Versatile. Predictable.', 'switch-to-classicpress' ); ?>
+	</p>
 
 </div><!-- .wrap -->
 <?php
