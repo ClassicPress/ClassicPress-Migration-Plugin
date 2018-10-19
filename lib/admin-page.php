@@ -154,6 +154,12 @@ function classicpress_show_admin_page() {
 			); ?>
 		</button>
 	</form>
+	
+	<p>After clicking the button above, the migration process will start.</p>
+	<p>Without going to deep into technicalities, basically what happens is that all the files <strong>except those in the wp-content folder</strong> of the current WordPress installation, will be replaced with the files of ClassicPress.<br>
+		Depending on the server this website is hosted on, this process can take a while.</p>
+	<p>Once the process has completed, you will see a familiar screen: the about page ClassicPress where you can read more information.</p>
+	<p>We thank you for switching WordPress to ClassicPress! The business-focused CMS. Powerful. Versatile. Predictable.</p>
 
 </div><!-- .wrap -->
 <?php
