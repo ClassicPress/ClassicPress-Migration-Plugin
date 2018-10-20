@@ -129,60 +129,6 @@ __JSON__;
 }
 
 /**
- * Hook into and override the 'filesystem_method' filter.
- *
- * In order to do this correctly, we need to determine where this filter was
- * called from.  `request_filesystem_credentials` needs to receive a value of
- * 'direct', or it will ask for filesystem credentials.
- *
- * Then, later on, we can tell `WP_Filesystem` about our desired filesystem
- * method, and it will instantiate `$wp_filesystem` for us with our custom
- * behavior.
- *
- * @since 0.0.1
- *
- * @see WP_Filesystem_Shenanigans
- */
-function classicpress_override_filesystem_method( $method ) {
-	if ( $method !== 'direct' ) {
-		classicpress_show_message(
-			"Failed to override filesystem method! Expected 'direct'"
-			. " but found '$method'."
-		);
-		return $method;
-	}
-
-	$caller = null;
-
-	$trace = debug_backtrace();
-	for ( $i = 0; $i < count( $trace ); $i++ ) {
-		$frame = $trace[ $i ];
-		if ( $frame['function'] === 'get_filesystem_method' ) {
-			$caller = $trace[ $i + 1 ]['function'];
-			break;
-		}
-	}
-
-	if ( $caller === 'request_filesystem_credentials' ) {
-		// Do not modify the fs method here - it is expecting 'direct'.
-		return $method;
-	} else if ( $caller === 'WP_Filesystem' ) {
-		// Override WP_Filesystem_Direct with our own class here.  In
-		// `WP_Filesystem` the class that will be instantiated is
-		// "WP_Filesystem_$method".
-		require_once dirname( __FILE__ ) . '/class.wp-filesystem-shenanigans.php';
-		return 'shenanigans';
-	}
-
-	classicpress_show_message(
-		'Failed to override filesystem method! '
-		. json_encode( compact( 'caller' ) )
-	);
-
-	return $method;
-}
-
-/**
  * Hook into the core upgrade page to do our magic.
  *
  * @since 0.0.1
@@ -200,7 +146,6 @@ function classicpress_override_upgrade_page() {
 	}
 	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
-	add_filter( 'filesystem_method', 'classicpress_override_filesystem_method' );
 	// Force loading a fresh response from the update API, which we will
 	// override with our own data.
 	wp_version_check( array(), true );
