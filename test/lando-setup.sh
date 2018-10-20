@@ -55,3 +55,8 @@ echo "Testing site URL: $wp_url"
 lando wp plugin activate \
     --path=test/site/ \
     switch-to-classicpress
+
+echo
+echo "Test site is ACTIVE: $wp_url"
+echo "username: admin"
+echo "password: admin"
