@@ -15,11 +15,14 @@ function classicpress_print_admin_styles() {
 .cp-migration-action:hover {
 	color: #f00;
 }
+.cp-migration-info {
+	max-width: 600px;
+}
 </style>
 <?php
 }
 add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
-add_action( 'admin_head-tools.php', 'classicpress_print_admin_styles' );
+add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_print_admin_styles' );
 
 /**
  * Registers the plugin's admin page under the Tools menu.
@@ -117,6 +120,13 @@ function classicpress_show_admin_page() {
 	// - Any others?
 ?>
 
+	<p class="cp-migration-info">
+		<?php _e( 'First things first, just in case something does not go as planned, <strong class="cp-emphasis">please make a backup of your site files and database</strong>.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p class="cp-migration-info">
+		<?php _e( 'After clicking the button below, the migration process will start.', 'switch-to-classicpress' ); ?>
+	</p>
+
 	<form
 		method="post"
 		action="update-core.php?action=do-core-upgrade&migrate=classicpress"
@@ -130,23 +140,19 @@ function classicpress_show_admin_page() {
 			); ?>
 		</button>
 	</form>
-	
-	<p>
-		<?php _e( 'First things first, just in case something does not go as planned, <strong>please do make a backup of your site and database</strong>', 'switch-to-classicpress' ); ?>
+
+	<h2><?php _e( 'More Details', 'switch-to-classicpress' ); ?></h2>
+
+	<p class="cp-migration-info">
+		<?php _e( 'All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while.', 'switch-to-classicpress' ); ?>
 	</p>
-	<p>
-		<?php _e( 'After clicking the button above, the migration process will start.', 'switch-to-classicpress' ); ?>
-	</p>
-	<p>
-		<?php _e( 'Without going to deep into technicalities, basically what happens is that all the WordPress files, will be replaced with the ClassicPress files.<br>depending on the server this website is hosted on, this process can take a while.', 'switch-to-classicpress' ); ?>
-	</p>
-	<p>
+	<p class="cp-migration-info">
 		<?php _e( 'We want to emphasise that <strong>all your own content (wp-config.php file, .htaccess file, themes, plugins, uploads, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'switch-to-classicpress' ); ?>
 	</p>
-	<p>
-		<?php _e( 'Once the process has completed, you will see a familiar screen: the about page ClassicPress where you can read more information.', 'switch-to-classicpress' ); ?>
+	<p class="cp-migration-info">
+		<?php _e( 'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.', 'switch-to-classicpress' ); ?>
 	</p>
-	<p>
+	<p class="cp-migration-info">
 		<?php _e( 'We thank you for switching WordPress to ClassicPress! The business-focused CMS. Powerful. Versatile. Predictable.', 'switch-to-classicpress' ); ?>
 	</p>
 
