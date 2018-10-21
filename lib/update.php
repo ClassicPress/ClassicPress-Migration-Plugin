@@ -79,7 +79,7 @@ function classicpress_override_strings( $translation, $text, $domain ) {
  */
 function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 	if ( ! preg_match(
-		'#^https://api\.wordpress\.org/core/version-check/1\.\d/\?#',
+		'#^https?://api\.wordpress\.org/core/version-check/1\.\d/\?#',
 		$url
 	) ) {
 		// Not a request we're interested in; do not override.
