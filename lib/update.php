@@ -129,6 +129,46 @@ __JSON__;
 }
 
 /**
+ * Override the WP core checksums API to return an invalid result.
+ *
+ * This API endpoint is used to determine whether to skip updating WordPress
+ * files whose hashes didn't change in between WordPress versions.  We don't
+ * want this check - we want to update everything.
+ *
+ * @since 0.0.1
+ *
+ * @see get_core_checksums()
+ * @see https://nylen.io/wp/4.9.8/src/wp-admin/includes/update-core.php#L956-L980
+ * @see WP_Http::request
+ *
+ * @param bool   $preempt Whether to override the HTTP request.
+ * @param array  $r       Request details.
+ * @param string $url     Request URL.
+ *
+ * @return Overridden request, or false to proceed normally.
+ */
+function classicpress_override_wp_checksums_api( $preempt, $r, $url ) {
+	if ( ! preg_match(
+		'#^https?://api\.wordpress\.org/core/checksums/1\.\d/\?#',
+		$url
+	) ) {
+		// Not a request we're interested in; do not override.
+		return $preempt;
+	}
+
+	return array(
+		'headers'       => array(),
+		'body'          => '',
+		'response'      => array(
+			'code'    => 400,
+			'message' => 'Bad Request',
+		),
+		'cookies'       => array(),
+		'http_response' => null,
+	);
+}
+
+/**
  * Hook into the core upgrade page to do our magic.
  *
  * @since 0.0.1
@@ -146,6 +186,7 @@ function classicpress_override_upgrade_page() {
 	}
 	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
+	add_filter( 'pre_http_request', 'classicpress_override_wp_checksums_api', 10, 3 );
 	// Force loading a fresh response from the update API, which we will
 	// override with our own data.
 	wp_version_check( array(), true );
