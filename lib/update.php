@@ -95,17 +95,17 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 	"offers": [
 		{
 			"response": "upgrade",
-			"download": "https://github.com/ClassyBot/ClassicPress-builds/archive/1.0.0-alpha0+build.20181018.zip",
+			"download": "https://github.com/ClassyBot/ClassicPress-nightly/releases/download/1.0.0-alpha0+migration.20181020/ClassicPress-nightly-1.0.0-alpha0-migration.20181020.zip",
 			"locale": "en_US",
 			"packages": {
-				"full": "https://github.com/ClassyBot/ClassicPress-builds/archive/1.0.0-alpha0+build.20181018.zip",
+				"full": "https://github.com/ClassyBot/ClassicPress-nightly/releases/download/1.0.0-alpha0+migration.20181020/ClassicPress-nightly-1.0.0-alpha0-migration.20181020.zip",
 				"no_content": false,
 				"new_bundled": false,
 				"partial": false,
 				"rollback": false
 			},
-			"current": "1.0.0-alpha0+build.20181018",
-			"version": "1.0.0-alpha0+build.20181018",
+			"current": "1.0.0-alpha0+migration.20181020",
+			"version": "1.0.0-alpha0+migration.20181020",
 			"php_version": "5.6.0",
 			"mysql_version": "5.0",
 			"new_bundled": "4.7",
@@ -152,7 +152,7 @@ function classicpress_override_upgrade_page() {
 	// Override `$_POST['version']` and `$_POST['locale']` with the same
 	// results from our update data, so that `find_core_update` will return a
 	// result.
-	$_POST['version'] = '1.0.0-alpha0+build.20181018';
+	$_POST['version'] = '1.0.0-alpha0+migration.20181020';
 	$_POST['locale'] = 'en_US';
 	// Finished overriding the upgrade, now let it proceed in
 	// wp-admin/update-core.php (see `do_core_upgrade`).
