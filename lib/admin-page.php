@@ -22,30 +22,6 @@ add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
 add_action( 'admin_head-tools.php', 'classicpress_print_admin_styles' );
 
 /**
- * Adds an entry to the plugin row meta for this plugin.
- *
- * @since 0.0.1
- *
- * @param array  $plugin_meta An array of the plugin's metadata.
- * @param string $plugin_file Path to the plugin file, relative to the plugins directory.
- * @param array  $plugin_data An array of plugin data. (Omitted here.)
- * @param string $status      Status of the plugin. (Omitted here.)
- * @return array Updated plugin metadata.
- */
-function classicpress_add_plugins_page_link( $plugin_meta, $plugin_file ) {
-	if ( $plugin_file === 'switch-to-classicpress/switch-to-classicpress.php' ) {
-		$plugin_meta[] = sprintf(
-			'<a class="cp-migration-action" href="%s">%s</a>',
-			admin_url( 'tools.php?page=switch-to-classicpress' ),
-			esc_html__( 'Switch to ClassicPress', 'switch-to-classicpress' )
-		);
-	}
-
-	return $plugin_meta;
-}
-add_filter( 'plugin_row_meta', 'classicpress_add_plugins_page_link', 10, 2 );
-
-/**
  * Registers the plugin's admin page under the Tools menu.
  *
  * @since 0.0.1
