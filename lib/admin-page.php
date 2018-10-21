@@ -147,7 +147,7 @@ function classicpress_show_admin_page() {
 		<?php _e( 'All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while.', 'switch-to-classicpress' ); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php _e( 'We want to emphasise that <strong>all your own content (wp-config.php file, .htaccess file, themes, plugins, uploads, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'switch-to-classicpress' ); ?>
+		<?php _e( 'We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'switch-to-classicpress' ); ?>
 	</p>
 	<p class="cp-migration-info">
 		<?php _e( 'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.', 'switch-to-classicpress' ); ?>
