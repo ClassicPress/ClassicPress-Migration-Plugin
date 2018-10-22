@@ -179,11 +179,22 @@ function classicpress_override_upgrade_page() {
 		$_GET['action'] !== 'do-core-upgrade' ||
 		! isset( $_GET['migrate'] ) ||
 		$_GET['migrate'] !== 'classicpress'
-		// TODO verify pre-flight checks again here too?
 	) {
 		// Not a page load we're interested in.
 		return;
 	}
+
+	// Verify that the plugin's preflight checks passed, just in case.
+	$preflight_checks = get_option( 'classicpress_preflight_checks', null );
+	if (
+		! is_array( $preflight_checks ) ||
+		empty( $preflight_checks['wp_version'] ) ||
+		empty( $preflight_checks['php_version'] ) ||
+		empty( $preflight_checks['wp_http_supports_ssl'] )
+	) {
+		return;
+	}
+
 	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_checksums_api', 10, 3 );
