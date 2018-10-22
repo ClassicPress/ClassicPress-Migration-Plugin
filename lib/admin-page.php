@@ -437,6 +437,10 @@ function classicpress_show_migration_controls() {
  * @since 0.0.1
  */
 function classicpress_show_migration_blocked_info() {
+	if ( function_exists( 'classicpress_version' ) ) {
+		// No need to show an error message if we're already on ClassicPress.
+		return;
+	}
 ?>
 	<h2 class="cp-migration-info cp-emphasis">
 		<?php _e(
