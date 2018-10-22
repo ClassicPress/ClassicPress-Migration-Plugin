@@ -25,3 +25,4 @@ For more information, see:
 = 0.0.1 =
 
 Stub plugin.
+
