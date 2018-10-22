@@ -430,3 +430,34 @@ function classicpress_show_migration_controls() {
 	</p>
 <?php
 }
+
+/**
+ * Shows information about what to do when we can't migrate to ClassicPress.
+ *
+ * @since 0.0.1
+ */
+function classicpress_show_migration_blocked_info() {
+?>
+	<h2 class="cp-migration-info cp-emphasis">
+		<?php _e(
+			"Sorry, we can't switch this site to ClassicPress at this time.",
+			'switch-to-classicpress'
+		); ?>
+	</h2>
+
+	<?php if ( is_multisite() ) { ?>
+		<p class="cp-migration-info">
+			<?php _e(
+				'Want to help us get the plugin ready for multisite installations? Get in touch with us:',
+				'switch-to-classicpress'
+			); ?>
+		</p>
+	<?php } else { ?>
+		<p class="cp-migration-info">
+			<?php _e(
+				"If you're not sure how to fix the issues above, contact your hosting provider for help.",
+				'switch-to-classicpress'
+			); ?>
+		</p>
+	<?php }
+}
