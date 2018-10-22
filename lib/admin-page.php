@@ -247,8 +247,13 @@ function classicpress_check_can_migrate() {
 	$wp_version_min = '4.9.0';
 	$wp_version_max = '4.9.8';
 	if (
-		version_compare( $wp_version, $wp_version_min, 'lt' ) ||
-		version_compare( $wp_version, $wp_version_max, 'gt' )
+		// Version is outside of our "stable release" range...
+		(
+			version_compare( $wp_version, $wp_version_min, 'lt' ) ||
+			version_compare( $wp_version, $wp_version_max, 'gt' )
+		) &&
+		// ... and it's not a known development release
+		! preg_match( '#^4\.9\.9-(alpha|beta)\b#', $wp_version )
 	) {
 		$preflight_checks['wp_version'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
@@ -259,7 +264,7 @@ function classicpress_check_can_migrate() {
 	echo "<p>\n";
 	printf( __(
 		/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
-		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong>.',
+		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).',
 		'switch-to-classicpress'
 	), $wp_version_min, $wp_version_max );
 	echo "<br>\n";
