@@ -22,6 +22,13 @@ function classicpress_print_admin_styles() {
 .cp-migration-info {
 	max-width: 600px;
 }
+ul.cp-migration-info {
+	list-style: disc outside none;
+}
+ul.cp-migration-info li {
+	margin-left: 2em;
+	padding-left: 0.3em;
+}
 table#cp-preflight-checks {
 	margin: 1.5em 0 2em;
 	border-spacing: 0;
@@ -123,8 +130,33 @@ function classicpress_show_admin_page() {
 		classicpress_show_migration_blocked_info();
 	}
 
-	// TODO: Add a message about how to contact ClassicPress
 ?>
+	<h2><?php _e( 'Feedback and Support', 'switch-to-classicpress' ); ?></h2>
+
+	<p class="cp-migration-info">
+		<?php _e(
+			"Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We'd love to know what you think!",
+			'switch-to-classicpress'
+		); ?>
+	</p>
+	<ul class="cp-migration-info">
+		<li><?php printf(
+			__(
+				/* translators: link with instructions to join ClassicPress Slack */
+				'For support, suggestions for improvement, or general discussion about how the plugin works, <a href="%s">join our Slack group</a> and send us a message in the <strong>#support</strong>, <strong>#testing</strong>, or <strong>#migration</strong> channels.',
+				'switch-to-classicpress'
+			),
+			'https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/new'
+		); ?></li>
+		<li><?php printf(
+			__(
+				/* translators: link to create a new GitHub issue for this plugin */
+				'For <strong>specific</strong> bug reports or suggestions, <a href="%s">add a new issue on GitHub</a>.',
+				'switch-to-classicpress'
+			),
+			'https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/new'
+		); ?></li>
+	</ul>
 </div><!-- .wrap -->
 <?php
 }
