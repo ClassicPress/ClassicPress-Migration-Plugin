@@ -15,7 +15,7 @@ Switch your WordPress installation to ClassicPress.
 
 ClassicPress: The Business-Focused CMS.
 
-The Switch to ClassicPress plugin will switch a WordPress installation to ClassicPress.
+The **Switch to ClassicPress plugin** will switch a WordPress installation to ClassicPress.
 
 ClassicPress is for businesses seeking a powerful and versatile solution for their website needs. Built on the firm foundation of Wordpress 4.9.x, ClassicPress takes your website to the next level with the same features and functionality that you enjoyed with WordPress, but with more attention to the most common needs of a business website. 
 ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so migration is easy!   
@@ -28,7 +28,6 @@ For more information, see:
 
 * https://www.classicpress.net
 * https://github.com/ClassicPress/ClassicPress-Migration-Plugin
-
 
 == Installation ==
 
@@ -50,7 +49,7 @@ If something is wrong please join [Slack](https://www.classicpress.net/get-invol
 == Frequently Asked Questions ==
 
 = Will my current plugins and themes work in ClassicPress? =
-If your current plugins work in WordPress 4.9.x, they will work in ClassicPress too.  If you’re seeing something otherwise, that’s probably a bug with ClassicPress, and we’d appreciate you reporting it on [Slack](https://www.classicpress.net/get-involved/ "Slack") or [GitHub]9https://github.com/ClassicPress "GitHub").
+If your current plugins work in WordPress 4.9.x, they will work in ClassicPress too.  If you’re seeing something otherwise, that’s probably a bug with ClassicPress, and we’d appreciate you reporting it on [Slack](https://www.classicpress.net/get-involved/ "Slack") or [GitHub](https://github.com/ClassicPress "GitHub").
 
 = I’m a developer, will I need to learn any new language or framework to develop in ClassicPress? =
 Not unless you want to!  We have some exciting features planned for version 2 and beyond, but they will all be optional and fully backwards-compatible.
