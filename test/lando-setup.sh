@@ -4,6 +4,7 @@
 set -e
 
 WP_VERSION="${WP_VERSION:-4.9.7}"
+WP_LOCALE="${WP_LOCALE:-en_US}"
 PHP_VERSION="${PHP_VERSION:-7.0}"
 
 cd "$(dirname "$0")"
@@ -17,7 +18,8 @@ lando wp --version || lando bash test/install-wp-cli.sh
 rm -rf test/site/[a-z]*
 lando wp core download \
     --path=test/site/ \
-    --version=$WP_VERSION
+    --version=$WP_VERSION \
+    --locale=$WP_LOCALE
 
 lando wp config create \
     --path=test/site/ \
