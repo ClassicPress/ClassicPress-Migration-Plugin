@@ -23,7 +23,7 @@ function classicpress_print_admin_styles() {
 	max-width: 600px;
 }
 table#cp-preflight-checks {
-	margin: 0.8em 0;
+	margin: 1.5em 0 2em;
 	border-spacing: 0;
 }
 #cp-preflight-checks p {
@@ -54,14 +54,23 @@ table#cp-preflight-checks {
 	width: 1em;
 	height: 1em;
 	position: relative;
-	left: -0.025em;
-	top: 0.03em;
 }
 .cp-preflight-icon.cp-pass {
 	background: #080;
 }
+.cp-preflight-icon.cp-pass .dashicons-yes {
+	left: -0.025em;
+	top: 0.030em;
+}
 .cp-preflight-icon.cp-fail {
 	background: #800;
+}
+.cp-preflight-icon.cp-fail .dashicons-no {
+	left: 0.005em;
+	top: 0.010em;
+}
+#cp-migration-form {
+	margin: 2em 0 3em;
 }
 </style>
 <?php
@@ -352,6 +361,7 @@ function classicpress_show_migration_controls() {
 	</p>
 
 	<form
+		id="cp-migration-form"
 		method="post"
 		action="update-core.php?action=do-core-upgrade&migrate=classicpress"
 		name="upgrade"
