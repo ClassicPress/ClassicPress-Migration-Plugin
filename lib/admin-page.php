@@ -200,7 +200,9 @@ function classicpress_check_can_migrate() {
 	}
 
 	// Check: Are we running on WordPress.com?
-	if ( defined( 'WPCOMSH_VERSION' ) && WPCOMSH_VERSION ) {
+	// @see https://github.com/Automattic/jetpack/blob/6.6.1/functions.global.php#L32-L43
+	$at_options = get_option( 'at_options', array() );
+	if ( ! empty( $at_options ) || defined( 'WPCOMSH__PLUGIN_FILE' ) ) {
 ?>
 		<div class="notice notice-error">
 			<p>
