@@ -306,26 +306,28 @@ function classicpress_check_can_migrate() {
 	if ( ! wp_http_supports( array( 'ssl' ) ) ) {
 		$preflight_checks['wp_http_supports_ssl'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
-		echo "<p>\n";
-		_e(
-			'This site <strong>does not</strong> support making outgoing connections securely using SSL.',
-			'switch-to-classicpress'
-		);
 	} else {
 		$preflight_checks['wp_http_supports_ssl'] = true;
 		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
-		echo "<p>\n";
-		_e(
-			'This site supports making outgoing connections securely using SSL.',
-			'switch-to-classicpress'
-		);
 	}
-	echo "\n<br>\n";
+	echo "<p>\n";
 	_e(
 		'ClassicPress only supports communicating with the ClassicPress.net API over SSL.',
 		'switch-to-classicpress'
 	);
-	// TODO: Add instructions if SSL not supported.
+	echo "\n<br>\n";
+	if ( $preflight_checks['wp_http_supports_ssl'] ) {
+		_e(
+			'This site supports making outgoing connections securely using SSL.',
+			'switch-to-classicpress'
+		);
+	} else {
+		_e(
+			'This site <strong class="cp-emphasis">does not</strong> support making outgoing connections securely using SSL.',
+			'switch-to-classicpress'
+		);
+		// TODO: Add instructions if SSL not supported.
+	}
 	echo "\n</p>\n";
 
 	// TODO: Any other checks needed?
