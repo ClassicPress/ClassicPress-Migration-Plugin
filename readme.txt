@@ -68,10 +68,6 @@ Like all of ClassicPress, our support is a volunteer effort by the community.  I
 2. The plugin's admin page with an error that is blocking migration
 3. The About ClassicPress screen that appears at the end of the migration
 
-== Video ==
-
-(TODO insert YouTube URL here)
-
 == Changelog ==
 
 = 0.1.0 =
