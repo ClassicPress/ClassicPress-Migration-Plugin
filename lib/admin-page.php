@@ -143,10 +143,10 @@ function classicpress_show_admin_page() {
 		<li><?php printf(
 			__(
 				/* translators: link with instructions to join ClassicPress Slack */
-				'For support, suggestions for improvement, or general discussion about how the plugin works, <a href="%s">join our Slack group</a> and send us a message in the <strong>#support</strong>, <strong>#testing</strong>, or <strong>#migration</strong> channels.',
+				'For support, suggestions for improvement, or general discussion about how the plugin works, <a href="%s">join our Slack group</a> and send us a message in the <a href="%s"><strong>#support</strong></a>, <a href="%s"><strong>#testing</strong></a>, or <a href="%s"><strong>#migration</strong></a> channels.',
 				'switch-to-classicpress'
 			),
-			'https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/new'
+			'https://www.classicpress.net/join-slack/', 'https://classicpress.slack.com/messages/support/', 'https://classicpress.slack.com/messages/testing/', 'https://classicpress.slack.com/messages/migration/'
 		); ?></li>
 		<li><?php printf(
 			__(
@@ -261,7 +261,7 @@ function classicpress_check_can_migrate() {
 	// The first round of checks has passed.  Now, run a second round related
 	// to conditions that the user (or at least the hosting provider) has
 	// control over, and display the results in a table.
-	
+
 	$preflight_checks = array();
 	$icon_preflight_pass = (
 		'<div class="cp-preflight-icon cp-pass">'
