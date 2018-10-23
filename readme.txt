@@ -66,7 +66,8 @@ Like all of ClassicPress, our support is a volunteer effort by the community.  I
 
 1. The plugin's admin page with information and the controls to start the migration
 2. The plugin's admin page with an error that is blocking migration
-3. The About ClassicPress screen that appears at the end of the migration
+3. The plugin's migration progress page
+4. The About ClassicPress screen that appears at the end of the migration
 
 == Changelog ==
 
