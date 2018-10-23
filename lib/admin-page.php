@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Outputs the plugin's styles for the relevant admin pages.
+ * Output the plugin's styles for the relevant admin pages.
  *
  * @since 0.0.1
  */
@@ -86,7 +86,7 @@ add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
 add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_print_admin_styles' );
 
 /**
- * Removes the WP update nag from the Switch to ClassicPress page.
+ * Remove the WP update nag from the Switch to ClassicPress page.
  *
  * @since 0.0.1
  */
@@ -96,7 +96,7 @@ function classicpress_remove_update_nag() {
 add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_remove_update_nag' );
 
 /**
- * Registers the plugin's admin page under the Tools menu.
+ * Register the plugin's admin page under the Tools menu.
  *
  * @since 0.0.1
  */
@@ -112,7 +112,7 @@ function classicpress_register_admin_page() {
 add_action( 'admin_menu', 'classicpress_register_admin_page' );
 
 /**
- * Shows the plugin's admin page.
+ * Show the plugin's admin page.
  *
  * @since 0.0.1
  */
@@ -126,7 +126,6 @@ function classicpress_show_admin_page() {
 	if ( $preflight_checks_ok ) {
 		classicpress_show_migration_controls();
 	} else {
-		// TODO: implement this function
 		classicpress_show_migration_blocked_info();
 	}
 
@@ -162,9 +161,9 @@ function classicpress_show_admin_page() {
 }
 
 /**
- * Determines whether this WP install can be migrated to ClassicPress.
+ * Determine whether this WP install can be migrated to ClassicPress.
  *
- * Also outputs messages relevant to the checks performed.
+ * Also output messages relevant to the checks performed.
  *
  * @since 0.0.1
  *
@@ -382,7 +381,7 @@ function classicpress_check_can_migrate() {
 }
 
 /**
- * Shows the controls and information needed to migrate to ClassicPress.
+ * Show the controls and information needed to migrate to ClassicPress.
  *
  * NOTE: ONLY CALL THIS FUNCTION IF ALL PRE-FLIGHT CHECKS HAVE PASSED!
  * Otherwise you *will* end up with a broken site!
@@ -434,7 +433,7 @@ function classicpress_show_migration_controls() {
 }
 
 /**
- * Shows information about what to do when we can't migrate to ClassicPress.
+ * Show information about what to do when we can't migrate to ClassicPress.
  *
  * @since 0.0.1
  */

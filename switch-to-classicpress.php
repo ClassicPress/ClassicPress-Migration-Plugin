@@ -65,6 +65,7 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  * @since 0.0.1
  *
  * @param  array  $links List of existing plugin action links.
+ *
  * @return array         List of modified plugin action links.
  */
 function classicpress_plugin_action_links( $links ) {

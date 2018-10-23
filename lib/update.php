@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Show a message on the screen and in the error log.
  *
+ * @since 0.0.1
+ *
  * @param string $message The message to show.
  */
 function classicpress_show_message( $message ) {
