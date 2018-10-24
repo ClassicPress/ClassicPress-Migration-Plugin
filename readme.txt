@@ -6,7 +6,6 @@ Tags: classicpress, migrate, migration, switch
 Requires PHP: 5.2.4
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,11 +17,11 @@ ClassicPress: The Business-Focused CMS.
 
 The **Switch to ClassicPress plugin** will switch a WordPress installation to ClassicPress.
 
-ClassicPress is for businesses seeking a powerful and versatile solution for their website needs. Built on the firm foundation of Wordpress 4.9.x, ClassicPress takes your website to the next level with the same features and functionality that you enjoyed with WordPress, but with more attention to the most common needs of a business website.
+ClassicPress is for businesses seeking a powerful and versatile solution for their website needs. Built on the firm foundation of WordPress 4.9.x, ClassicPress takes your website to the next level with the same features and functionality that you enjoyed with WordPress, but with more attention to the most common needs of a business website.
 
-ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so migration is easy.   
+ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so migration is easy.
 
-The ClassicPress Alpha 1 Release (sunrise) is ready to be tested by you, the users!
+The ClassicPress `1.0.0-alpha1` release (codename "Sunrise") is ready to be tested by you, the users!
 
 **PLEASE NOTE:** As ClassicPress is currently in Alpha testing stage, we do not recommend that you switch a live production site to ClassicPress.
 
@@ -38,13 +37,12 @@ To **install a fresh version of ClassicPress on a new site**, you do not need th
 To **install ClassicPress on a current WordPress site** (switch a current WordPress site to ClassicPress):
 
 1. Back up the current site files and database. You can do a manual backup in your hosting panel and export the database, or you can use a backup plugin.
-**PLEASE NOTE:** As ClassicPress is currently in Alpha testing stage, we do not recommend that you switch a live production site to ClassicPress.
 2. Install this plugin from within the WordPress dashboard.
-4. Activate this plugin ("Switch to ClassicPress") after it is installed.
-5. Go to the ClassicPress Migration plugin by clicking the **Switch** link in this plugin's table row, or at **Tools -> Switch to ClassicPress**.X
-6. If all the checks pass, press the **Switch this site to ClassicPress now!** button. If not, you'll probably need to upgrade WordPress or PHP.
-7. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂
-8. When the process is finished, you should see the ClassicPress About screen.
+3. Activate this plugin ("Switch to ClassicPress") after it is installed.
+4. Go to the ClassicPress Migration plugin by clicking the **Switch** link in this plugin's table row, or at **Tools -> Switch to ClassicPress**.
+5. If all the checks pass, press the **Switch this site to ClassicPress now!** button. If not, you'll probably need to upgrade WordPress or PHP.
+6. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂
+7. When the process is finished, you should see the ClassicPress About screen.
 
 If something is wrong, please [join our Slack group](https://www.classicpress.net/join-slack/ "join our Slack group") and ask in the [**#support**](https://classicpress.slack.com/messages/support/ "#support") channel.
 
