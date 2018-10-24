@@ -76,6 +76,13 @@ table#cp-preflight-checks {
 	left: 0.005em;
 	top: 0.010em;
 }
+.cp-preflight-icon.cp-warn {
+	background: #ffb900;
+}
+.cp-preflight-icon.cp-warn .dashicons-flag {
+	left: 0.04em;
+	top: 0.010em;
+}
 #cp-migration-form {
 	margin: 2em 0 3em;
 }
@@ -275,6 +282,11 @@ function classicpress_check_can_migrate() {
 			. '<div class="dashicons dashicons-no"></div>'
 		. '</div>'
 	);
+	$icon_preflight_warn = (
+		'<div class="cp-preflight-icon cp-warn">'
+			. '<div class="dashicons dashicons-flag"></div>'
+		. '</div>'
+	);
 	echo '<table id="cp-preflight-checks">' . "\n";
 
 	// Check: Supported WP version
@@ -367,11 +379,11 @@ function classicpress_check_can_migrate() {
 	echo "\n</p>\n";
 
 	// Check: Core files checksums
-    include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-    $upgrader = new Core_Upgrader();
-	if ( !$upgrader->check_files() ) {
+	include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+	$upgrader = new Core_Upgrader();
+	if ( ! $upgrader->check_files() ) {
 		$preflight_checks['wp_core_files_checksums'] = false;
-		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
 	} else {
 		$preflight_checks['wp_core_files_checksums'] = true;
 		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
@@ -402,8 +414,7 @@ function classicpress_check_can_migrate() {
 	if (
 		$preflight_checks['wp_version'] &&
 		$preflight_checks['php_version'] &&
-		$preflight_checks['wp_http_supports_ssl'] &&
-		$preflight_checks['wp_core_files_checksums']
+		$preflight_checks['wp_http_supports_ssl']
 	) {
 		update_option( 'classicpress_preflight_checks', $preflight_checks, false );
 		return true;
