@@ -366,6 +366,35 @@ function classicpress_check_can_migrate() {
 	}
 	echo "\n</p>\n";
 
+	// Check: Core files checksums
+    include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+    $upgrader = new Core_Upgrader();
+	if ( !$upgrader->check_files() ) {
+		$preflight_checks['wp_core_files_checksums'] = false;
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+	} else {
+		$preflight_checks['wp_core_files_checksums'] = true;
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+	}
+	echo "<p>\n";
+	_e(
+		'When migrating to ClassicPress, your WordPress core files inside /wp-admin and /wp-includes will be overwritten and any customisations will be lost.',
+		'switch-to-classicpress'
+	);
+	echo "\n<br>\n";
+	if ( $preflight_checks['wp_core_files_checksums'] ) {
+		_e(
+			'You have not modified any core files.',
+			'switch-to-classicpress'
+		);
+	} else {
+		_e(
+			'It seems you have previously <strong class="cp-emphasis">modified some core files</strong>. You can still migrate to ClassicPress, but be aware that any customisations made previously in those files will be lost.',
+			'switch-to-classicpress'
+		);
+	}
+	echo "\n</p>\n";
+
 	// TODO: Any other checks needed?
 
 	echo "</table>\n";
@@ -373,7 +402,8 @@ function classicpress_check_can_migrate() {
 	if (
 		$preflight_checks['wp_version'] &&
 		$preflight_checks['php_version'] &&
-		$preflight_checks['wp_http_supports_ssl']
+		$preflight_checks['wp_http_supports_ssl'] &&
+		$preflight_checks['wp_core_files_checksums']
 	) {
 		update_option( 'classicpress_preflight_checks', $preflight_checks, false );
 		return true;
