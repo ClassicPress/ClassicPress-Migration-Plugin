@@ -1,5 +1,7 @@
 # Switch to ClassicPress
 
+![](assets/banner-772x250.png)
+
 This is a WordPress plugin that switches a WordPress installation to
 [ClassicPress](https://www.classicpress.net).
 
