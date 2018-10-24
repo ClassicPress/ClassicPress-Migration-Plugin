@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Show a message on the screen and in the error log.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @param string $message The message to show.
  */
@@ -21,7 +21,7 @@ function classicpress_show_message( $message ) {
 /**
  * Override a few strings during the core update.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @param string $translation  Translated text.
  * @param string $text         Text to translate.
@@ -69,7 +69,7 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 /**
  * Hijack the version check call to the WP API.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @see WP_Http::request
  *
@@ -137,7 +137,7 @@ __JSON__;
  * files whose hashes didn't change in between WordPress versions.  We don't
  * want this check - we want to update everything.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @see get_core_checksums()
  * @see https://nylen.io/wp/4.9.8/src/wp-admin/includes/update-core.php#L956-L980
@@ -173,7 +173,7 @@ function classicpress_override_wp_checksums_api( $preempt, $r, $url ) {
 /**
  * Hook into the core upgrade page to do our magic.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_override_upgrade_page() {
 	if (

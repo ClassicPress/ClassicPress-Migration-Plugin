@@ -25,14 +25,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Global actions and filters.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 add_filter( 'plugins_loaded', 'classicpress_load_plugin_textdomain' );
 
 /**
  * Load the plugin's translated strings.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_load_plugin_textdomain() {
 	load_plugin_textdomain(
@@ -45,7 +45,7 @@ function classicpress_load_plugin_textdomain() {
 /**
  * Load the plugin's admin page.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 require_once dirname( __FILE__ ) . '/lib/admin-page.php';
 
@@ -53,7 +53,7 @@ require_once dirname( __FILE__ ) . '/lib/admin-page.php';
 /**
  * Load the update hijacking mechanism.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 require_once dirname( __FILE__ ) . '/lib/update.php';
 
@@ -62,7 +62,7 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  *
  * Add a link to the Switch page on the plugins.php page.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @param  array  $links List of existing plugin action links.
  *

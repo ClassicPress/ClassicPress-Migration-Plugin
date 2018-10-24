@@ -3,7 +3,7 @@
 /**
  * Output the plugin's styles for the relevant admin pages.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_print_admin_styles() {
 ?>
@@ -88,7 +88,7 @@ add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_print_
 /**
  * Remove the WP update nag from the Switch to ClassicPress page.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_remove_update_nag() {
 	remove_action( 'admin_notices', 'update_nag', 3 );
@@ -98,7 +98,7 @@ add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_remove
 /**
  * Register the plugin's admin page under the Tools menu.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_register_admin_page() {
 	add_management_page(
@@ -114,7 +114,7 @@ add_action( 'admin_menu', 'classicpress_register_admin_page' );
 /**
  * Show the plugin's admin page.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_show_admin_page() {
 ?>
@@ -168,7 +168,7 @@ function classicpress_show_admin_page() {
  *
  * Also output messages relevant to the checks performed.
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @return bool Whether to show the controls to proceed with the migration.
  */
@@ -389,7 +389,7 @@ function classicpress_check_can_migrate() {
  * NOTE: ONLY CALL THIS FUNCTION IF ALL PRE-FLIGHT CHECKS HAVE PASSED!
  * Otherwise you *will* end up with a broken site!
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_show_migration_controls() {
 ?>
@@ -438,7 +438,7 @@ function classicpress_show_migration_controls() {
 /**
  * Show information about what to do when we can't migrate to ClassicPress.
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 function classicpress_show_migration_blocked_info() {
 	if ( function_exists( 'classicpress_version' ) ) {
