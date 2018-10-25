@@ -5,6 +5,8 @@
  *
  * @since 0.2.0
  *
+ * @see Core_Upgrader::check_files()
+ *
  * @param string $locale The locale for which to download checksums.
  *
  * @return array|bool `false` if an error occurred, or an array of modified
