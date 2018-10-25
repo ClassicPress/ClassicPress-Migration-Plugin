@@ -35,7 +35,8 @@ WordPress site to ClassicPress):
 2. Download this plugin from the
    [Releases page](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/releases)
    here on GitHub.
-2. Install this plugin from within the WordPress dashboard.
+3. Install the downloaded zip file from within the WordPress dashboard
+   ("Plugins" -> "Add New" -> "Upload Plugin").
 4. Activate this plugin ("Switch to ClassicPress") after it is installed.
 5. Go to the ClassicPress Migration plugin by clicking the **Switch** link in
    this plugin's table row, or at **Tools -> Switch to ClassicPress**.
