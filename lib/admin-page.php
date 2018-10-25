@@ -380,31 +380,47 @@ function classicpress_check_can_migrate() {
 	echo "\n</p>\n";
 
 	// Check: Core files checksums
-	include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-	$upgrader = new Core_Upgrader();
-	if ( ! $upgrader->check_files() ) {
-		$preflight_checks['wp_core_files_checksums'] = false;
+	$modified_files = classicpress_check_core_files();
+	if ( $modified_files === false || ! empty( $modified_files ) ) {
 		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
 	} else {
-		$preflight_checks['wp_core_files_checksums'] = true;
 		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
 	}
 	echo "<p>\n";
 	_e(
-		'When migrating to ClassicPress, your WordPress core files inside /wp-admin and /wp-includes will be overwritten and any customisations will be lost.',
+		'Your WordPress core files will be overwritten and any customisations will be lost.',
 		'switch-to-classicpress'
 	);
 	echo "\n<br>\n";
-	if ( $preflight_checks['wp_core_files_checksums'] ) {
+	if ( $modified_files === false ) {
+		_e(
+			'<strong class="cp-emphasis">Unable to determine whether core files were modified</strong>.',
+			'switch-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'This is most likely because you are running a development version of WordPress.',
+			'switch-to-classicpress'
+		);
+	} else if ( empty( $modified_files ) ) {
 		_e(
 			'You have not modified any core files.',
 			'switch-to-classicpress'
 		);
 	} else {
+		echo '<strong class="cp-emphasis">';
 		_e(
-			'It seems you have previously <strong class="cp-emphasis">modified some core files</strong>. You can still migrate to ClassicPress, but be aware that any customisations made previously in those files will be lost.',
+			'Modified core files detected. These customisations will be lost.',
 			'switch-to-classicpress'
 		);
+		echo "</strong>\n<br>\n";
+		_e(
+			'If you have JavaScript enabled, you can see a list of modified files <strong>in your browser console</strong>.',
+			'switch-to-classicpress'
+		);
+		echo "\n<script>console.log( 'modified core files:', ";
+		echo wp_json_encode( $modified_files );
+		echo ' );</script>';
 	}
 	echo "\n</p>\n";
 
