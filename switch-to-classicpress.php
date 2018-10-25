@@ -49,6 +49,12 @@ function classicpress_load_plugin_textdomain() {
  */
 require_once dirname( __FILE__ ) . '/lib/admin-page.php';
 
+/**
+ * Load helper functions.
+ *
+ * @since 0.2.0
+ */
+require_once dirname( __FILE__ ) . '/lib/check-core-files.php';
 
 /**
  * Load the update hijacking mechanism.

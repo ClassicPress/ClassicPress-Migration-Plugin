@@ -76,6 +76,14 @@ table#cp-preflight-checks {
 	left: 0.005em;
 	top: 0.010em;
 }
+.cp-preflight-icon.cp-warn {
+	background: #ffb900;
+}
+.cp-preflight-icon.cp-warn .dashicons-flag {
+	font-size: 0.8em;
+	left: 0.140em;
+	top: 0.100em;
+}
 #cp-migration-form {
 	margin: 2em 0 3em;
 }
@@ -275,6 +283,11 @@ function classicpress_check_can_migrate() {
 			. '<div class="dashicons dashicons-no"></div>'
 		. '</div>'
 	);
+	$icon_preflight_warn = (
+		'<div class="cp-preflight-icon cp-warn">'
+			. '<div class="dashicons dashicons-flag"></div>'
+		. '</div>'
+	);
 	echo '<table id="cp-preflight-checks">' . "\n";
 
 	// Check: Supported WP version
@@ -363,6 +376,51 @@ function classicpress_check_can_migrate() {
 			'switch-to-classicpress'
 		);
 		// TODO: Add instructions if SSL not supported.
+	}
+	echo "\n</p>\n";
+
+	// Check: Core files checksums
+	$modified_files = classicpress_check_core_files();
+	if ( $modified_files === false || ! empty( $modified_files ) ) {
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+	} else {
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+	}
+	echo "<p>\n";
+	_e(
+		'Your WordPress core files will be overwritten and any customisations will be lost.',
+		'switch-to-classicpress'
+	);
+	echo "\n<br>\n";
+	if ( $modified_files === false ) {
+		_e(
+			'<strong class="cp-emphasis">Unable to determine whether core files were modified</strong>.',
+			'switch-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'This is most likely because you are running a development version of WordPress.',
+			'switch-to-classicpress'
+		);
+	} else if ( empty( $modified_files ) ) {
+		_e(
+			'You have not modified any core files.',
+			'switch-to-classicpress'
+		);
+	} else {
+		echo '<strong class="cp-emphasis">';
+		_e(
+			'Modified core files detected. These customisations will be lost.',
+			'switch-to-classicpress'
+		);
+		echo "</strong>\n<br>\n";
+		_e(
+			'If you have JavaScript enabled, you can see a list of modified files <strong>in your browser console</strong>.',
+			'switch-to-classicpress'
+		);
+		echo "\n<script>console.log( 'modified core files:', ";
+		echo wp_json_encode( $modified_files );
+		echo ' );</script>';
 	}
 	echo "\n</p>\n";
 
