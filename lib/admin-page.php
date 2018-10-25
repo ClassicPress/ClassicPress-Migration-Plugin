@@ -80,8 +80,9 @@ table#cp-preflight-checks {
 	background: #ffb900;
 }
 .cp-preflight-icon.cp-warn .dashicons-flag {
-	left: 0.04em;
-	top: 0.010em;
+	font-size: 0.8em;
+	left: 0.140em;
+	top: 0.100em;
 }
 #cp-migration-form {
 	margin: 2em 0 3em;
