@@ -95,21 +95,41 @@ function classicpress_remove_update_nag() {
 }
 add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_remove_update_nag' );
 
-/**
- * Register the plugin's admin page under the Tools menu.
- *
- * @since 0.1.0
- */
-function classicpress_register_admin_page() {
-	add_management_page(
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-		'read',
-		'switch-to-classicpress',
-		'classicpress_show_admin_page'
-	);
+if ( is_multisite() ) {
+    /**
+     * Register the plugin's admin page under the Dashboard menu.
+     *
+     * @since 0.2.0
+     */
+    function classicpress_register_network_admin_menu() {
+        add_submenu_page(
+            'index.php',
+            __( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+            __( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+            'manage_network',
+            'switch-to-classicpress',
+    		'classicpress_show_admin_page'
+        );
+    }
+    add_action( 'network_admin_menu', 'classicpress_register_network_admin_menu' );
+
+} else {
+    /**
+     * Register the plugin's admin page under the Tools menu.
+     *
+     * @since 0.1.0
+     */
+    function classicpress_register_admin_page() {
+    	add_management_page(
+    		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+    		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+    		'read',
+    		'switch-to-classicpress',
+    		'classicpress_show_admin_page'
+    	);
+    }
+    add_action( 'admin_menu', 'classicpress_register_admin_page' );
 }
-add_action( 'admin_menu', 'classicpress_register_admin_page' );
 
 /**
  * Show the plugin's admin page.
@@ -237,21 +257,6 @@ function classicpress_check_can_migrate() {
 			<p>
 				<?php esc_html_e(
 					"Please contact a site administrator for more information.",
-					'switch-to-classicpress'
-				); ?>
-			</p>
-		</div>
-<?php
-		return false;
-	}
-
-	// Check: Is this a multisite install?
-	if ( is_multisite() ) {
-?>
-		<div class="notice notice-error">
-			<p>
-				<?php esc_html_e(
-					"Sorry, this plugin doesn't support multisite installations.",
 					'switch-to-classicpress'
 				); ?>
 			</p>
@@ -453,19 +458,11 @@ function classicpress_show_migration_blocked_info() {
 		); ?>
 	</h2>
 
-	<?php if ( is_multisite() ) { ?>
-		<p class="cp-migration-info">
-			<?php _e(
-				'Want to help us get the plugin ready for multisite installations? Get in touch with us:',
-				'switch-to-classicpress'
-			); ?>
-		</p>
-	<?php } else { ?>
-		<p class="cp-migration-info">
-			<?php _e(
-				"If you're not sure how to fix the issues above, contact your hosting provider for help.",
-				'switch-to-classicpress'
-			); ?>
-		</p>
-	<?php }
+	<p class="cp-migration-info">
+		<?php _e(
+			"If you're not sure how to fix the issues above, contact your hosting provider for help.",
+			'switch-to-classicpress'
+		); ?>
+	</p>
+<?php
 }
