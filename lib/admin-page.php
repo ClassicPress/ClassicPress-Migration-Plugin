@@ -388,7 +388,7 @@ function classicpress_check_can_migrate() {
 	}
 	echo "<p>\n";
 	_e(
-		'Your WordPress core files will be overwritten and any customisations will be lost.',
+		'Your WordPress core files will be overwritten.',
 		'switch-to-classicpress'
 	);
 	echo "\n<br>\n";
