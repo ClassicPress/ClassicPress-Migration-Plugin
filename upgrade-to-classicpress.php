@@ -10,7 +10,7 @@
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * Text Domain:       switch-to-classicpress
+ * Text Domain:       upgrade-to-classicpress
  *
  * @package ClassicPress
  */
@@ -36,7 +36,7 @@ add_filter( 'plugins_loaded', 'classicpress_load_plugin_textdomain' );
  */
 function classicpress_load_plugin_textdomain() {
 	load_plugin_textdomain(
-		'switch-to-classicpress',
+		'upgrade-to-classicpress',
 		false,
 		basename( dirname( __FILE__ ) ) . '/languages'
 	);
@@ -76,7 +76,7 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  */
 function classicpress_plugin_action_links( $links ) {
 	$links = array_merge( array(
-		'<a class="cp-migration-action" href="' . esc_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' . __( 'Upgrade', 'switch-to-classicpress' ) . '</a>'
+		'<a class="cp-migration-action" href="' . esc_url( admin_url( 'tools.php?page=upgrade-to-classicpress' ) ) . '">' . __( 'Upgrade', 'upgrade-to-classicpress' ) . '</a>'
 	), $links );
 	return $links;
 }

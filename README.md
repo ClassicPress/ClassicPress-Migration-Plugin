@@ -12,7 +12,7 @@ functionality that you enjoyed with WordPress, but with more attention to the
 most common needs of a business website.
 
 ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so
-migration is easy.
+upgrading is easy.
 
 The ClassicPress `1.0.0-alpha1` release (codename "Sunrise") is ready to be
 tested by you, the users!
@@ -38,11 +38,11 @@ WordPress site to ClassicPress):
 3. Install the downloaded zip file from within the WordPress dashboard
    ("Plugins" -> "Add New" -> "Upload Plugin").
 4. Activate this plugin ("Upgrade to ClassicPress") after it is installed.
-5. Go to the ClassicPress Migration plugin by clicking the **Upgrade** link in
+5. Go to the ClassicPress Upgrade plugin by clicking the **Upgrade** link in
    this plugin's table row, or at **Tools -> Upgrade to ClassicPress**.
 6. If all the checks pass, press the **Upgrade this site to ClassicPress now!**
    button. If not, you'll probably need to upgrade WordPress or PHP.
-7. The migration process may take a few minutes depending on your hosting
+7. The upgrade process may take a few minutes depending on your hosting
    provider, so go grab some water or a beverage of your choice 🙂
 8. When the process is finished, you should see the ClassicPress About screen.
 
@@ -80,16 +80,16 @@ channel.
 ## Screenshots
 
 ![](assets/screenshot-1.png)
-_The plugin's admin page with information and the controls to start the migration_
+_The plugin's admin page with information and the controls to start the upgrade_
 <br><br>
 ![](assets/screenshot-2.png)
-_The plugin's admin page with an error that is blocking migration_
+_The plugin's admin page with an error that is blocking upgrade_
 <br><br>
 ![](assets/screenshot-3.png)
-_The plugin's migration progress page_
+_The plugin's upgrade progress page_
 <br><br>
 ![](assets/screenshot-4.png)
-_The About ClassicPress screen that appears at the end of the migration_
+_The About ClassicPress screen that appears at the end of the upgrade_
 
 ## Changelog
 
