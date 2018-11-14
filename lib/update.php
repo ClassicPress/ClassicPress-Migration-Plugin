@@ -34,7 +34,7 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 		// Main page header.
 		case 'Update WordPress':
 			return __(
-				'Migrating WordPress to ClassicPress',
+				'Upgrading WordPress to ClassicPress',
 				'upgrade-to-classicpress'
 			);
 
