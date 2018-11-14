@@ -153,8 +153,8 @@ function classicpress_show_admin_page() {
 				'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Slack group</a>.',
 				'switch-to-classicpress'
 			),
-			'https://forums.classicpress.net/c/support/migration-plugin'
-			'https://www.classicpress.net/join-slack/',
+			'https://forums.classicpress.net/c/support/migration-plugin',
+			'https://www.classicpress.net/join-slack/'
 		); ?></li>
 		<li><?php printf(
 			__(
