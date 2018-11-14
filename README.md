@@ -83,7 +83,7 @@ channel.
 _The plugin's admin page with information and the controls to start the upgrade_
 <br><br>
 ![](assets/screenshot-2.png)
-_The plugin's admin page with an error that is blocking upgrade_
+_The plugin's admin page with an error that is blocking the upgrade_
 <br><br>
 ![](assets/screenshot-3.png)
 _The plugin's upgrade progress page_
