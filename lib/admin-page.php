@@ -129,7 +129,7 @@ function classicpress_show_admin_page() {
 <div class="wrap">
 	<h1><?php esc_html_e( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ); ?></h1>
 <?php
-	$preflight_checks_ok = classicpress_check_can_migrate();
+	$preflight_checks_ok = classicpress_check_can_upgrade();
 
 	if ( $preflight_checks_ok ) {
 		classicpress_show_upgrade_controls();
@@ -172,7 +172,7 @@ function classicpress_show_admin_page() {
 }
 
 /**
- * Determine whether this WP install can be migrated to ClassicPress.
+ * Determine whether this WP install can be upgraded to ClassicPress.
  *
  * Also output messages relevant to the checks performed.
  *
@@ -180,7 +180,7 @@ function classicpress_show_admin_page() {
  *
  * @return bool Whether to show the controls to proceed with the upgrade.
  */
-function classicpress_check_can_migrate() {
+function classicpress_check_can_upgrade() {
 	// First: Run a series of checks for conditions that are inherent to this
 	// WordPress install and this user session.
 
@@ -442,7 +442,7 @@ function classicpress_check_can_migrate() {
 }
 
 /**
- * Show the controls and information needed to migrate to ClassicPress.
+ * Show the controls and information needed to upgrade to ClassicPress.
  *
  * NOTE: ONLY CALL THIS FUNCTION IF ALL PRE-FLIGHT CHECKS HAVE PASSED!
  * Otherwise you *will* end up with a broken site!
@@ -494,7 +494,7 @@ function classicpress_show_upgrade_controls() {
 }
 
 /**
- * Show information about what to do when we can't migrate to ClassicPress.
+ * Show information about what to do when we can't upgrade to ClassicPress.
  *
  * @since 0.1.0
  */
