@@ -76,7 +76,7 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  */
 function classicpress_plugin_action_links( $links ) {
 	$links = array_merge( array(
-		'<a class="cp-migration-action" href="' . esc_url( admin_url( 'tools.php?page=upgrade-to-classicpress' ) ) . '">' . __( 'Upgrade', 'upgrade-to-classicpress' ) . '</a>'
+		'<a class="cp-upgrade-action" href="' . esc_url( admin_url( 'tools.php?page=upgrade-to-classicpress' ) ) . '">' . __( 'Upgrade', 'upgrade-to-classicpress' ) . '</a>'
 	), $links );
 	return $links;
 }

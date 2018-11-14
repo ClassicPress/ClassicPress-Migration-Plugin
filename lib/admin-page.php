@@ -8,24 +8,24 @@
 function classicpress_print_admin_styles() {
 ?>
 <style>
-.cp-migration-action, .cp-emphasis {
+.cp-upgrade-action, .cp-emphasis {
 	font-weight: bold;
 	color: #800;
 }
-.cp-migration-ready {
+.cp-upgrade-ready {
 	font-weight: bold;
 	color: #080;
 }
-.cp-migration-action:hover {
+.cp-upgrade-action:hover {
 	color: #f00;
 }
-.cp-migration-info {
+.cp-upgrade-info {
 	max-width: 600px;
 }
-ul.cp-migration-info {
+ul.cp-upgrade-info {
 	list-style: disc outside none;
 }
-ul.cp-migration-info li {
+ul.cp-upgrade-info li {
 	margin-left: 2em;
 	padding-left: 0.3em;
 }
@@ -84,7 +84,7 @@ table#cp-preflight-checks {
 	left: 0.140em;
 	top: 0.100em;
 }
-#cp-migration-form {
+#cp-upgrade-form {
 	margin: 2em 0 3em;
 }
 </style>
@@ -132,21 +132,21 @@ function classicpress_show_admin_page() {
 	$preflight_checks_ok = classicpress_check_can_migrate();
 
 	if ( $preflight_checks_ok ) {
-		classicpress_show_migration_controls();
+		classicpress_show_upgrade_controls();
 	} else {
-		classicpress_show_migration_blocked_info();
+		classicpress_show_upgrade_blocked_info();
 	}
 
 ?>
 	<h2><?php _e( 'Feedback and Support', 'upgrade-to-classicpress' ); ?></h2>
 
-	<p class="cp-migration-info">
+	<p class="cp-upgrade-info">
 		<?php _e(
 			"Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We'd love to know what you think!",
 			'upgrade-to-classicpress'
 		); ?>
 	</p>
-	<ul class="cp-migration-info">
+	<ul class="cp-upgrade-info">
 		<li><?php printf(
 			__(
 				/* translators: 1: link with instructions to join ClassicPress Slack, 2: link to Support channel, 3: link to Testing channel, 4: link to Migration channel */
@@ -178,7 +178,7 @@ function classicpress_show_admin_page() {
  *
  * @since 0.1.0
  *
- * @return bool Whether to show the controls to proceed with the migration.
+ * @return bool Whether to show the controls to proceed with the upgrade.
  */
 function classicpress_check_can_migrate() {
 	// First: Run a series of checks for conditions that are inherent to this
@@ -449,20 +449,20 @@ function classicpress_check_can_migrate() {
  *
  * @since 0.1.0
  */
-function classicpress_show_migration_controls() {
+function classicpress_show_upgrade_controls() {
 ?>
-	<h2 class="cp-migration-info cp-migration-ready">
+	<h2 class="cp-upgrade-info cp-upgrade-ready">
 		<?php _e( "It looks like you're ready to be upgraded to ClassicPress!", 'upgrade-to-classicpress' ); ?>
 	</h2>
-	<p class="cp-migration-info">
+	<p class="cp-upgrade-info">
 		<?php _e( 'First things first, just in case something does not go as planned, <strong class="cp-emphasis">please make a backup of your site files and database</strong>.', 'upgrade-to-classicpress' ); ?>
 	</p>
-	<p class="cp-migration-info">
-		<?php _e( 'After clicking the button below, the migration process will start.', 'upgrade-to-classicpress' ); ?>
+	<p class="cp-upgrade-info">
+		<?php _e( 'After clicking the button below, the upgrade process will start.', 'upgrade-to-classicpress' ); ?>
 	</p>
 
 	<form
-		id="cp-migration-form"
+		id="cp-upgrade-form"
 		method="post"
 		action="update-core.php?action=do-core-upgrade&migrate=classicpress"
 		name="upgrade"
@@ -478,16 +478,16 @@ function classicpress_show_migration_controls() {
 
 	<h2><?php _e( 'More Details', 'upgrade-to-classicpress' ); ?></h2>
 
-	<p class="cp-migration-info">
+	<p class="cp-upgrade-info">
 		<?php _e( 'All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while.', 'upgrade-to-classicpress' ); ?>
 	</p>
-	<p class="cp-migration-info">
-		<?php _e( 'We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'upgrade-to-classicpress' ); ?>
+	<p class="cp-upgrade-info">
+		<?php _e( 'We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the upgrade process is not touching any of that.', 'upgrade-to-classicpress' ); ?>
 	</p>
-	<p class="cp-migration-info">
+	<p class="cp-upgrade-info">
 		<?php _e( 'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.', 'upgrade-to-classicpress' ); ?>
 	</p>
-	<p class="cp-migration-info">
+	<p class="cp-upgrade-info">
 		<?php _e( 'We thank you for upgrading from WordPress to ClassicPress!<br>The business-focused CMS. Powerful. Versatile. Predictable.', 'upgrade-to-classicpress' ); ?>
 	</p>
 <?php
@@ -498,13 +498,13 @@ function classicpress_show_migration_controls() {
  *
  * @since 0.1.0
  */
-function classicpress_show_migration_blocked_info() {
+function classicpress_show_upgrade_blocked_info() {
 	if ( function_exists( 'classicpress_version' ) ) {
 		// No need to show an error message if we're already on ClassicPress.
 		return;
 	}
 ?>
-	<h2 class="cp-migration-info cp-emphasis">
+	<h2 class="cp-upgrade-info cp-emphasis">
 		<?php _e(
 			"Sorry, we can't upgrade this site to ClassicPress at this time.",
 			'upgrade-to-classicpress'
@@ -512,14 +512,14 @@ function classicpress_show_migration_blocked_info() {
 	</h2>
 
 	<?php if ( is_multisite() ) { ?>
-		<p class="cp-migration-info">
+		<p class="cp-upgrade-info">
 			<?php _e(
 				'Want to help us get the plugin ready for multisite installations? Get in touch with us:',
 				'upgrade-to-classicpress'
 			); ?>
 		</p>
 	<?php } else { ?>
-		<p class="cp-migration-info">
+		<p class="cp-upgrade-info">
 			<?php _e(
 				"If you're not sure how to fix the issues above, contact your hosting provider for help.",
 				'upgrade-to-classicpress'
