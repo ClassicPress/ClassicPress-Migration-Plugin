@@ -1,8 +1,8 @@
 <?php
 /*
- * Plugin Name:       Switch to ClassicPress
+ * Plugin Name:       Upgrade to ClassicPress
  * Plugin URI:        https://github.com/ClassicPress/ClassicPress-Migration-Plugin
- * Description:       Switch your WordPress installation to ClassicPress.
+ * Description:       Upgrade your WordPress installation to ClassicPress.
  * Version:           0.1.0
  * Tested up to:      4.9
  * Author:            ClassicPress
@@ -76,7 +76,7 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  */
 function classicpress_plugin_action_links( $links ) {
 	$links = array_merge( array(
-		'<a class="cp-migration-action" href="' . esc_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' . __( 'Switch', 'switch-to-classicpress' ) . '</a>'
+		'<a class="cp-migration-action" href="' . esc_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' . __( 'Upgrade', 'switch-to-classicpress' ) . '</a>'
 	), $links );
 	return $links;
 }

@@ -42,7 +42,7 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 
 		case 'WordPress updated successfully':
 			return __(
-				'WordPress successfully migrated to ClassicPress!',
+				'WordPress successfully upgraded to ClassicPress!',
 				'switch-to-classicpress'
 			);
 

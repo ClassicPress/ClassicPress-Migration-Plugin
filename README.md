@@ -1,8 +1,8 @@
-# Switch to ClassicPress
+# Upgrade to ClassicPress
 
 ![](assets/banner-772x250.png)
 
-This is a WordPress plugin that switches a WordPress installation to
+This is a WordPress plugin that upgrades a WordPress installation to
 [ClassicPress](https://www.classicpress.net).
 
 ClassicPress is for businesses seeking a powerful and versatile solution for
@@ -18,7 +18,7 @@ The ClassicPress `1.0.0-alpha1` release (codename "Sunrise") is ready to be
 tested by you, the users!
 
 **PLEASE NOTE:** As ClassicPress is currently in Alpha testing stage, we do not
-recommend that you switch a live production site to ClassicPress.
+recommend that you upgrade a live production site to ClassicPress.
 
 ## Installation
 
@@ -27,7 +27,7 @@ this plugin.  See our
 [installation instructions](https://docs.classicpress.net/installing-classicpress/)
 instead.
 
-To **install ClassicPress on a current WordPress site** (switch a current
+To **install ClassicPress on a current WordPress site** (upgrade a current
 WordPress site to ClassicPress):
 
 1. Back up the current site files and database. You can do a manual backup in
@@ -37,10 +37,10 @@ WordPress site to ClassicPress):
    here on GitHub.
 3. Install the downloaded zip file from within the WordPress dashboard
    ("Plugins" -> "Add New" -> "Upload Plugin").
-4. Activate this plugin ("Switch to ClassicPress") after it is installed.
-5. Go to the ClassicPress Migration plugin by clicking the **Switch** link in
-   this plugin's table row, or at **Tools -> Switch to ClassicPress**.
-6. If all the checks pass, press the **Switch this site to ClassicPress now!**
+4. Activate this plugin ("Upgrade to ClassicPress") after it is installed.
+5. Go to the ClassicPress Migration plugin by clicking the **Upgrade** link in
+   this plugin's table row, or at **Tools -> Upgrade to ClassicPress**.
+6. If all the checks pass, press the **Upgrade this site to ClassicPress now!**
    button. If not, you'll probably need to upgrade WordPress or PHP.
 7. The migration process may take a few minutes depending on your hosting
    provider, so go grab some water or a beverage of your choice 🙂
@@ -95,4 +95,4 @@ _The About ClassicPress screen that appears at the end of the migration_
 
 ### 0.1.0
 
-The initial public release of this plugin.  Switches to an early ClassicPress alpha release.
+The initial public release of this plugin.  Upgrades to an early ClassicPress alpha release.

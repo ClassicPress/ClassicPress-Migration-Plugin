@@ -110,8 +110,8 @@ add_action( 'admin_head-tools_page_switch-to-classicpress', 'classicpress_remove
  */
 function classicpress_register_admin_page() {
 	add_management_page(
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+		__( 'Upgrade to ClassicPress', 'switch-to-classicpress' ),
+		__( 'Upgrade to ClassicPress', 'switch-to-classicpress' ),
 		'read',
 		'switch-to-classicpress',
 		'classicpress_show_admin_page'
@@ -127,7 +127,7 @@ add_action( 'admin_menu', 'classicpress_register_admin_page' );
 function classicpress_show_admin_page() {
 ?>
 <div class="wrap">
-	<h1><?php esc_html_e( 'Switch to ClassicPress', 'switch-to-classicpress' ); ?></h1>
+	<h1><?php esc_html_e( 'Upgrade to ClassicPress', 'switch-to-classicpress' ); ?></h1>
 <?php
 	$preflight_checks_ok = classicpress_check_can_migrate();
 
@@ -223,7 +223,7 @@ function classicpress_check_can_migrate() {
 			</p>
 			<p>
 				<?php _e(
-					'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
+					'In order to upgrade to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
 					'switch-to-classicpress'
 				); ?>
 			</p>
@@ -452,7 +452,7 @@ function classicpress_check_can_migrate() {
 function classicpress_show_migration_controls() {
 ?>
 	<h2 class="cp-migration-info cp-migration-ready">
-		<?php _e( "It looks like you're ready to switch to ClassicPress!", 'switch-to-classicpress' ); ?>
+		<?php _e( "It looks like you're ready to be upgraded to ClassicPress!", 'switch-to-classicpress' ); ?>
 	</h2>
 	<p class="cp-migration-info">
 		<?php _e( 'First things first, just in case something does not go as planned, <strong class="cp-emphasis">please make a backup of your site files and database</strong>.', 'switch-to-classicpress' ); ?>
@@ -470,7 +470,7 @@ function classicpress_show_migration_controls() {
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
 			<?php _e(
-				'Switch this site to ClassicPress <strong>now</strong>!',
+				'Upgrade this site to ClassicPress <strong>now</strong>!',
 				'switch-to-classicpress'
 			); ?>
 		</button>
@@ -488,7 +488,7 @@ function classicpress_show_migration_controls() {
 		<?php _e( 'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.', 'switch-to-classicpress' ); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php _e( 'We thank you for switching from WordPress to ClassicPress!<br>The business-focused CMS. Powerful. Versatile. Predictable.', 'switch-to-classicpress' ); ?>
+		<?php _e( 'We thank you for upgrading from WordPress to ClassicPress!<br>The business-focused CMS. Powerful. Versatile. Predictable.', 'switch-to-classicpress' ); ?>
 	</p>
 <?php
 }
@@ -506,7 +506,7 @@ function classicpress_show_migration_blocked_info() {
 ?>
 	<h2 class="cp-migration-info cp-emphasis">
 		<?php _e(
-			"Sorry, we can't switch this site to ClassicPress at this time.",
+			"Sorry, we can't upgrade this site to ClassicPress at this time.",
 			'switch-to-classicpress'
 		); ?>
 	</h2>
