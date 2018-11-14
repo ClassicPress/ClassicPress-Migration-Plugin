@@ -3,17 +3,17 @@
 cd "$(dirname "$0")"
 cd ..
 
-rm -rf switch-to-classicpress.zip switch-to-classicpress/
-mkdir switch-to-classicpress/
+rm -rf upgrade-to-classicpress.zip upgrade-to-classicpress/
+mkdir upgrade-to-classicpress/
 
 cp -var \
 	LICENSE \
 	assets/ \
 	lib/ \
 	readme.txt \
-	switch-to-classicpress.php \
-	switch-to-classicpress/
+	upgrade-to-classicpress.php \
+	upgrade-to-classicpress/
 
-zip -r switch-to-classicpress.zip switch-to-classicpress/
+zip -r upgrade-to-classicpress.zip upgrade-to-classicpress/
 
-rm -rf switch-to-classicpress/
+rm -rf upgrade-to-classicpress/
