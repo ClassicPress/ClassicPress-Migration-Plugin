@@ -149,14 +149,12 @@ function classicpress_show_admin_page() {
 	<ul class="cp-migration-info">
 		<li><?php printf(
 			__(
-				/* translators: 1: link with instructions to join ClassicPress Slack, 2: link to Support channel, 3: link to Testing channel, 4: link to Migration channel */
-				'For support, suggestions for improvement, or general discussion about how the plugin works, <a href="%1$s">join our Slack group</a> and send us a message in the <a href="%2$s"><strong>#support</strong></a>, <a href="%3$s"><strong>#testing</strong></a>, or <a href="%4$s"><strong>#migration</strong></a> channels.',
+				/* translators: 1: link with instructions to join our Forum, 2: link to join ClassicPress Slack */
+				'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Slack group</a>.',
 				'switch-to-classicpress'
 			),
+			'https://forums.classicpress.net/c/support/migration-plugin'
 			'https://www.classicpress.net/join-slack/',
-			'https://classicpress.slack.com/messages/support/',
-			'https://classicpress.slack.com/messages/testing/',
-			'https://classicpress.slack.com/messages/migration/'
 		); ?></li>
 		<li><?php printf(
 			__(

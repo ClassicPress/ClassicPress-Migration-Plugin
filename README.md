@@ -46,11 +46,8 @@ WordPress site to ClassicPress):
    provider, so go grab some water or a beverage of your choice 🙂
 8. When the process is finished, you should see the ClassicPress About screen.
 
-If something is wrong, please
-[join our Slack group](https://www.classicpress.net/join-slack/)
-and ask in the
-[**#support**](https://classicpress.slack.com/messages/support/)
-channel.
+If something is wrong, please let us know in
+[our support forum](https://forums.classicpress.net/c/support/migration-plugin).
 
 ## Frequently Asked Questions
 
@@ -59,7 +56,7 @@ channel.
 If your current plugins work in WordPress 4.9.x, they will work in ClassicPress
 too.  If you’re seeing something otherwise, that’s probably a bug with
 ClassicPress, and we’d appreciate you reporting it on
-[Slack](https://www.classicpress.net/join-slack/)
+[our support forum](https://forums.classicpress.net/c/support/)
 or
 [GitHub](https://github.com/ClassicPress).
 
@@ -71,11 +68,10 @@ and beyond, but they will all be optional and fully backwards-compatible.
 ### I need help with something else, what should I do?
 
 Like all of ClassicPress, our support is a volunteer effort by the community.
-If you need help with something, please
-[join our Slack group](https://www.classicpress.net/join-slack/)
-and ask in the
-[**#support**](https://classicpress.slack.com/messages/support/)
-channel.
+If you need help with something, please let us know in
+[our support forum](https://forums.classicpress.net/c/support/)
+or
+[Slack group](https://www.classicpress.net/join-slack/).
 
 ## Screenshots
 

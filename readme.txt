@@ -44,13 +44,13 @@ To **install ClassicPress on a current WordPress site** (switch a current WordPr
 6. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂
 7. When the process is finished, you should see the ClassicPress About screen.
 
-If something is wrong, please [join our Slack group](https://www.classicpress.net/join-slack/ "join our Slack group") and ask in the [**#support**](https://classicpress.slack.com/messages/support/ "#support") channel.
+If something is wrong, please visit us in [our support forum](https://forums.classicpress.net/c/support/ "visit our support forum").
 
 == Frequently Asked Questions ==
 
 = Will my current plugins and themes work in ClassicPress? =
 
-If your current plugins work in WordPress 4.9.x, they will work in ClassicPress too.  If you’re seeing something otherwise, that’s probably a bug with ClassicPress, and we’d appreciate you reporting it on [Slack](https://www.classicpress.net/join-slack/ "Slack") or [GitHub](https://github.com/ClassicPress "GitHub").
+If your current plugins work in WordPress 4.9.x, they will work in ClassicPress too.  If you’re seeing something otherwise, that’s probably a bug with ClassicPress, and we’d appreciate you reporting it in [our support forum](https://forums.classicpress.net/c/support/ "support forum") or [GitHub](https://github.com/ClassicPress "GitHub").
 
 = I’m a developer, will I need to learn any new language or framework to develop in ClassicPress? =
 
@@ -58,7 +58,7 @@ Not unless you want to!  We have some exciting features planned for version 2 an
 
 = I need help with something else, what should I do? =
 
-Like all of ClassicPress, our support is a volunteer effort by the community.  If you need help with something, please [join our Slack group](https://www.classicpress.net/join-slack/ "join our Slack group") and ask in the [**#support**](https://classicpress.slack.com/messages/support/ "#support") channel.
+Like all of ClassicPress, our support is a volunteer effort by the community.  If you need help with something, please let us know in [our support forum](https://forums.classicpress.net/c/support/ "visit our support forum").
 
 == Screenshots ==
 
