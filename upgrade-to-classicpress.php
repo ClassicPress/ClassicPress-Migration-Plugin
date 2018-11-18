@@ -75,9 +75,11 @@ require_once dirname( __FILE__ ) . '/lib/update.php';
  * @return array         List of modified plugin action links.
  */
 function classicpress_plugin_action_links( $links ) {
-	$links = array_merge( array(
-		'<a class="cp-upgrade-action" href="' . esc_url( admin_url( 'tools.php?page=upgrade-to-classicpress' ) ) . '">' . __( 'Upgrade', 'upgrade-to-classicpress' ) . '</a>'
-	), $links );
+	if ( ! is_multisite() ) {
+		$links = array_merge( array(
+			'<a class="cp-upgrade-action" href="' . esc_url( admin_url( 'tools.php?page=upgrade-to-classicpress' ) ) . '">' . __( 'Upgrade', 'upgrade-to-classicpress' ) . '</a>'
+		), $links );
+	}
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'classicpress_plugin_action_links' );
