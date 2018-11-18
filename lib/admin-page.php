@@ -104,23 +104,22 @@ function classicpress_remove_update_nag() {
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
 
 if ( is_multisite() ) {
-    /**
-     * Register the plugin's admin page under the Dashboard menu.
-     *
-     * @since 0.2.0
-     */
-    function classicpress_register_network_admin_menu() {
-        add_submenu_page(
-            'index.php',
-            __( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-            __( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-            'manage_network',
-            'switch-to-classicpress',
-    		'classicpress_show_admin_page'
-        );
-    }
-    add_action( 'network_admin_menu', 'classicpress_register_network_admin_menu' );
-
+	/**
+	 * Register the plugin's admin page under the Dashboard menu.
+	 *
+	 * @since 0.2.0
+	 */
+	function classicpress_register_network_admin_menu() {
+		add_submenu_page(
+			'index.php',
+			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+			'manage_network',
+			'upgrade-to-classicpress',
+			'classicpress_show_admin_page'
+		);
+	}
+	add_action( 'network_admin_menu', 'classicpress_register_network_admin_menu' );
 } else {
     /**
      * Register the plugin's admin page under the Tools menu.
