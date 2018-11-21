@@ -11,14 +11,11 @@ ClassicPress takes your website to the next level with the same features and
 functionality that you enjoyed with WordPress, but with more attention to the
 most common needs of a business website.
 
-ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so
-upgrading is easy.
+ClassicPress is compatible with all plugins and themes that work in WordPress
+`4.9.x`, so upgrading is easy.
 
-The ClassicPress `1.0.0-alpha1` release (codename "Sunrise") is ready to be
-tested by you, the users!
-
-**PLEASE NOTE:** As ClassicPress is currently in Alpha testing stage, we do not
-recommend that you upgrade a live production site to ClassicPress.
+**PLEASE NOTE:** As ClassicPress is currently in the beta release stage, we do
+not recommend that you upgrade a live production site to ClassicPress.
 
 ## Installation
 
@@ -45,6 +42,8 @@ WordPress site to ClassicPress):
 7. The upgrade process may take a few minutes depending on your hosting
    provider, so go grab some water or a beverage of your choice 🙂
 8. When the process is finished, you should see the ClassicPress About screen.
+9. You may be prompted to upgrade ClassicPress immediately after switching from
+   WordPress.  This is normal, and it is safe to upgrade.
 
 If something is wrong, please let us know in
 [our support forum](https://forums.classicpress.net/c/support/migration-plugin).
@@ -75,20 +74,26 @@ or
 
 ## Screenshots
 
-![](assets/screenshot-1.png)
+<img width="400" src="assets/screenshot-1.png">
 _The plugin's admin page with information and the controls to start the upgrade_
 <br><br>
-![](assets/screenshot-2.png)
+<img width="400" src="assets/screenshot-2.png">
 _The plugin's admin page with an error that is blocking the upgrade_
 <br><br>
-![](assets/screenshot-3.png)
+<img width="400" src="assets/screenshot-3.png">
 _The plugin's upgrade progress page_
 <br><br>
-![](assets/screenshot-4.png)
+<img width="400" src="assets/screenshot-4.png">
 _The About ClassicPress screen that appears at the end of the upgrade_
 
 ## Changelog
 
 ### 0.1.0
 
-The initial public release of this plugin.  Upgrades to an early ClassicPress alpha release.
+The initial public release of this plugin.  Upgrades to an early ClassicPress
+alpha release.
+
+### 0.2.0
+
+Upgrades to ClassicPress `1.0.0-beta1` with working auto-updates.  Also
+supports upgrading multisite WordPress installations to ClassicPress.

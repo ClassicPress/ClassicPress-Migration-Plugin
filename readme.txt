@@ -19,11 +19,9 @@ The **Upgrade to ClassicPress plugin** will upgrade a WordPress installation to 
 
 ClassicPress is for businesses seeking a powerful and versatile solution for their website needs. Built on the firm foundation of WordPress 4.9.x, ClassicPress takes your website to the next level with the same features and functionality that you enjoyed with WordPress, but with more attention to the most common needs of a business website.
 
-ClassicPress is compatible with all plugins that work in WordPress 4.9.x, so upgrading is easy.
+ClassicPress is compatible with all plugins and themes that work in WordPress `4.9.x`, so upgrading is easy.
 
-The ClassicPress `1.0.0-alpha1` release (codename "Sunrise") is ready to be tested by you, the users!
-
-**PLEASE NOTE:** As ClassicPress is currently in Alpha testing stage, we do not recommend that you upgrade a live production site to ClassicPress.
+**PLEASE NOTE:** As ClassicPress is currently in the beta release stage, we do not recommend that you upgrade a live production site to ClassicPress.
 
 For more information, see:
 
@@ -43,6 +41,7 @@ To **install ClassicPress on a current WordPress site** (upgrade a current WordP
 5. If all the checks pass, press the **Upgrade this site to ClassicPress now!** button. If not, you'll probably need to upgrade WordPress or PHP.
 6. The upgrade process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂
 7. When the process is finished, you should see the ClassicPress About screen.
+8. You may be prompted to upgrade ClassicPress immediately after switching from WordPress.  This is normal, and it is safe to upgrade.
 
 If something is wrong, please visit us in [our support forum](https://forums.classicpress.net/c/support/ "visit our support forum").
 
@@ -73,8 +72,16 @@ Like all of ClassicPress, our support is a volunteer effort by the community.  I
 
 The initial public release of this plugin.  Upgrades to an early ClassicPress alpha release.
 
+= 0.2.0 =
+
+Supports upgrading multisite WordPress installations to ClassicPress.  Upgrades to ClassicPress `1.0.0-beta1` with working auto-updates.
+
 == Upgrade Notice ==
 
 = 0.1.0 =
 
 The initial public release of this plugin.  Upgrades to an early ClassicPress alpha release.
+
+= 0.2.0 =
+
+Upgrades to ClassicPress `1.0.0-beta1` with working auto-updates.  Also supports upgrading multisite WordPress installations to ClassicPress.
