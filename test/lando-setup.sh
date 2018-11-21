@@ -105,9 +105,16 @@ echo "Testing site URL: $wp_url"
 
 ./test/copy-plugin.sh
 
-lando wp plugin activate \
-    --path=test/site/ \
-    upgrade-to-classicpress
+if [ "$WP_MULTISITE" = true ]; then
+    lando wp plugin activate \
+        --path=test/site/ \
+        --network \
+        upgrade-to-classicpress
+else
+    lando wp plugin activate \
+        --path=test/site/ \
+        upgrade-to-classicpress
+fi
 
 echo
 echo "Test site is ACTIVE: $wp_url"
