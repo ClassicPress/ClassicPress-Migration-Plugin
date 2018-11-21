@@ -203,6 +203,11 @@ function classicpress_check_can_upgrade() {
 
 	// Check: Are we already on ClassicPress?
 	if ( function_exists( 'classicpress_version' ) ) {
+		if ( is_multisite() ) {
+			$delete_plugin_url = network_admin_url( 'plugins.php' );
+		} else {
+			$delete_plugin_url = admin_url( 'plugins.php' );
+		}
 ?>
 		<div class="notice notice-success">
 			<p>
@@ -218,7 +223,7 @@ function classicpress_check_can_upgrade() {
 						'You can <a href="%s">delete this plugin</a> now.',
 						'upgrade-to-classicpress'
 					),
-					admin_url( 'plugins.php' )
+					$delete_plugin_url
 				); ?>
 			</p>
 		</div>
@@ -471,10 +476,19 @@ function classicpress_show_upgrade_controls() {
 	>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
-			<?php _e(
-				'Upgrade this site to ClassicPress <strong>now</strong>!',
-				'upgrade-to-classicpress'
-			); ?>
+<?php
+	if ( is_multisite() ) {
+		_e(
+			'Upgrade this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!',
+			'upgrade-to-classicpress'
+		);
+	} else {
+		_e(
+			'Upgrade this site to ClassicPress <strong>now</strong>!',
+			'upgrade-to-classicpress'
+		);
+	}
+?>
 		</button>
 	</form>
 
