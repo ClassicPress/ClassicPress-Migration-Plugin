@@ -92,6 +92,7 @@ table#cp-preflight-checks {
 }
 add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_print_admin_styles' );
+add_action( 'admin_head-index_page_upgrade-to-classicpress', 'classicpress_print_admin_styles' );
 
 /**
  * Remove the WP update nag from the Switch to ClassicPress page.
@@ -100,6 +101,7 @@ add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_print
  */
 function classicpress_remove_update_nag() {
 	remove_action( 'admin_notices', 'update_nag', 3 );
+	remove_action( 'network_admin_notices', 'update_nag', 3 );
 }
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
 
