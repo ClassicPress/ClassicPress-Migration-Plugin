@@ -3,7 +3,7 @@
  * Plugin Name:       Upgrade to ClassicPress
  * Plugin URI:        https://github.com/ClassicPress/ClassicPress-Migration-Plugin
  * Description:       Upgrade your WordPress installation to ClassicPress.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Tested up to:      4.9
  * Author:            ClassicPress
  * Author URI:        https://www.classicpress.net
