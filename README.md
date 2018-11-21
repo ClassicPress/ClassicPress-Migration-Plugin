@@ -74,17 +74,23 @@ or
 
 ## Screenshots
 
+The plugin's admin page with information and the controls to start the upgrade: <br>
 <img width="600" src="assets/screenshot-1.png">
-_The plugin's admin page with information and the controls to start the upgrade_
-<br><br>
+
+<br>
+
+The plugin's admin page with an error that is blocking the upgrade: <br>
 <img width="600" src="assets/screenshot-2.png">
-_The plugin's admin page with an error that is blocking the upgrade_
-<br><br>
+
+<br>
+
+The plugin's upgrade progress page: <br>
 <img width="600" src="assets/screenshot-3.png">
-_The plugin's upgrade progress page_
-<br><br>
+
+<br>
+
+The About ClassicPress screen that appears at the end of the upgrade: <br>
 <img width="600" src="assets/screenshot-4.png">
-_The About ClassicPress screen that appears at the end of the upgrade_
 
 ## Changelog
 
