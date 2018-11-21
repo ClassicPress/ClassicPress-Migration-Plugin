@@ -391,6 +391,7 @@ function classicpress_check_can_upgrade() {
 		// TODO: Add instructions if SSL not supported.
 	}
 	echo "\n</p>\n";
+	echo "</td></tr>\n";
 
 	// Check: Core files checksums
 	$modified_files = classicpress_check_core_files();
@@ -436,6 +437,7 @@ function classicpress_check_can_upgrade() {
 		echo ' );</script>';
 	}
 	echo "\n</p>\n";
+	echo "</td></tr>\n";
 
 	// TODO: Any other checks needed?
 
