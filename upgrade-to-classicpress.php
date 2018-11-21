@@ -74,17 +74,7 @@ function classicpress_ensure_network_activated() {
 	}
 
 	if ( ! is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
-		echo '<div class="error"><p>';
-		_e(
-			'The "Upgrade to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
-			'upgrade-to-classicpress'
-		);
-		echo '</p><p>';
-		_e(
-			'If you need help with this, please contact your site administrator.',
-			'upgrade-to-classicpress'
-		);
-		echo '</p></div>';
+		add_action( 'admin_notices', 'classicpress_deactivated_notice' );
 
 		deactivate_plugins( array( plugin_basename( __FILE__ ) ) );
 
@@ -93,6 +83,25 @@ function classicpress_ensure_network_activated() {
 	}
 }
 add_action( 'admin_head', 'classicpress_ensure_network_activated' );
+
+/**
+ * Shows a notice that the plugin was deactivated.
+ *
+ * @since 0.2.0
+ */
+function classicpress_deactivated_notice() {
+	echo '<div class="error"><p>';
+	_e(
+		'The "Upgrade to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
+		'upgrade-to-classicpress'
+	);
+	echo '</p><p>';
+	_e(
+		'If you need help with this, please contact your site administrator.',
+		'upgrade-to-classicpress'
+	);
+	echo '</p></div>';
+}
 
 /**
  * Add plugin action links.
