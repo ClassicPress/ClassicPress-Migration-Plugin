@@ -441,6 +441,28 @@ function classicpress_check_can_upgrade() {
 
 	// TODO: Any other checks needed?
 
+	if ( is_multisite() ) {
+		// Show a reminder to backup the multisite install first
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<p>\n";
+		_e(
+			'Multisite installation detected.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'Upgrading to ClassicPress is supported, but it is <strong class="cp-emphasis">very important</strong> that you perform a backup first.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'It would also be a good idea to try the upgrade on a development or staging site first.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n</p>\n";
+		echo "</td></tr>\n";
+	}
+
 	echo "</table>\n";
 
 	if (
