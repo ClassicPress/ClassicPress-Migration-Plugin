@@ -64,6 +64,37 @@ require_once dirname( __FILE__ ) . '/lib/check-core-files.php';
 require_once dirname( __FILE__ ) . '/lib/update.php';
 
 /**
+ * On multisite, the plugin must be network activated.
+ *
+ * @since 0.2.0
+ */
+function classicpress_ensure_network_activated() {
+	if ( ! is_multisite() ) {
+		return;
+	}
+
+	if ( ! is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
+		echo '<div class="error"><p>';
+		_e(
+			'The "Upgrade to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
+			'upgrade-to-classicpress'
+		);
+		echo '</p><p>';
+		_e(
+			'If you need help with this, please contact your site administrator.',
+			'upgrade-to-classicpress'
+		);
+		echo '</p></div>';
+
+		deactivate_plugins( array( plugin_basename( __FILE__ ) ) );
+
+		// HACK: Prevent the "Plugin activated" notice from showing.
+		unset( $_GET['activate'] );
+	}
+}
+add_action( 'admin_head', 'classicpress_ensure_network_activated' );
+
+/**
  * Add plugin action links.
  *
  * Add a link to the Switch page on the plugins.php page.
