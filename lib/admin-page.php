@@ -92,6 +92,7 @@ table#cp-preflight-checks {
 }
 add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_print_admin_styles' );
+add_action( 'admin_head-index_page_upgrade-to-classicpress', 'classicpress_print_admin_styles' );
 
 /**
  * Remove the WP update nag from the Switch to ClassicPress page.
@@ -100,11 +101,30 @@ add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_print
  */
 function classicpress_remove_update_nag() {
 	remove_action( 'admin_notices', 'update_nag', 3 );
+	remove_action( 'network_admin_notices', 'update_nag', 3 );
 }
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
+add_action( 'admin_head-index_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
 
 /**
- * Register the plugin's admin page under the Tools menu.
+ * Register the plugin's admin page under the Dashboard menu for multisite
+ * installations.
+ *
+ * @since 0.2.0
+ */
+function classicpress_register_network_admin_menu() {
+	add_submenu_page(
+		'index.php',
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		'manage_network',
+		'upgrade-to-classicpress',
+		'classicpress_show_admin_page'
+	);
+}
+
+/**
+ * Register the plugin's admin page under the Tools menu for single-site installations.
  *
  * @since 0.1.0
  */
@@ -117,7 +137,12 @@ function classicpress_register_admin_page() {
 		'classicpress_show_admin_page'
 	);
 }
-add_action( 'admin_menu', 'classicpress_register_admin_page' );
+
+if ( is_multisite() ) {
+	add_action( 'network_admin_menu', 'classicpress_register_network_admin_menu' );
+} else {
+	add_action( 'admin_menu', 'classicpress_register_admin_page' );
+}
 
 /**
  * Show the plugin's admin page.
@@ -184,6 +209,11 @@ function classicpress_check_can_upgrade() {
 
 	// Check: Are we already on ClassicPress?
 	if ( function_exists( 'classicpress_version' ) ) {
+		if ( is_multisite() ) {
+			$delete_plugin_url = network_admin_url( 'plugins.php' );
+		} else {
+			$delete_plugin_url = admin_url( 'plugins.php' );
+		}
 ?>
 		<div class="notice notice-success">
 			<p>
@@ -199,7 +229,7 @@ function classicpress_check_can_upgrade() {
 						'You can <a href="%s">delete this plugin</a> now.',
 						'upgrade-to-classicpress'
 					),
-					admin_url( 'plugins.php' )
+					$delete_plugin_url
 				); ?>
 			</p>
 		</div>
@@ -243,21 +273,6 @@ function classicpress_check_can_upgrade() {
 			<p>
 				<?php esc_html_e(
 					"Please contact a site administrator for more information.",
-					'upgrade-to-classicpress'
-				); ?>
-			</p>
-		</div>
-<?php
-		return false;
-	}
-
-	// Check: Is this a multisite install?
-	if ( is_multisite() ) {
-?>
-		<div class="notice notice-error">
-			<p>
-				<?php esc_html_e(
-					"Sorry, this plugin doesn't support multisite installations.",
 					'upgrade-to-classicpress'
 				); ?>
 			</p>
@@ -376,6 +391,7 @@ function classicpress_check_can_upgrade() {
 		// TODO: Add instructions if SSL not supported.
 	}
 	echo "\n</p>\n";
+	echo "</td></tr>\n";
 
 	// Check: Core files checksums
 	$modified_files = classicpress_check_core_files();
@@ -421,8 +437,31 @@ function classicpress_check_can_upgrade() {
 		echo ' );</script>';
 	}
 	echo "\n</p>\n";
+	echo "</td></tr>\n";
 
 	// TODO: Any other checks needed?
+
+	if ( is_multisite() ) {
+		// Show a reminder to backup the multisite install first
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<p>\n";
+		_e(
+			'Multisite installation detected.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'Upgrading to ClassicPress is supported, but it is <strong class="cp-emphasis">very important</strong> that you perform a backup first.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n<br>\n";
+		_e(
+			'It would also be a good idea to try the upgrade on a development or staging site first.',
+			'upgrade-to-classicpress'
+		);
+		echo "\n</p>\n";
+		echo "</td></tr>\n";
+	}
 
 	echo "</table>\n";
 
@@ -467,10 +506,19 @@ function classicpress_show_upgrade_controls() {
 	>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
-			<?php _e(
-				'Upgrade this site to ClassicPress <strong>now</strong>!',
-				'upgrade-to-classicpress'
-			); ?>
+<?php
+	if ( is_multisite() ) {
+		_e(
+			'Upgrade this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!',
+			'upgrade-to-classicpress'
+		);
+	} else {
+		_e(
+			'Upgrade this site to ClassicPress <strong>now</strong>!',
+			'upgrade-to-classicpress'
+		);
+	}
+?>
 		</button>
 	</form>
 
@@ -509,19 +557,11 @@ function classicpress_show_upgrade_blocked_info() {
 		); ?>
 	</h2>
 
-	<?php if ( is_multisite() ) { ?>
-		<p class="cp-upgrade-info">
-			<?php _e(
-				'Want to help us get the plugin ready for multisite installations? Get in touch with us:',
-				'upgrade-to-classicpress'
-			); ?>
-		</p>
-	<?php } else { ?>
-		<p class="cp-upgrade-info">
-			<?php _e(
-				"If you're not sure how to fix the issues above, contact your hosting provider for help.",
-				'upgrade-to-classicpress'
-			); ?>
-		</p>
-	<?php }
+	<p class="cp-migration-info">
+		<?php _e(
+			"If you're not sure how to fix the issues above, contact your hosting provider for help.",
+			'switch-to-classicpress'
+		); ?>
+	</p>
+<?php
 }
