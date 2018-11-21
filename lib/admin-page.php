@@ -104,40 +104,44 @@ function classicpress_remove_update_nag() {
 	remove_action( 'network_admin_notices', 'update_nag', 3 );
 }
 add_action( 'admin_head-tools_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
+add_action( 'admin_head-index_page_upgrade-to-classicpress', 'classicpress_remove_update_nag' );
+
+/**
+ * Register the plugin's admin page under the Dashboard menu for multisite
+ * installations.
+ *
+ * @since 0.2.0
+ */
+function classicpress_register_network_admin_menu() {
+	add_submenu_page(
+		'index.php',
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		'manage_network',
+		'upgrade-to-classicpress',
+		'classicpress_show_admin_page'
+	);
+}
+
+/**
+ * Register the plugin's admin page under the Tools menu for single-site installations.
+ *
+ * @since 0.1.0
+ */
+function classicpress_register_admin_page() {
+	add_management_page(
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
+		'read',
+		'upgrade-to-classicpress',
+		'classicpress_show_admin_page'
+	);
+}
 
 if ( is_multisite() ) {
-	/**
-	 * Register the plugin's admin page under the Dashboard menu.
-	 *
-	 * @since 0.2.0
-	 */
-	function classicpress_register_network_admin_menu() {
-		add_submenu_page(
-			'index.php',
-			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
-			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
-			'manage_network',
-			'upgrade-to-classicpress',
-			'classicpress_show_admin_page'
-		);
-	}
 	add_action( 'network_admin_menu', 'classicpress_register_network_admin_menu' );
 } else {
-    /**
-     * Register the plugin's admin page under the Tools menu.
-     *
-     * @since 0.1.0
-     */
-	function classicpress_register_admin_page() {
-		add_management_page(
-			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
-			__( 'Upgrade to ClassicPress', 'upgrade-to-classicpress' ),
-			'read',
-			'upgrade-to-classicpress',
-			'classicpress_show_admin_page'
-		);
-	}
-    add_action( 'admin_menu', 'classicpress_register_admin_page' );
+	add_action( 'admin_menu', 'classicpress_register_admin_page' );
 }
 
 /**
