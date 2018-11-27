@@ -201,18 +201,19 @@ function classicpress_override_upgrade_page() {
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_checksums_api', 10, 3 );
 
-	// Set the migration build date.
+	// Set the migration build version and date.
+	$build_version = '1.0.0-alpha1';
 	$build_date = '20181120';
 
 	// Set `$_POST['version']` and `$_POST['locale']` with the same
 	// results from our update data, so that `find_core_update` will return a
 	// result.
-	$_POST['version'] = "1.0.0-alpha1+migration.$build_date";
+	$_POST['version'] = "$build_version+migration.$build_date";
 	$_POST['locale'] = 'en_US';
 	// Set `$_POST['_build_url']` for `classicpress_override_wp_update_api`.
 	$_POST['_build_url'] = 'https://github.com/ClassyBot/ClassicPress-nightly'
-		. "/releases/download/1.0.0-alpha1%2Bmigration.$build_date"
-		. "/ClassicPress-nightly-1.0.0-alpha1-migration.$build_date.zip";
+		. "/releases/download/$build_version%2Bmigration.$build_date"
+		. "/ClassicPress-nightly-$build_version-migration.$build_date.zip";
 
 	// Force loading a fresh response from the update API, which we will
 	// override with our own data.
