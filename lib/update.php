@@ -196,6 +196,11 @@ function classicpress_override_upgrade_page() {
 		return;
 	}
 
+	// Save the WP version for possible later restoration by a future version
+	// of this plugin.
+	global $wp_version;
+	update_option( 'classicpress_restore_wp_version', $wp_version, false );
+
 	// Add our hooks into the upgrade process.
 	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
