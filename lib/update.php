@@ -202,8 +202,8 @@ function classicpress_override_upgrade_page() {
 	add_filter( 'pre_http_request', 'classicpress_override_wp_checksums_api', 10, 3 );
 
 	// Set the migration build version and date.
-	$build_version = '1.0.0-alpha1';
-	$build_date = '20181120';
+	$build_version = '1.0.0-beta1';
+	$build_date = '20181122';
 
 	// Set `$_POST['version']` and `$_POST['locale']` with the same
 	// results from our update data, so that `find_core_update` will return a
