@@ -76,6 +76,12 @@ The initial public release of this plugin.  Switches to an early ClassicPress al
 
 Switches to ClassicPress `1.0.0-beta1` with working auto-updates.  Also supports migrating multisite WordPress installations to ClassicPress.
 
+= 0.3.0 =
+
+- Switches to ClassicPress `1.0.0-beta1` without an intermediate upgrade step.
+- Changes "Upgrade" back to "Migrate" to avoid confusion with plugin updates.
+- Removes the "Switch" link from the plugins page when running ClassicPress.
+
 == Upgrade Notice ==
 
 = 0.1.0 =
@@ -85,3 +91,9 @@ The initial public release of this plugin.  Switches to an early ClassicPress al
 = 0.2.0 =
 
 Switches to ClassicPress `1.0.0-beta1` with working auto-updates.  Also supports migrating multisite WordPress installations to ClassicPress.
+
+= 0.3.0 =
+
+- Switches to ClassicPress `1.0.0-beta1` without an intermediate upgrade step.
+- Changes "Upgrade" back to "Migrate" to avoid confusion with plugin updates.
+- Removes the "Switch" link from the plugins page when running ClassicPress.
