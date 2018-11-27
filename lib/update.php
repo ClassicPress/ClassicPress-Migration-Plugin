@@ -210,9 +210,8 @@ function classicpress_override_upgrade_page() {
 	$build_version = '1.0.0-beta1';
 	$build_date = '20181122';
 
-	// Set `$_POST['version']` and `$_POST['locale']` with the same
-	// results from our update data, so that `find_core_update` will return a
-	// result.
+	// Set `$_POST['version']` and `$_POST['locale']` with the same results
+	// from our update data, so that `find_core_update` will return a result.
 	$_POST['version'] = "$build_version+migration.$build_date";
 	$_POST['locale'] = 'en_US';
 	// Set `$_POST['_build_url']` for `classicpress_override_wp_update_api`.
