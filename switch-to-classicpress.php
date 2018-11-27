@@ -115,6 +115,12 @@ function classicpress_deactivated_notice() {
  * @return array         List of modified plugin action links.
  */
 function classicpress_plugin_action_links( $links ) {
+	if ( function_exists( 'classicpress_version' ) ) {
+		// Already running ClassicPress - showing this link is more confusing
+		// than helpful.
+		return $links;
+	}
+
 	if ( is_multisite() ) {
 		// Multisite: Only add the "Switch" link if the plugin is network
 		// activated and the current user can upgrade core.
