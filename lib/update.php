@@ -34,16 +34,16 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 		// Main page header.
 		case 'Update WordPress':
 			return __(
-				'Upgrading WordPress to ClassicPress',
-				'upgrade-to-classicpress'
+				'Migrating WordPress to ClassicPress',
+				'switch-to-classicpress'
 			);
 
 		// The rest of these strings appear when the upgrade process is done.
 
 		case 'WordPress updated successfully':
 			return __(
-				'WordPress successfully upgraded to ClassicPress!',
-				'upgrade-to-classicpress'
+				'WordPress successfully migrated to ClassicPress!',
+				'switch-to-classicpress'
 			);
 
 		// Note: %1$s placeholder omitted, because it is the WP version, which
@@ -52,13 +52,13 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 		case 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.':
 			return __(
 				'Welcome to ClassicPress! You will be redirected to the About ClassicPress screen. If not, click <a href="%2$s">here</a>.',
-				'upgrade-to-classicpress'
+				'switch-to-classicpress'
 			);
 
 		case 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.':
 			return __(
 				'Welcome to ClassicPress! <a href="%2$s">Learn more</a>.',
-				'upgrade-to-classicpress'
+				'switch-to-classicpress'
 			);
 
 		default:

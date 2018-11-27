@@ -109,11 +109,11 @@ if [ "$WP_MULTISITE" = true ]; then
     lando wp plugin activate \
         --path=test/site/ \
         --network \
-        upgrade-to-classicpress
+        switch-to-classicpress
 else
     lando wp plugin activate \
         --path=test/site/ \
-        upgrade-to-classicpress
+        switch-to-classicpress
 fi
 
 echo

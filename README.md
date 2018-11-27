@@ -1,8 +1,8 @@
-# Upgrade to ClassicPress
+# Switch to ClassicPress
 
 ![](assets/banner-772x250.png)
 
-This is a WordPress plugin that upgrades a WordPress installation to
+This is a WordPress plugin that switches a WordPress installation to
 [ClassicPress](https://www.classicpress.net).
 
 ClassicPress is for businesses seeking a powerful and versatile solution for
@@ -12,10 +12,10 @@ functionality that you enjoyed with WordPress, but with more attention to the
 most common needs of a business website.
 
 ClassicPress is compatible with all plugins and themes that work in WordPress
-`4.9.x`, so upgrading is easy.
+`4.9.x`, so migration is easy.
 
 **PLEASE NOTE:** As ClassicPress is currently in the beta release stage, we do
-not recommend that you upgrade a live production site to ClassicPress.
+not recommend that you switch a live production site to ClassicPress.
 
 ## Installation
 
@@ -24,7 +24,7 @@ this plugin.  See our
 [installation instructions](https://docs.classicpress.net/installing-classicpress/)
 instead.
 
-To **install ClassicPress on a current WordPress site** (upgrade a current
+To **install ClassicPress on a current WordPress site** (switch a current
 WordPress site to ClassicPress):
 
 1. Back up the current site files and database. You can do a manual backup in
@@ -34,12 +34,12 @@ WordPress site to ClassicPress):
    here on GitHub.
 3. Install the downloaded zip file from within the WordPress dashboard
    ("Plugins" -> "Add New" -> "Upload Plugin").
-4. Activate this plugin ("Upgrade to ClassicPress") after it is installed.
-5. Go to the ClassicPress Upgrade plugin by clicking the **Upgrade** link in
-   this plugin's table row, or at **Tools -> Upgrade to ClassicPress**.
-6. If all the checks pass, press the **Upgrade this site to ClassicPress now!**
+4. Activate this plugin ("Switch to ClassicPress") after it is installed.
+5. Go to the ClassicPress Migration plugin by clicking the **Switch** link in
+   this plugin's table row, or at **Tools -> Switch to ClassicPress**.
+6. If all the checks pass, press the **Switch this site to ClassicPress now!**
    button. If not, you'll probably need to upgrade WordPress or PHP.
-7. The upgrade process may take a few minutes depending on your hosting
+7. The migration process may take a few minutes depending on your hosting
    provider, so go grab some water or a beverage of your choice 🙂
 8. When the process is finished, you should see the ClassicPress About screen.
 9. You may be prompted to upgrade ClassicPress immediately after switching from
@@ -74,32 +74,32 @@ or
 
 ## Screenshots
 
-The plugin's admin page with information and the controls to start the upgrade: <br>
+The plugin's admin page with information and the controls to start the migration: <br>
 <img width="600" src="assets/screenshot-1.png">
 
 <br>
 
-The plugin's admin page with an error that is blocking the upgrade: <br>
+The plugin's admin page with an error that is blocking the migration: <br>
 <img width="600" src="assets/screenshot-2.png">
 
 <br>
 
-The plugin's upgrade progress page: <br>
+The plugin's migration progress page: <br>
 <img width="600" src="assets/screenshot-3.png">
 
 <br>
 
-The About ClassicPress screen that appears at the end of the upgrade: <br>
+The About ClassicPress screen that appears at the end of the migration: <br>
 <img width="600" src="assets/screenshot-4.png">
 
 ## Changelog
 
 ### 0.1.0
 
-The initial public release of this plugin.  Upgrades to an early ClassicPress
+The initial public release of this plugin.  Switches to an early ClassicPress
 alpha release.
 
 ### 0.2.0
 
-Upgrades to ClassicPress `1.0.0-beta1` with working auto-updates.  Also
-supports upgrading multisite WordPress installations to ClassicPress.
+Switches to ClassicPress `1.0.0-beta1` with working auto-updates.  Also
+supports migrating multisite WordPress installations to ClassicPress.
