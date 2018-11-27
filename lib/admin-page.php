@@ -307,8 +307,8 @@ function classicpress_check_can_migrate() {
 	// Check: Supported WP version
 	// More versions can be added if they pass the plugin's automated tests.
 	global $wp_version;
-	$wp_version_min = '4.9.0';
-	$wp_version_max = '4.9.8';
+	$wp_version_min = apply_filters( 'switch_to_classicpress_min_version', '4.9.0' );
+	$wp_version_max = apply_filters( 'switch_to_classicpress_max_version', '4.9.8' );
 	if (
 		// Version is outside of our "stable release" range...
 		(
