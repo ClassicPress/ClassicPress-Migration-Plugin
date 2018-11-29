@@ -55,6 +55,14 @@ If your current plugins work in WordPress 4.9.x, they will work in ClassicPress 
 
 Not unless you want to!  We have some exciting features planned for version 2 and beyond, but they will all be optional and fully backwards-compatible.
 
+
+= How may I use this plugin with an unsupported version of WordPress? =
+
+If you would like to migrate from a different version of WordPress _AT YOUR OWN RISK_, you can use the following code in your current theme or a mu-plugin to enable the migration:
+
+`add_filter( 'classicpress_ignore_wp_version', '__return_true' );`
+
+
 = I need help with something else, what should I do? =
 
 Like all of ClassicPress, our support is a volunteer effort by the community.  If you need help with something, please let us know in [our support forum](https://forums.classicpress.net/c/support/ "visit our support forum").
