@@ -304,33 +304,59 @@ function classicpress_check_can_migrate() {
 	);
 	echo '<table id="cp-preflight-checks">' . "\n";
 
+	$disable_wp_version_check = apply_filters( 'classicpress_ignore_wp_version', false );
+
 	// Check: Supported WP version
 	// More versions can be added if they pass the plugin's automated tests.
-	global $wp_version;
-	$wp_version_min = apply_filters( 'switch_to_classicpress_min_version', '4.9.0' );
-	$wp_version_max = apply_filters( 'switch_to_classicpress_max_version', '4.9.8' );
-	if (
-		// Version is outside of our "stable release" range...
-		(
-			version_compare( $wp_version, $wp_version_min, 'lt' ) ||
-			version_compare( $wp_version, $wp_version_max, 'gt' )
-		) &&
-		// ... and it's not a known development release
-		! preg_match( '#^4\.9\.9-(alpha|beta)\b#', $wp_version )
-	) {
-		$preflight_checks['wp_version'] = false;
-		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
-	} else {
+	
+	if( !empty( $disable_wp_version_check ) ) { // Skip the test and issue a warning
+		$preflight_check_wp_version_status = $icon_preflight_warn;
 		$preflight_checks['wp_version'] = true;
-		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+		
+	} else { // Run the check
+		global $wp_version;
+		
+		$wp_version_min = '4.9.0';
+		$wp_version_max = '4.9.8';
+		
+		// Default values - skips one else
+		$preflight_check_wp_version_status = $icon_preflight_pass;
+		$preflight_checks['wp_version'] = true;
+		
+		// Version is outside of our "stable release" range...
+		if ( 
+			( 
+				version_compare( $wp_version, $wp_version_min, 'lt' ) ||
+				version_compare( $wp_version, $wp_version_max, 'gt' )
+			) &&
+			// ... and it's not a known development release
+			! preg_match( '#^4\.9\.9-(alpha|beta)\b#', $wp_version )
+		) {
+			$preflight_checks['wp_version'] = false;
+			echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		}
+		
 	}
+		
+	echo "<tr>\n<td>$preflight_check_wp_version_status</td>\n<td>\n";
+	
 	echo "<p>\n";
+	
+	// Warn the user thoroughly: From here there be dragons!
+	if( !empty( $disable_wp_version_check ) ) {
+		_e( 
+			'<strong>Please be aware:</strong> The preflight check for supported WordPress versions has been <strong>disabled</strong>. Without this, we cannot guarantee that the migration process is going to work, and may even leave your current installation partially broken. Proceed on your own risk!', 
+			'switch-to-classicpress' 
+		);
+	}
+	
 	printf( __(
 		/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
 		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).',
 		'switch-to-classicpress'
 	), $wp_version_min, $wp_version_max );
-	echo "<br>\n";
+	
+	echo "<br />\n";
 	printf( __(
 		/* translators: current WordPress version */
 		'You are running WordPress version <strong>%s</strong>.',
@@ -339,6 +365,7 @@ function classicpress_check_can_migrate() {
 	echo "\n</p>\n";
 	// TODO: Add instructions if WP too old.
 	echo "</td></tr>\n";
+
 
 	// Check: Supported PHP version
 	$php_version_min = '5.6';
@@ -502,7 +529,7 @@ function classicpress_show_migration_controls() {
 	<form
 		id="cp-migration-form"
 		method="post"
-		action="update-core.php?action=do-core-upgrade&migrate=classicpress"
+		action="update-core.php?action=do-core-upgrade&amp;migrate=classicpress"
 		name="upgrade"
 	>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
