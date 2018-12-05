@@ -506,7 +506,12 @@ function classicpress_show_migration_controls() {
 		name="upgrade"
 	>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
-		<button class="button button-primary button-hero" type="submit" name="upgrade">
+		<input type="hidden" name="upgrade" value="yes" />
+		<button
+			class="button button-primary button-hero"
+			type="submit"
+			onclick="javascript:this.disabled = true;"
+		>
 <?php
 	if ( is_multisite() ) {
 		_e(
