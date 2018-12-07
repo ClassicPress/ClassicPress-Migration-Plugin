@@ -9,7 +9,7 @@ mkdir switch-to-classicpress/
 cp -var \
 	LICENSE \
 	lib/ \
-	readme.txt \
+	README.md \
 	switch-to-classicpress.php \
 	switch-to-classicpress/
 
