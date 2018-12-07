@@ -14,8 +14,11 @@ most common needs of a business website.
 ClassicPress is compatible with all plugins and themes that work in WordPress
 `4.9.x`, so migration is easy.
 
-**PLEASE NOTE:** As ClassicPress is currently in the beta release stage, we do
-not recommend that you switch a live production site to ClassicPress.
+**PLEASE NOTE:** ClassicPress is currently in the beta release stage. It is stable,
+but it is important to take a backup before switching a live production site to
+ClassicPress. Please also ensure any known conflicting plugins are **deactivated**
+(see list
+[here](https://docs.classicpress.net/installing-classicpress/#plugin-conflicts)).
 
 ## Installation
 
@@ -42,6 +45,7 @@ WordPress site to ClassicPress):
 7. The migration process may take a few minutes depending on your hosting
    provider, so go grab some water or a beverage of your choice 🙂
 8. When the process is finished, you should see the ClassicPress About screen.
+   At this point it is safe to delete the “Switch to ClassicPress” plugin.
 9. You may be prompted to upgrade ClassicPress immediately after switching from
    WordPress.  This is normal, and it is safe to upgrade.
 

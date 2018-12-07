@@ -8,7 +8,6 @@ mkdir switch-to-classicpress/
 
 cp -var \
 	LICENSE \
-	assets/ \
 	lib/ \
 	readme.txt \
 	switch-to-classicpress.php \
