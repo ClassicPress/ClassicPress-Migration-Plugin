@@ -380,7 +380,7 @@ function classicpress_check_can_migrate() {
 		);
 		echo "<br>\n";
 		_e(
-			'After the migration, we recommend reviewing each recently edited post or page and restoring to an earlier version if needed.',
+			'After the migration, we recommend reviewing each recently edited post or page and restoring to an earlier revision if needed.',
 			'switch-to-classicpress'
 		);
 	}
