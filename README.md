@@ -124,3 +124,9 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Switches to ClassicPress `1.0.0-beta1` without an intermediate upgrade step.
 - Changes "Upgrade" back to "Migrate" to avoid confusion with plugin updates.
 - Removes the "Switch" link from the plugins page when running ClassicPress.
+
+### 0.4.0
+
+- Support migrating from WP 5.0.
+- Add a filter to allow overriding the WP version check.
+- Remove unnecessary files and distribute a smaller plugin.
