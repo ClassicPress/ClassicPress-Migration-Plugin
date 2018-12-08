@@ -328,9 +328,9 @@ function classicpress_check_can_migrate() {
 		/**
 		 * Filters whether to ignore the result of the WP version check.
 		 *
-		 * @param bool $ignore Ignore the WP version check. Defaults to false.
-		 *
 		 * @since 0.4.0
+		 *
+		 * @param bool $ignore Ignore the WP version check. Defaults to false.
 		 */
 		if ( apply_filters( 'classicpress_ignore_wp_version', false ) ) {
 			$preflight_checks['wp_version'] = true;
