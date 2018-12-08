@@ -68,12 +68,16 @@ or
 Not unless you want to!  We have some exciting features planned for version 2
 and beyond, but they will all be optional and fully backwards-compatible.
 
-### How may I use this plugin with an unsupported version of WordPress?
+### How can I use this plugin with an unsupported version of WordPress?
 
-If you would like to migrate from a different version of WordPress _AT YOUR OWN RISK_, you can use the following code in your current theme or a mu-plugin to enable the migration:
+This plugin currently supports migrating from WordPress 4.9.8 through 5.0.0, as
+well as a few newer development versions.
+
+If you would like to migrate from a different version of WordPress **at your
+own risk**, you can use the following code in your current theme's
+`functions.php` file or a mu-plugin to enable the migration:
 
 `add_filter( 'classicpress_ignore_wp_version', '__return_true' );`
-
 
 ### I need help with something else, what should I do?
 
