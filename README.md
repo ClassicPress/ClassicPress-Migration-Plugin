@@ -130,3 +130,8 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Support migrating from WP 5.0.
 - Add a filter to allow overriding the WP version check.
 - Remove unnecessary files and distribute a smaller plugin.
+
+### 0.5.0
+
+- Support migrating from WP up to 5.0.2.
+- Switch to ClassicPress `1.0.0-beta2`.
