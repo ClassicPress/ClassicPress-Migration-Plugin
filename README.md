@@ -70,7 +70,7 @@ and beyond, but they will all be optional and fully backwards-compatible.
 
 ### How can I use this plugin with an unsupported version of WordPress?
 
-This plugin currently supports migrating from WordPress 4.9.8 through 5.0.0, as
+This plugin currently supports migrating from WordPress 4.9.0 through 5.0.2, as
 well as a few newer development versions.
 
 If you would like to migrate from a different version of WordPress **at your
