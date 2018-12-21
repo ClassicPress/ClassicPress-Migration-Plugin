@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Prevent direct access to plugin files.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
  * Check WP core files and return a list of modified files.
  *
  * @since 0.2.0

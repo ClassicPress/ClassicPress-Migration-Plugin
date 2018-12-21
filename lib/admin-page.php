@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Prevent direct access to plugin files.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
  * Output the plugin's styles for the relevant admin pages.
  *
  * @since 0.1.0

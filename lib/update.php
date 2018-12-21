@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Prevent direct access to plugin files.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
