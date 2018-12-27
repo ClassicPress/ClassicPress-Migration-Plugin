@@ -135,3 +135,7 @@ supports migrating multisite WordPress installations to ClassicPress.
 
 - Support migrating from WP up to 5.0.2.
 - Switch to ClassicPress `1.0.0-beta2`.
+
+### 0.5.1
+
+- Undo a change that was preventing some users from using the plugin.
