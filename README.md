@@ -139,3 +139,7 @@ supports migrating multisite WordPress installations to ClassicPress.
 ### 0.5.1
 
 - Undo a change that was preventing some users from using the plugin.
+
+### 0.5.2
+
+- Support migrating from WP up to 5.0.3.
