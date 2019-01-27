@@ -15,3 +15,4 @@ WP_MULTISITE=true ./test/lando-setup.sh
 ```
 
 - Access the site at `http://test.lndo.site:8000/` (or `http://one.lndo.site:8000/` and `http://two.lndo.site:8000/` for `WP_MULTISITE=true`).  You can log in with username `admin` and password `admin`.
+- Run the migration plugin (it has been pre-installed and activated on the test site) or perform other desired testing.
