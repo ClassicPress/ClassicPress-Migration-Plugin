@@ -94,6 +94,9 @@ table#cp-preflight-checks {
 #cp-migration-form {
 	margin: 2em 0 3em;
 }
+#cp-advanced-migration-form {
+	margin: 3em 0 4em;
+}
 </style>
 <?php
 }
@@ -242,6 +245,7 @@ function classicpress_check_can_migrate() {
 			</p>
 		</div>
 <?php
+		classicpress_show_advanced_migration_controls();
 		return false;
 	}
 
@@ -557,7 +561,7 @@ function classicpress_show_migration_controls() {
 	<form
 		id="cp-migration-form"
 		method="post"
-		action="update-core.php?action=do-core-upgrade&amp;migrate=classicpress"
+		action="update-core.php?action=do-core-upgrade&amp;_migrate=classicpress"
 		name="upgrade"
 	>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
@@ -619,5 +623,68 @@ function classicpress_show_migration_blocked_info() {
 			'switch-to-classicpress'
 		); ?>
 	</p>
+<?php
+}
+
+/**
+ * Show the controls and information needed to migrate to any version of
+ * WordPress or ClassicPress.
+ *
+ * NOTE: BE VERY CAREFUL WITH THIS, IT HAS JUST BARELY BEEN TESTED!
+ * Otherwise you *will* end up with a broken site!
+ *
+ * @since 0.6.0
+ */
+function classicpress_show_advanced_migration_controls() {
+?>
+	<form
+		id="cp-advanced-migration-form"
+		class="hidden"
+		method="post"
+		action="update-core.php?action=do-core-upgrade&amp;_migrate=_custom"
+		name="upgrade"
+	>
+		<h2>
+			<?php esc_html_e(
+				'Switch to any version of ClassicPress or WordPress',
+				'switch-to-classicpress'
+			); ?>
+		</h2>
+		<table class="form-table">
+			<tr>
+				<th scope="row">
+					<label for="cp-build-url">
+						<?php esc_html_e(
+							'Build URL:',
+							'switch-to-classicpress'
+						); ?>
+					</label>
+				</th>
+				<td>
+					<input type="text" id="cp-build-url" name="_build_url" value="">
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="cp-build-version">
+						<?php esc_html_e(
+							'Version:',
+							'switch-to-classicpress'
+						); ?>
+					</label>
+				</th>
+				<td>
+					<input type="text" id="cp-build-version" name="version" value="">
+				</td>
+			</tr>
+		</table>
+		<?php wp_nonce_field( 'upgrade-core' ); ?>
+		<button class="button button-primary button-hero" type="submit" name="upgrade">
+			<?php esc_html_e(
+				'Do the custom migration now!',
+				'migrate-to-classicpress'
+			); ?>
+		</button>
+	</form>
 <?php
 }

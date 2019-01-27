@@ -83,11 +83,22 @@ function classicpress_override_strings( $translation, $text, $domain ) {
  * @return Overridden request, or false to proceed normally.
  */
 function classicpress_override_wp_update_api( $preempt, $r, $url ) {
-	if ( ! preg_match(
-		'#^https?://api\.wordpress\.org/core/version-check/1\.\d/\?#',
-		$url
-	) ) {
+	if (
+		! preg_match(
+			'#^https?://api\.wordpress\.org/core/version-check/1\.\d/\?#',
+			$url
+		) &&
+		! preg_match(
+			'#^https://api-v1\.classicpress\.net/upgrade/#',
+			$url
+		)
+	) {
 		// Not a request we're interested in; do not override.
+		return $preempt;
+	}
+
+	if ( empty( $_POST['_build_url'] ) || empty( $_POST['version'] ) ) {
+		// Not sure what happened, but it's not good.
 		return $preempt;
 	}
 
@@ -181,12 +192,33 @@ function classicpress_override_upgrade_page() {
 	if (
 		! isset( $_GET['action'] ) ||
 		$_GET['action'] !== 'do-core-upgrade' ||
-		! isset( $_GET['migrate'] ) ||
-		$_GET['migrate'] !== 'classicpress'
+		! isset( $_GET['_migrate'] ) ||
+		! in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
 	) {
-		// Not a page load we're interested in.
+		// Definitely not a page load we're interested in.
 		return;
 	}
+
+	if ( $_GET['_migrate'] === '_custom' ) {
+		if ( empty( $_POST['version'] ) || empty( $_POST['_build_url'] ) ) {
+			// The request is no good.
+			return;
+		}
+
+		// Add our hooks into the upgrade process.
+		add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
+		add_filter( 'pre_http_request', 'classicpress_override_wp_checksums_api', 10, 3 );
+
+		// Force loading a fresh response from the update API, which we will
+		// override with our own data.
+		wp_version_check( array(), true );
+
+		// Finished overriding the upgrade, now let it proceed in
+		// wp-admin/update-core.php (see `do_core_upgrade`).
+		return;
+	}
+
+	// Migrate to ClassicPress.
 
 	// Verify that the plugin's preflight checks passed, just in case.
 	$preflight_checks = get_option( 'classicpress_preflight_checks', null );
