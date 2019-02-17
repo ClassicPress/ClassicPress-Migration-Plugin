@@ -474,7 +474,7 @@ function classicpress_check_can_migrate() {
 			'If you have JavaScript enabled, you can see a list of conflicting files <strong>in your browser console</strong>.',
 			'switch-to-classicpress'
 		);
-		echo "\n<script>console.log( 'modified core files:', ";
+		echo "\n<script>console.log( 'conflicting files:', ";
 		echo wp_json_encode( $conflicting_files );
 		echo ' );</script>';
 	}
