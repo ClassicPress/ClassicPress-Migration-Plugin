@@ -466,7 +466,7 @@ function classicpress_check_can_migrate() {
 	} else {
 		echo '<strong class="cp-emphasis">';
 		_e(
-			'Conflicting files detected.',
+			'Conflicting files detected. These are files that would be overwritten during migration.',
 			'switch-to-classicpress'
 		);
 		echo "</strong>\n<br>\n";
