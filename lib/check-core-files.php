@@ -42,3 +42,24 @@ function classicpress_check_core_files( $locale = 'en_US' ) {
 	}
 	return $modified;
 }
+
+/**
+ * Check for known conflicting files.
+ *
+ * @since 0.6.0
+ *
+ * @return array An array of conflicting filenames (empty if no conflits).
+ */
+function classicpress_check_conflicting_files() {
+	$files = array(
+		'composer.json',
+	);
+
+	$conflict = array();
+	foreach ( $files as $file ) {
+		if ( file_exists( ABSPATH . $file ) ) {
+			$conflict[] = $file;
+		}
+	}
+	return $conflict;
+}

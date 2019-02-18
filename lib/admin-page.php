@@ -449,6 +449,39 @@ function classicpress_check_can_migrate() {
 	echo "\n</p>\n";
 	echo "</td></tr>\n";
 
+	// Check: Conflicting files
+	$conflicting_files = classicpress_check_conflicting_files();
+	if ( count( $conflicting_files ) > 0 ) {
+		$preflight_checks['conflicting_files'] = false;
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+	} else {
+		$preflight_checks['conflicting_files'] = true;
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+	}
+	echo "<p>\n";
+	if ( $preflight_checks['conflicting_files'] ) {
+		_e(
+			'No conflicting files were found.',
+			'switch-to-classicpress'
+		);
+	} else {
+		_e(
+			'Conflicting files detected. These are files that would be <strong class="cp-emphasis">unexpectedly overwritten</strong> during migration.',
+			'switch-to-classicpress'
+		);
+		echo "<br>\n";
+		_e(
+			'If you have JavaScript enabled, you can see a list of conflicting files <strong>in your browser console</strong>.',
+			'switch-to-classicpress'
+		);
+		echo "\n<script>console.log(";
+		echo "\n'conflicting files, remove them and refresh in order to proceed:',\n";
+		echo wp_json_encode( $conflicting_files );
+		echo "\n);</script>";
+	}
+	echo "\n</p>\n";
+	echo "</td></tr>\n";
+
 	// Check: Core files checksums
 	$modified_files = classicpress_check_core_files();
 	if ( $modified_files === false || ! empty( $modified_files ) ) {
@@ -524,7 +557,8 @@ function classicpress_check_can_migrate() {
 	if (
 		$preflight_checks['wp_version'] &&
 		$preflight_checks['php_version'] &&
-		$preflight_checks['wp_http_supports_ssl']
+		$preflight_checks['wp_http_supports_ssl'] &&
+		$preflight_checks['conflicting_files']
 	) {
 		update_option( 'classicpress_preflight_checks', $preflight_checks, false );
 		return true;
