@@ -200,10 +200,15 @@ function classicpress_override_upgrade_page() {
 	}
 
 	if ( $_GET['_migrate'] === '_custom' ) {
-		if ( empty( $_POST['version'] ) || empty( $_POST['_build_url'] ) ) {
+		if ( empty( $_POST['_build_url'] ) ) {
 			// The request is no good.
 			return;
 		}
+
+		// Set the (fake) version string used in the custom migration.  This is
+		// used in the `find_core_update()` function - it only needs to match
+		// the version returned when we override the update API.
+		$_POST['version'] = '_custom_migration';
 
 		// Add our hooks into the upgrade process.
 		add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );

@@ -664,19 +664,6 @@ function classicpress_show_advanced_migration_controls() {
 					<input type="text" id="cp-build-url" name="_build_url" value="">
 				</td>
 			</tr>
-			<tr>
-				<th scope="row">
-					<label for="cp-build-version">
-						<?php esc_html_e(
-							'Version:',
-							'switch-to-classicpress'
-						); ?>
-					</label>
-				</th>
-				<td>
-					<input type="text" id="cp-build-version" name="version" value="">
-				</td>
-			</tr>
 		</table>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
