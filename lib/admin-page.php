@@ -328,9 +328,10 @@ function classicpress_check_can_migrate() {
 			version_compare( $wp_version, $wp_version_min, 'lt' ) ||
 			version_compare( $wp_version, $wp_version_max, 'gt' )
 		) &&
+		$wp_version !== '4.9' &&
 		// ... and it's not a known development release.
-		! preg_match( '#^5\.0\.3-(alpha|beta|rc)\b#i', $wp_version ) &&
-		! preg_match( '#^5\.2-(alpha|beta|rc)\b#i', $wp_version )
+		! preg_match( '#^5\.0\.4-(alpha|beta|rc)#i', $wp_version ) &&
+		! preg_match( '#^5\.1-(alpha|beta|rc)#i', $wp_version )
 	) {
 		/**
 		 * Filters whether to ignore the result of the WP version check.
