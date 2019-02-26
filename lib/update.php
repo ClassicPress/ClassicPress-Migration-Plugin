@@ -8,20 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Show a message on the screen and in the error log.
- *
- * @since 0.1.0
- *
- * @param string $message The message to show.
- */
-function classicpress_show_message( $message ) {
-	show_message( "[CP] $message" );
-	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		error_log( "[CP] $message" );
-	}
-}
-
-/**
  * Override a few strings during the core update.
  *
  * @since 0.1.0
