@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function classicpress_print_admin_styles() {
 ?>
 <style>
-.cp-migration-action, .cp-emphasis {
+.cp-migration-action, .cp-emphasis,
+.form-table th.cp-emphasis {
 	font-weight: bold;
 	color: #800;
 }
@@ -94,10 +95,35 @@ table#cp-preflight-checks {
 #cp-migration-form {
 	margin: 2em 0 3em;
 }
+#cp-show-advanced-migration-form {
+	margin-top: 2em;
+	font-size: 120%;
+}
 #cp-advanced-migration-form {
-	margin: 3em 0 4em;
+	margin: 4em 0;
+}
+#cp-advanced-migration-form table.form-table {
+	width: auto;
+}
+#cp-advanced-migration-form th {
+	width: auto;
+	padding-right: 1em;
+	white-space: nowrap;
+}
+#cp-advanced-migration-form #cp-build-url,
+#cp-advanced-migration-form td p {
+	width: 100%;
+	max-width: 50em;
 }
 </style>
+<script>
+jQuery( function( $ ) {
+	$( '#cp-show-advanced-migration-form' ).on( 'click', function() {
+		$( '#cp-advanced-migration-form' ).removeClass( 'hidden' );
+		$( this ).remove();
+	} );
+} );
+</script>
 <?php
 }
 add_action( 'admin_head-plugins.php', 'classicpress_print_admin_styles' );
@@ -201,6 +227,13 @@ function classicpress_show_admin_page() {
 			'https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/new'
 		); ?></li>
 	</ul>
+
+	<?php classicpress_show_advanced_migration_controls(
+		// On WP, preflight checks passed...
+		$preflight_checks_ok ||
+		// On ClassicPress, assume the user knows what they're doing.
+		function_exists( 'classicpress_version' )
+	); ?>
 </div><!-- .wrap -->
 <?php
 }
@@ -245,7 +278,6 @@ function classicpress_check_can_migrate() {
 			</p>
 		</div>
 <?php
-		classicpress_show_advanced_migration_controls();
 		return false;
 	}
 
@@ -665,13 +697,26 @@ function classicpress_show_migration_blocked_info() {
  * Show the controls and information needed to migrate to any version of
  * WordPress or ClassicPress.
  *
- * NOTE: BE VERY CAREFUL WITH THIS, IT HAS JUST BARELY BEEN TESTED!
- * Otherwise you *will* end up with a broken site!
- *
  * @since 0.6.0
+ *
+ * @bool $ok Whether we can continue with a custom migration. This is used to
+ *           hide the "advanced controls" button if preflight checks failed.
  */
-function classicpress_show_advanced_migration_controls() {
-?>
+function classicpress_show_advanced_migration_controls( $ok = true ) {
+	$is_wp = ! function_exists( 'classicpress_version' );
+
+	if ( $ok ) { ?>
+		<button
+			id="cp-show-advanced-migration-form"
+			class="button button-large hide-if-no-js"
+		>
+			<?php esc_html_e(
+				'Show advanced controls',
+				'switch-to-classicpress'
+			); ?>
+		</button>
+	<?php } ?>
+
 	<form
 		id="cp-advanced-migration-form"
 		class="hidden"
@@ -686,6 +731,63 @@ function classicpress_show_advanced_migration_controls() {
 			); ?>
 		</h2>
 		<table class="form-table">
+			<?php if ( $is_wp ) { ?>
+				<tr>
+					<th scope="row" class="cp-emphasis">
+						<?php esc_html_e(
+							'Warning 1:',
+							'switch-to-classicpress'
+						); ?>
+					</th>
+					<td>
+						<p>
+							<?php _e(
+								'Use this form to switch to other versions of WordPress, or ClassicPress <strong class="cp-emphasis">migration builds</strong>!',
+								'switch-to-classicpress'
+							); ?>
+						</p>
+						<p>
+							<?php _e(
+								'Official release builds of ClassicPress <strong class="cp-emphasis">will not work</strong>.',
+								'switch-to-classicpress'
+							); ?>
+						</p>
+						<p>
+							<?php printf(
+								__(
+									/* translators: link to ClassicPress migration builds */
+									'You can find ClassicPress migration builds <a href="%s">on GitHub</a>.',
+									'switch-to-classicpress'
+								),
+								'https://github.com/ClassyBot/ClassicPress-nightly/releases'
+							); ?>
+						</p>
+					</td>
+				</tr>
+			<?php } ?>
+			<tr>
+				<th scope="row" class="cp-emphasis">
+					<?php if ( $is_wp ) {
+						esc_html_e( 'Warning 2:', 'switch-to-classicpress' );
+					} else {
+						esc_html_e( 'Warning:', 'switch-to-classicpress' );
+					} ?>
+				</th>
+				<td>
+					<p>
+						<?php esc_html_e(
+							"As long as the regular requirements for your target version are met, like the preflight checks for ClassicPress, then we haven't been able to break this yet. However, that doesn't mean it works under all circumstances!",
+							'switch-to-classicpress'
+						); ?>
+					</p>
+					<p>
+						<?php _e(
+							'Please, definitely <strong class="cp-emphasis">take a backup of your site</strong> before using this feature.',
+							'switch-to-classicpress'
+						); ?>
+					</p>
+				</td>
+			</tr>
 			<tr>
 				<th scope="row">
 					<label for="cp-build-url">
@@ -696,7 +798,12 @@ function classicpress_show_advanced_migration_controls() {
 					</label>
 				</th>
 				<td>
-					<input type="text" id="cp-build-url" name="_build_url" value="">
+					<input
+						type="text"
+						id="cp-build-url"
+						name="_build_url"
+						value=""
+					/>
 				</td>
 			</tr>
 		</table>
