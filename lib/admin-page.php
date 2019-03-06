@@ -351,7 +351,7 @@ function classicpress_check_can_migrate() {
 	// More versions can be added after they are confirmed to work.
 	global $wp_version;
 	$wp_version_min = '4.9.0';
-	$wp_version_max = '5.0.3';
+	$wp_version_max = '5.1.0';
 	$wp_version_check_intro_message = sprintf( __(
 		/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
 		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).',
@@ -366,8 +366,8 @@ function classicpress_check_can_migrate() {
 		) &&
 		$wp_version !== '4.9' &&
 		// ... and it's not a known development release.
-		! preg_match( '#^5\.0\.4-(alpha|beta|rc)#i', $wp_version ) &&
-		! preg_match( '#^5\.1-(alpha|beta|rc)#i', $wp_version )
+		! preg_match( '#^5\.1\.1-(alpha|beta|rc)#i', $wp_version ) &&
+		! preg_match( '#^5\.2-(alpha|beta|rc)#i', $wp_version )
 	) {
 		/**
 		 * Filters whether to ignore the result of the WP version check.
