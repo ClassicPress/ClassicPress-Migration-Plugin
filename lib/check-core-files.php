@@ -46,7 +46,7 @@ function classicpress_check_core_files( $locale = 'en_US' ) {
 /**
  * Check for known conflicting files.
  *
- * @since 0.6.0
+ * @since 1.0.0
  *
  * @return array An array of conflicting filenames (empty if no conflits).
  */

@@ -14,10 +14,9 @@ most common needs of a business website.
 ClassicPress is compatible with all plugins and themes that work in WordPress
 `4.9.x`, so migration is easy.
 
-**PLEASE NOTE:** ClassicPress is currently in the beta release stage. It is stable,
-but it is important to take a backup before switching a live production site to
-ClassicPress. Please also ensure any known conflicting plugins are **deactivated**
-(see list
+**PLEASE NOTE:** ClassicPress is stable software, but it is important to take a
+backup before switching a live production site to ClassicPress. Please also
+ensure any known conflicting plugins are **deactivated** (see list
 [here](https://docs.classicpress.net/installing-classicpress/#plugin-conflicts)).
 
 ## Installation
@@ -57,20 +56,15 @@ If something is wrong, please let us know in
 ### Will my current plugins and themes work in ClassicPress?
 
 If your current plugins work in WordPress 4.9.x, they will work in ClassicPress
-too.  If you’re seeing something otherwise, that’s probably a bug with
+too.  If you’re seeing something otherwise, that may be a bug with
 ClassicPress, and we’d appreciate you reporting it on
 [our support forum](https://forums.classicpress.net/c/support/)
 or
 [GitHub](https://github.com/ClassicPress).
 
-### I’m a developer, will I need to learn any new language or framework to develop in ClassicPress?
-
-Not unless you want to!  We have some exciting features planned for version 2
-and beyond, but they will all be optional and fully backwards-compatible.
-
 ### How can I use this plugin with an unsupported version of WordPress?
 
-This plugin currently supports migrating from WordPress 4.9.0 through 5.0.3, as
+This plugin currently supports migrating from WordPress 4.9.0 through 5.1.0, as
 well as a few newer development versions.
 
 If you would like to migrate from a different version of WordPress **at your
@@ -143,3 +137,10 @@ supports migrating multisite WordPress installations to ClassicPress.
 ### 0.5.2
 
 - Support migrating from WP up to 5.0.3.
+
+### 1.0.0
+
+- Support migrating from WP up to 5.1.0.
+- Switch to ClassicPress `1.0.0` by default.
+- Add an advanced feature that allows switching to any version of WordPress or
+  ClassicPress.

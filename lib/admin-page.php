@@ -697,7 +697,7 @@ function classicpress_show_migration_blocked_info() {
  * Show the controls and information needed to migrate to any version of
  * WordPress or ClassicPress.
  *
- * @since 0.6.0
+ * @since 1.0.0
  *
  * @bool $ok Whether we can continue with a custom migration. This is used to
  *           hide the "advanced controls" button if preflight checks failed.
