@@ -83,31 +83,55 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 		return $preempt;
 	}
 
-	if ( empty( $_POST['_build_url'] ) || empty( $_POST['version'] ) ) {
-		// Not sure what happened, but it's not good.
+	if (
+		! isset( $_GET['_migrate'] ) ||
+		! in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
+	) {
+		// Not a request we're interested in; do not override.
 		return $preempt;
 	}
 
-	// TODO:
-	// - pull locale out of $url
-	// - forward to real ClassicPress API
-	// - POST variables are not the best place to store version & URL
+	switch ( $_GET['_migrate'] ) {
+		case 'classicpress':
+			$parameters = classicpress_migration_parameters();
+			if ( ! is_array( $parameters ) ) {
+				// Not sure what happened, but it's not good.
+				return $preempt;
+			}
+			$build_url = $parameters['classicpress']['build'];
+			$version   = $parameters['classicpress']['version'];
+			break;
+
+		case '_custom':
+			if (
+				! isset( $_POST['_build_url'] ) ||
+				! isset( $_POST['version'] )
+			) {
+				// Not sure what happened, but it's not good.
+				return $preempt;
+			}
+			$build_url = $_POST['_build_url'];
+			$version   = $_POST['version'];
+			break;
+	}
+
+	// TODO: do locales other than en_US need different handling?
 
 	$data = array(
 		'offers' => array(
 			array(
 				'response' => 'upgrade',
-				'download' => $_POST['_build_url'],
+				'download' => $build_url,
 				'locale'   => 'en_US',
 				'packages' => array(
-					'full'        => $_POST['_build_url'],
+					'full'        => $build_url,
 					'no_content'  => false,
 					'new_bundled' => false,
 					'partial'     => false,
 					'rollback'    => false,
 				),
-				'current'         => $_POST['version'],
-				'version'         => $_POST['version'],
+				'current'         => $version,
+				'version'         => $version,
 				'php_version'     => '5.6.0',
 				'mysql_version'   => '5.0',
 				'new_bundled'     => '4.7',
@@ -223,6 +247,12 @@ function classicpress_override_upgrade_page() {
 		return;
 	}
 
+	$parameters = classicpress_migration_parameters();
+	if ( ! is_array( $parameters ) ) {
+		// Not sure what happened, but it's not good.
+		return;
+	}
+
 	// Save the WP version for possible later restoration by a future version
 	// of this plugin.
 	global $wp_version;
@@ -238,19 +268,15 @@ function classicpress_override_upgrade_page() {
 	$build_date = '20190305';
 
 	// Set `$_POST['version']` and `$_POST['locale']` with the same results
-	// from our update data, so that `find_core_update` will return a result.
-	$_POST['version'] = "$build_version+migration.$build_date";
-	$_POST['locale'] = 'en_US';
-	// Set `$_POST['_build_url']` for `classicpress_override_wp_update_api`.
-	$_POST['_build_url'] = 'https://github.com/ClassyBot/ClassicPress-nightly'
-		. "/releases/download/$build_version%2Bmigration.$build_date"
-		. "/ClassicPress-nightly-$build_version-migration.$build_date.zip";
+	// from our update data, so that `find_core_update()` will return a result.
+	$_POST['version'] = $parameters['classicpress']['version'];
+	$_POST['locale']  = 'en_US';
 
 	// Force loading a fresh response from the update API, which we will
 	// override with our own data.
 	wp_version_check( array(), true );
 
 	// Finished overriding the upgrade, now let it proceed in
-	// wp-admin/update-core.php (see `do_core_upgrade`).
+	// wp-admin/update-core.php (see `do_core_upgrade()`).
 }
 add_action( 'admin_head-update-core.php', 'classicpress_override_upgrade_page' );
