@@ -373,14 +373,6 @@ function classicpress_check_can_migrate() {
 	), $wp_version_min, $wp_version_max );
 	$wp_version_check_intro_message .= "<br>\n";
 
-	$version_ok = (
-		version_compare( $wp_version, $wp_version_min, 'ge' ) ||
-		version_compare( $wp_version, $wp_version_max, 'le' ) ||
-		array_filter( $parameters['wordpress']['other'], function( $pattern ) {
-			global $wp_version;
-			return preg_match( $pattern, $wp_version );
-		} )
-	);
 	if (
 		// Version is outside of our target range of WP stable releases...
 		(
