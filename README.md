@@ -156,3 +156,9 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Switch to ClassicPress `1.0.0` by default.
 - Add an advanced feature that allows switching to any version of WordPress or
   ClassicPress.
+
+### 1.0.1
+
+- Load the supported WordPress version and the target ClassicPress version from
+  a remote API endpoint, so that a new release of the migration plugin is not
+  required with every new WordPress or ClassicPress release.
