@@ -152,3 +152,67 @@ add_filter(
 	'network_admin_plugin_action_links_' . plugin_basename( __FILE__ ),
 	'classicpress_plugin_action_links'
 );
+
+/**
+ * Call the ClassicPress API to determine which versions of WordPress and
+ * ClassicPress are supported by the migration plugin.
+ *
+ * This is handled on the ClassicPress servers, because most of the time a new
+ * version of WordPress or ClassicPress does not require a new version of the
+ * migration plugin.
+ *
+ * @since 1.0.1
+ *
+ * @return array {
+ *     "wordpress": {
+ *         "min": "4.9.0",
+ *         "max": "5.x.x",
+ *         "other": [
+ *             "^4\\.9$",
+ *             // patterns for development versions ...
+ *          ]
+ *      },
+ *      "classicpress": {
+ *          "build": "https://github.com/[...].zip",
+ *          "version": "1.x.x"
+ *      }
+ * }
+ */
+function classicpress_migration_parameters() {
+	$parameters = get_transient( 'classicpress_migration_parameters' );
+
+	if ( ! $parameters ) {
+		$response   = wp_remote_get( 'https://api-v1.classicpress.net/migration/' );
+		$parameters = null;
+
+		if ( is_wp_error( $response ) ) {
+			$status = $response->get_error_message();
+		} else {
+			$status = wp_remote_retrieve_response_code( $response );
+		}
+
+		if ( $status === 200 ) {
+			$parameters = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( is_array( $parameters ) ) {
+				set_transient(
+					'classicpress_migration_parameters',
+					$parameters,
+					1 * HOUR_IN_SECONDS
+				);
+			}
+		}
+
+		if ( ! is_array( $parameters ) ) {
+			return new WP_Error(
+				'classicpress_server_error',
+				__(
+					'Could not communicate with the ClassicPress API server',
+					'switch-to-classicpress'
+				),
+				array( 'status' => $status )
+			);
+		}
+	}
+
+	return $parameters;
+}

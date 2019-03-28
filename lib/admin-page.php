@@ -325,6 +325,20 @@ function classicpress_check_can_migrate() {
 		return false;
 	}
 
+	// Get migration plugin parameters.
+	$parameters = classicpress_migration_parameters();
+	if ( is_wp_error( $parameters ) ) {
+?>
+		<div class="notice notice-error">
+			<p>
+				<?php echo $parameters->get_error_message(); ?>
+				<?php echo json_encode( $parameters->get_error_data() ); ?>
+			</p>
+		</div>
+<?php
+		return false;
+	}
+
 	// The first round of checks has passed.  Now, run a second round related
 	// to conditions that the user (or at least the hosting provider) has
 	// control over, and display the results in a table.
@@ -350,24 +364,26 @@ function classicpress_check_can_migrate() {
 	// Check: Supported WP version
 	// More versions can be added after they are confirmed to work.
 	global $wp_version;
-	$wp_version_min = '4.9.0';
-	$wp_version_max = '5.1.0';
+	$wp_version_min = $parameters['wordpress']['min'];
+	$wp_version_max = $parameters['wordpress']['max'];
 	$wp_version_check_intro_message = sprintf( __(
 		/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
 		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).',
 		'switch-to-classicpress'
 	), $wp_version_min, $wp_version_max );
 	$wp_version_check_intro_message .= "<br>\n";
+
 	if (
-		// Version is outside of our "stable release" range...
+		// Version is outside of our target range of WP stable releases...
 		(
 			version_compare( $wp_version, $wp_version_min, 'lt' ) ||
 			version_compare( $wp_version, $wp_version_max, 'gt' )
 		) &&
-		$wp_version !== '4.9' &&
-		// ... and it's not a known development release.
-		! preg_match( '#^5\.1\.1-(alpha|beta|rc)#i', $wp_version ) &&
-		! preg_match( '#^5\.2-(alpha|beta|rc)#i', $wp_version )
+		// ... and it doesn't match any other acceptable version patterns
+		empty( array_filter( $parameters['wordpress']['other'], function( $pattern ) {
+			global $wp_version;
+			return preg_match( $pattern, $wp_version );
+		} ) )
 	) {
 		/**
 		 * Filters whether to ignore the result of the WP version check.
@@ -387,7 +403,7 @@ function classicpress_check_can_migrate() {
 			);
 			echo "<br>\n";
 			_e(
-				'We cannot guarantee that the migration process is going to work, and may even leave your current installation partially broken.',
+				'We cannot guarantee that the migration process is going to work, and it may even leave your current installation partially broken.',
 				'switch-to-classicpress'
 			);
 			echo "<br>\n";
