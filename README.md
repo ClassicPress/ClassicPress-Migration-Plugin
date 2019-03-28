@@ -64,14 +64,26 @@ or
 
 ### How can I use this plugin with an unsupported version of WordPress?
 
-This plugin currently supports migrating from WordPress 4.9.0 through 5.1.0, as
-well as a few newer development versions.
+This plugin currently supports migrating from WordPress versions starting at
+`4.9.0`.
+
+We update the plugin as quickly as possible when a new version of WordPress
+comes out, but we do need to test each new version for compatibility with the
+plugin first.
 
 If you would like to migrate from a different version of WordPress **at your
 own risk**, you can use the following code in your current theme's
 `functions.php` file or a mu-plugin to enable the migration:
 
 `add_filter( 'classicpress_ignore_wp_version', '__return_true' );`
+
+With each new WordPress release, it's very helpful for us to have multiple
+reports of whether the migration plugin works with the new version.  You can
+use the filter above to test the migration process, and you can tell us about
+the results of your testing
+[on GitHub](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues)
+or
+[on the support subforum for the migration plugin](https://forums.classicpress.net/c/support/migration-plugin).
 
 ### I need help with something else, what should I do?
 
