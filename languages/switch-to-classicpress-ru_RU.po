@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://forums.classicpress.net/c/support/migration-"
 "plugin\n"
 "POT-Creation-Date: 2019-07-22T20:28:37+03:00\n"
-"PO-Revision-Date: 2019-07-22 22:21+0300\n"
+"PO-Revision-Date: 2019-07-22 22:38+03:00\n"
 "Last-Translator: Ilya Ivanov <czweerwolf@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -403,6 +403,10 @@ msgstr ""
 #: lib/admin-page.php:810
 msgid "Build URL:"
 msgstr "URL сборки:"
+
+#: lib/admin-page.php:828
+msgid "Do the custom migration now!"
+msgstr "Выполнить произвольную миграцию!"
 
 #: lib/update.php:25
 msgid "Migrating WordPress to ClassicPress"

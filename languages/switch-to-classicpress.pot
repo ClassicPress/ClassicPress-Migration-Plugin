@@ -267,6 +267,10 @@ msgstr ""
 msgid "Build URL:"
 msgstr ""
 
+#: lib/admin-page.php:828
+msgid "Do the custom migration now!"
+msgstr ""
+
 #: lib/update.php:25
 msgid "Migrating WordPress to ClassicPress"
 msgstr ""
