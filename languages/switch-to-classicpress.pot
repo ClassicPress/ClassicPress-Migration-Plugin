@@ -1,0 +1,302 @@
+# Copyright (C) 2019 ClassicPress
+# This file is distributed under the same license as the Switch to ClassicPress plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Switch to ClassicPress 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/switch-to-classicpress\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-07-22T20:28:37+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: switch-to-classicpress\n"
+
+#. Plugin Name of the plugin
+#: lib/admin-page.php:154
+#: lib/admin-page.php:155
+#: lib/admin-page.php:170
+#: lib/admin-page.php:171
+#: lib/admin-page.php:192
+msgid "Switch to ClassicPress"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/ClassicPress/ClassicPress-Migration-Plugin"
+msgstr ""
+
+#. Description of the plugin
+msgid "Switch your WordPress installation to ClassicPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "ClassicPress"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.classicpress.net"
+msgstr ""
+
+#: lib/admin-page.php:203
+msgid "Feedback and Support"
+msgstr ""
+
+#: lib/admin-page.php:206
+msgid "Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We'd love to know what you think!"
+msgstr ""
+
+#. translators: 1: link with instructions to join our Forum, 2: link to join ClassicPress Slack
+#: lib/admin-page.php:213
+msgid "For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href=\"%1$s\">support forum</a> or <a href=\"%2$s\">Slack group</a>."
+msgstr ""
+
+#. translators: link to create a new GitHub issue for this plugin
+#: lib/admin-page.php:222
+msgid "For <strong>specific</strong> bug reports or suggestions, <a href=\"%s\">add a new issue on GitHub</a>."
+msgstr ""
+
+#: lib/admin-page.php:264
+msgid "Hey, good job, you're already running ClassicPress!"
+msgstr ""
+
+#. translators: %s: URL to plugins page
+#: lib/admin-page.php:272
+msgid "You can <a href=\"%s\">delete this plugin</a> now."
+msgstr ""
+
+#: lib/admin-page.php:291
+msgid "Sorry, this plugin doesn't support sites hosted on WordPress.com."
+msgstr ""
+
+#: lib/admin-page.php:297
+msgid "In order to switch to ClassicPress, you'll need to <a href=\"https://move.wordpress.com/\">move to a self-hosted WordPress site</a> first."
+msgstr ""
+
+#: lib/admin-page.php:312
+msgid "Sorry, you're not allowed to perform this action."
+msgstr ""
+
+#: lib/admin-page.php:318
+msgid "Please contact a site administrator for more information."
+msgstr ""
+
+#. translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version
+#: lib/admin-page.php:369
+msgid "This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions)."
+msgstr ""
+
+#: lib/admin-page.php:400
+msgid "The preflight check for supported WordPress versions has been <strong class=\"cp-emphasis\">disabled</strong>."
+msgstr ""
+
+#: lib/admin-page.php:405
+msgid "We cannot guarantee that the migration process is going to work, and it may even leave your current installation partially broken."
+msgstr ""
+
+#: lib/admin-page.php:410
+msgid "<strong class=\"cp-emphasis\">Proceed at your own risk!</strong>"
+msgstr ""
+
+#. translators: current WordPress version
+#: lib/admin-page.php:430
+msgid "You are running WordPress version <strong>%s</strong>."
+msgstr ""
+
+#: lib/admin-page.php:437
+msgid "Migration is supported, but content edited in the new WordPress block editor may not be fully compatible with ClassicPress."
+msgstr ""
+
+#: lib/admin-page.php:442
+msgid "After the migration, we recommend reviewing each recently edited post or page and restoring to an earlier revision if needed."
+msgstr ""
+
+#. translators: minimum supported PHP version
+#: lib/admin-page.php:461
+msgid "ClassicPress supports PHP versions <strong>%1$s</strong> and <strong>newer</strong>."
+msgstr ""
+
+#. translators: current PHP version
+#: lib/admin-page.php:467
+msgid "You are using PHP version <strong>%s</strong>."
+msgstr ""
+
+#: lib/admin-page.php:485
+msgid "ClassicPress only supports communicating with the ClassicPress.net API over SSL."
+msgstr ""
+
+#: lib/admin-page.php:491
+msgid "This site supports making outgoing connections securely using SSL."
+msgstr ""
+
+#: lib/admin-page.php:496
+msgid "This site <strong class=\"cp-emphasis\">does not</strong> support making outgoing connections securely using SSL."
+msgstr ""
+
+#: lib/admin-page.php:516
+msgid "No conflicting files were found."
+msgstr ""
+
+#: lib/admin-page.php:521
+msgid "Conflicting files detected. These are files that would be <strong class=\"cp-emphasis\">unexpectedly overwritten</strong> during migration."
+msgstr ""
+
+#: lib/admin-page.php:526
+msgid "If you have JavaScript enabled, you can see a list of conflicting files <strong>in your browser console</strong>."
+msgstr ""
+
+#: lib/admin-page.php:546
+msgid "Your WordPress core files will be overwritten."
+msgstr ""
+
+#: lib/admin-page.php:552
+msgid "<strong class=\"cp-emphasis\">Unable to determine whether core files were modified</strong>."
+msgstr ""
+
+#: lib/admin-page.php:557
+msgid "This is most likely because you are running a development version of WordPress."
+msgstr ""
+
+#: lib/admin-page.php:562
+msgid "You have not modified any core files."
+msgstr ""
+
+#: lib/admin-page.php:568
+msgid "Modified core files detected. These customisations will be lost."
+msgstr ""
+
+#: lib/admin-page.php:573
+msgid "If you have JavaScript enabled, you can see a list of modified files <strong>in your browser console</strong>."
+msgstr ""
+
+#: lib/admin-page.php:590
+msgid "Multisite installation detected."
+msgstr ""
+
+#: lib/admin-page.php:595
+msgid "Migrating to ClassicPress is supported, but it is <strong class=\"cp-emphasis\">very important</strong> that you perform a backup first."
+msgstr ""
+
+#: lib/admin-page.php:600
+msgid "It would also be a good idea to try the migration on a development or staging site first."
+msgstr ""
+
+#: lib/admin-page.php:635
+msgid "It looks like you're ready to switch to ClassicPress!"
+msgstr ""
+
+#: lib/admin-page.php:638
+msgid "First things first, just in case something does not go as planned, <strong class=\"cp-emphasis\">please make a backup of your site files and database</strong>."
+msgstr ""
+
+#: lib/admin-page.php:641
+msgid "After clicking the button below, the migration process will start."
+msgstr ""
+
+#: lib/admin-page.php:668
+msgid "More Details"
+msgstr ""
+
+#: lib/admin-page.php:671
+msgid "All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while."
+msgstr ""
+
+#: lib/admin-page.php:674
+msgid "We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that."
+msgstr ""
+
+#: lib/admin-page.php:677
+msgid "Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project."
+msgstr ""
+
+#: lib/admin-page.php:680
+msgid "We thank you for switching from WordPress to ClassicPress!<br>The business-focused CMS. Powerful. Versatile. Predictable."
+msgstr ""
+
+#: lib/admin-page.php:697
+msgid "Sorry, we can't switch this site to ClassicPress at this time."
+msgstr ""
+
+#: lib/admin-page.php:704
+msgid "If you're not sure how to fix the issues above, contact your hosting provider for help."
+msgstr ""
+
+#: lib/admin-page.php:729
+msgid "Show advanced controls"
+msgstr ""
+
+#: lib/admin-page.php:744
+msgid "Switch to any version of ClassicPress or WordPress"
+msgstr ""
+
+#: lib/admin-page.php:753
+msgid "Warning 1:"
+msgstr ""
+
+#: lib/admin-page.php:760
+msgid "Use this form to switch to other versions of WordPress, or ClassicPress <strong class=\"cp-emphasis\">migration builds</strong>!"
+msgstr ""
+
+#: lib/admin-page.php:766
+msgid "Official release builds of ClassicPress <strong class=\"cp-emphasis\">will not work</strong>."
+msgstr ""
+
+#. translators: link to ClassicPress migration builds
+#: lib/admin-page.php:773
+msgid "You can find ClassicPress migration builds <a href=\"%s\">on GitHub</a>."
+msgstr ""
+
+#: lib/admin-page.php:787
+msgid "Warning 2:"
+msgstr ""
+
+#: lib/admin-page.php:789
+msgid "Warning:"
+msgstr ""
+
+#: lib/admin-page.php:794
+msgid "As long as the regular requirements for your target version are met, like the preflight checks for ClassicPress, then we haven't been able to break this yet. However, that doesn't mean it works under all circumstances!"
+msgstr ""
+
+#: lib/admin-page.php:800
+msgid "Please, definitely <strong class=\"cp-emphasis\">take a backup of your site</strong> before using this feature."
+msgstr ""
+
+#: lib/admin-page.php:810
+msgid "Build URL:"
+msgstr ""
+
+#: lib/update.php:25
+msgid "Migrating WordPress to ClassicPress"
+msgstr ""
+
+#: lib/update.php:33
+msgid "WordPress successfully migrated to ClassicPress!"
+msgstr ""
+
+#. translators: 1: omitted; 2: link to about.php (About ClassicPress screen)
+#: lib/update.php:42
+msgid "Welcome to ClassicPress! You will be redirected to the About ClassicPress screen. If not, click <a href=\"%2$s\">here</a>."
+msgstr ""
+
+#. translators: 1: omitted; 2: link to about.php (About ClassicPress screen)
+#: lib/update.php:49
+msgid "Welcome to ClassicPress! <a href=\"%2$s\">Learn more</a>."
+msgstr ""
+
+#: switch-to-classicpress.php:93
+msgid "The \"Switch to ClassicPress\" plugin must be <strong>network activated</strong> on multisite installations."
+msgstr ""
+
+#: switch-to-classicpress.php:98
+msgid "If you need help with this, please contact your site administrator."
+msgstr ""
+
+#: switch-to-classicpress.php:140
+msgid "Switch"
+msgstr ""
+
+#: switch-to-classicpress.php:207
+msgid "Could not communicate with the ClassicPress API server"
+msgstr ""
