@@ -10,6 +10,7 @@ mkdir switch-to-classicpress/
 
 cp -var \
 	LICENSE \
+	languages/ \
 	lib/ \
 	README.md \
 	switch-to-classicpress.php \
