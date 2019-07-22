@@ -40,12 +40,14 @@ function classicpress_override_strings( $translation, $text, $domain ) {
 
 		case 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.':
 			return __(
+				/* translators: 1: omitted; 2: link to about.php (About ClassicPress screen) */
 				'Welcome to ClassicPress! You will be redirected to the About ClassicPress screen. If not, click <a href="%2$s">here</a>.',
 				'switch-to-classicpress'
 			);
 
 		case 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.':
 			return __(
+				/* translators: 1: omitted; 2: link to about.php (About ClassicPress screen) */
 				'Welcome to ClassicPress! <a href="%2$s">Learn more</a>.',
 				'switch-to-classicpress'
 			);
