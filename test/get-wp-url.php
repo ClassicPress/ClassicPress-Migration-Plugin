@@ -7,10 +7,14 @@ if ( empty( $lando_info ) || empty( $argv[1] ) ) {
 }
 $match = $argv[1];
 
-foreach ( $lando_info['appserver']['urls'] as $url ) {
-	if ( strstr( $url, $match ) !== false ) {
-		print "$url\n";
-		exit( 0 );
+foreach ( $lando_info as $service ) {
+	if ( $service['service'] === 'appserver' ) {
+		foreach ( $service['urls'] as $url ) {
+			if ( strstr( $url, $match ) !== false ) {
+				print "$url\n";
+				exit( 0 );
+			}
+		}
 	}
 }
 
