@@ -44,7 +44,7 @@ config_set --raw WP_AUTO_UPDATE_CORE false
 config_set --raw WP_DEBUG true
 
 if [ "$WP_MULTISITE" = true ]; then
-    wp_url=$(lando info | php test/get-wp-url.php 'http://one.lndo.site')
+    wp_url=$(lando info --format=json | php test/get-wp-url.php 'http://one.lndo.site')
 
     lando wp core multisite-install \
         --path=test/site/ \
@@ -88,7 +88,7 @@ if [ "$WP_MULTISITE" = true ]; then
     cp -va test/htaccess-multisite.conf test/site/.htaccess
 
 else # single site install
-    wp_url=$(lando info | php test/get-wp-url.php 'http://test.lndo.site')
+    wp_url=$(lando info --format=json | php test/get-wp-url.php 'http://test.lndo.site')
 
     lando wp core install \
         --path=test/site/ \
