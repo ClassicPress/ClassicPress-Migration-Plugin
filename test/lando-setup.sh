@@ -74,16 +74,16 @@ if [ "$WP_MULTISITE" = true ]; then
     site_two_url=${wp_url/one/two}
     site_two_domain=${site_two_url#http://}
     site_two_domain=${site_two_domain%/}
-    lando wp db query --path=test/site/ '"
+    lando wp db query --path=test/site/ "
         update wp_blogs
-        set domain = '\'$site_two_domain\''
+        set domain = '$site_two_domain'
         where blog_id = '$site_two_id'
-    "'
-    lando wp db query --path=test/site/ '"
-        update wp_'$site_two_id'_options
-        set option_value = '\'$site_two_url\''
-        where option_name in ('\'siteurl\'', '\'home\'')
-    "'
+    "
+    lando wp db query --path=test/site/ "
+        update wp_${site_two_id}_options
+        set option_value = '$site_two_url'
+        where option_name in ('siteurl', 'home')
+    "
 
     cp -va test/htaccess-multisite.conf test/site/.htaccess
 
