@@ -50,23 +50,23 @@ if [ "$WP_MULTISITE" = true ]; then
         --path=test/site/ \
         --subdomains \
         --url="$wp_url" \
-        '--title="My Test Site One"' \
+        --title="My Test Site One" \
         --admin_user="admin" \
         --admin_password="admin" \
         --admin_email="admin@example.com" \
         --skip-email
 
     # https://wordpress.stackexchange.com/a/299114/64369
-    config_set ADMIN_COOKIE_PATH '/'
-    config_set COOKIE_DOMAIN "''"
-    config_set COOKIEPATH "''"
-    config_set SITECOOKIEPATH "''"
+    config_set ADMIN_COOKIE_PATH /
+    config_set COOKIE_DOMAIN ''
+    config_set COOKIEPATH ''
+    config_set SITECOOKIEPATH ''
 
     site_two_id=$(
         lando wp site create \
             --path=test/site/ \
             --slug=two \
-            '--title="My Test Site Two"' \
+            --title="My Test Site Two" \
             --porcelain \
         | tr -cd '[0-9]'
     )
@@ -93,7 +93,7 @@ else # single site install
     lando wp core install \
         --path=test/site/ \
         --url="$wp_url" \
-        '--title="My Test Site"' \
+        --title="My Test Site" \
         --admin_user="admin" \
         --admin_password="admin" \
         --admin_email="admin@example.com" \
