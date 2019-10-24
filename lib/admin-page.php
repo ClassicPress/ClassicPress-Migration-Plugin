@@ -411,6 +411,7 @@ function classicpress_check_can_migrate() {
 				'<strong class="cp-emphasis">Proceed at your own risk!</strong>',
 				'switch-to-classicpress'
 			);
+			echo "<br>\n";
 		} else {
 			$preflight_checks['wp_version'] = false;
 			echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
