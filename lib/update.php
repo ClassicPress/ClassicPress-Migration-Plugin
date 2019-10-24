@@ -83,10 +83,7 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 		return $preempt;
 	}
 
-	if (
-		! isset( $_GET['_migrate'] ) ||
-		! in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
-	) {
+	if ( ! classicpress_is_migration_request() ) {
 		// Not a request we're interested in; do not override.
 		return $preempt;
 	}
