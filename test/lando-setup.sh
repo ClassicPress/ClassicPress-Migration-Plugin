@@ -17,7 +17,7 @@ cd ..
 perl -pi -we "s/^  php: .*/  php: '$PHP_VERSION'/" .lando.yml
 
 lando start -v
-lando wp --version || lando bash test/install-wp-cli.sh
+lando wp --version || lando bash --verbose test/install-wp-cli.sh
 
 rm -rf test/site/[a-z.]*
 
