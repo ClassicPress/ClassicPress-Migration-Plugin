@@ -2,6 +2,8 @@
 
 # exit on error
 set -e
+# show commands as they are executed
+set -x
 
 WP_MULTISITE="${WP_MULTISITE:-false}"
 WP_VERSION="${WP_VERSION:-4.9.7}"
