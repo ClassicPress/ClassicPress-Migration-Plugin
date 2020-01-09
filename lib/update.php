@@ -241,8 +241,7 @@ function classicpress_override_upgrade_page() {
 		! is_array( $preflight_checks ) ||
 		empty( $preflight_checks['wp_version'] ) ||
 		empty( $preflight_checks['php_version'] ) ||
-		empty( $preflight_checks['wp_http_supports_ssl'] ) ||
-		empty( $preflight_checks['conflicting_files'] )
+		empty( $preflight_checks['wp_http_supports_ssl'] )
 	) {
 		return;
 	}
