@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: bionic
 
 # this section doesn't matter because services are managed using lando
 language: php
