@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -x
 
 # This is a workaround for the following issue:
 # https://github.com/lando/lando/issues/1197#issuecomment-429733044
