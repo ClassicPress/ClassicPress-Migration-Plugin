@@ -83,10 +83,7 @@ function classicpress_override_wp_update_api( $preempt, $r, $url ) {
 		return $preempt;
 	}
 
-	if (
-		! isset( $_GET['_migrate'] ) ||
-		! in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
-	) {
+	if ( ! classicpress_is_migration_request() ) {
 		// Not a request we're interested in; do not override.
 		return $preempt;
 	}
@@ -194,17 +191,26 @@ function classicpress_override_wp_checksums_api( $preempt, $r, $url ) {
 }
 
 /**
+ * Determine whether the current request looks like a migration.
+ *
+ * @since 1.1.1
+ */
+function classicpress_is_migration_request() {
+	return (
+		isset( $_GET['action'] ) &&
+		$_GET['action'] === 'do-core-upgrade' &&
+		isset( $_GET['_migrate'] ) &&
+		in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
+	);
+}
+
+/**
  * Hook into the core upgrade page to do our magic.
  *
  * @since 0.1.0
  */
 function classicpress_override_upgrade_page() {
-	if (
-		! isset( $_GET['action'] ) ||
-		$_GET['action'] !== 'do-core-upgrade' ||
-		! isset( $_GET['_migrate'] ) ||
-		! in_array( $_GET['_migrate'], array( 'classicpress', '_custom' ), true )
-	) {
+	if ( ! classicpress_is_migration_request() ) {
 		// Definitely not a page load we're interested in.
 		return;
 	}
@@ -279,3 +285,35 @@ function classicpress_override_upgrade_page() {
 	// wp-admin/update-core.php (see `do_core_upgrade()`).
 }
 add_action( 'admin_head-update-core.php', 'classicpress_override_upgrade_page' );
+
+/**
+ * Disable invalid upgrade notices after a custom migration:
+ *
+ * "WordPress _custom_migration is available! Please update now."
+ *
+ * @since 1.1.1
+ */
+function classicpress_disable_invalid_upgrade_notices() {
+	// Bail if currently doing a migration.
+	if ( classicpress_is_migration_request() ) {
+		return;
+	}
+
+	// Otherwise, see if update data is still stored from a custom migration.
+	$core = get_site_transient( 'update_core' );
+	if (
+		is_object( $core ) &&
+		! empty( $core->updates ) &&
+		is_array( $core->updates ) &&
+		is_object( $core->updates[0] ) &&
+		! empty( $core->updates[0]->version ) &&
+		$core->updates[0]->version === '_custom_migration'
+	) {
+		// Delete the expired update data, in case `wp_version_check()` fails.
+		delete_site_transient( 'update_core' );
+		// Force refreshing the expired update data.
+		wp_version_check( array(), true );
+	}
+}
+add_action( 'admin_head-about.php', 'classicpress_disable_invalid_upgrade_notices' );
+add_action( 'admin_head-update-core.php', 'classicpress_disable_invalid_upgrade_notices' );
