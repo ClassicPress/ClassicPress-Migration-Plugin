@@ -265,6 +265,9 @@ function classicpress_override_upgrade_page() {
 	global $wp_version;
 	update_option( 'classicpress_restore_wp_version', $wp_version, false );
 
+	// Save a flag indicating that we've just done a migration.
+	set_site_transient( 'classicpress_migrated', true, 5 * 60 );
+
 	// Add our hooks into the upgrade process.
 	add_filter( 'gettext', 'classicpress_override_strings', 10, 3 );
 	add_filter( 'pre_http_request', 'classicpress_override_wp_update_api', 10, 3 );
@@ -305,6 +308,12 @@ function classicpress_clear_stale_data() {
 		return;
 	}
 
+	// Bail if we have not recently done a migration.
+	// Save a flag indicating that we've just done a migration.
+	if ( ! get_site_transient( 'classicpress_migrated' ) ) {
+		return;
+	}
+
 	// See if update data is still stored from a custom migration.
 	$core = get_site_transient( 'update_core' );
 	if (
@@ -331,6 +340,9 @@ function classicpress_clear_stale_data() {
 		"DELETE FROM {$wpdb->options}
 		WHERE option_name LIKE '!_transient!_timeout!_dash!_v2!_%' ESCAPE '!'"
 	);
+
+	// Remove the flag indicating that a migration was recently performed.
+	delete_site_transient( 'classicpress_migrated' );
 }
 add_action( 'admin_head-about.php', 'classicpress_clear_stale_data' );
 add_action( 'admin_head-update-core.php', 'classicpress_clear_stale_data' );
