@@ -289,19 +289,23 @@ function classicpress_override_upgrade_page() {
 add_action( 'admin_head-update-core.php', 'classicpress_override_upgrade_page' );
 
 /**
- * Disable invalid upgrade notices after a custom migration:
+ * Clear stale data after migration:
  *
- * "WordPress _custom_migration is available! Please update now."
+ *  - Invalid upgrade notices stating "WordPress _custom_migration is
+ *    available! Please update now" after a custom migration
+ *  - WordPress news showing up in the ClassicPress news dashboard widget
  *
  * @since 1.2.0
  */
-function classicpress_disable_invalid_upgrade_notices() {
+function classicpress_clear_stale_data() {
+	global $wpdb;
+
 	// Bail if currently doing a migration.
 	if ( classicpress_is_migration_request() ) {
 		return;
 	}
 
-	// Otherwise, see if update data is still stored from a custom migration.
+	// See if update data is still stored from a custom migration.
 	$core = get_site_transient( 'update_core' );
 	if (
 		is_object( $core ) &&
@@ -316,6 +320,17 @@ function classicpress_disable_invalid_upgrade_notices() {
 		// Force refreshing the expired update data.
 		wp_version_check( array(), true );
 	}
+
+	// Delete any cached data from the dashboard RSS widgets.
+	// NOTE - for multisite installs this will apply to the current site only!
+	$wpdb->query(
+		"DELETE FROM {$wpdb->options}
+		WHERE option_name LIKE '!_transient!_dash!_v2!_%' ESCAPE '!'"
+	);
+	$wpdb->query(
+		"DELETE FROM {$wpdb->options}
+		WHERE option_name LIKE '!_transient!_timeout!_dash!_v2!_%' ESCAPE '!'"
+	);
 }
-add_action( 'admin_head-about.php', 'classicpress_disable_invalid_upgrade_notices' );
-add_action( 'admin_head-update-core.php', 'classicpress_disable_invalid_upgrade_notices' );
+add_action( 'admin_head-about.php', 'classicpress_clear_stale_data' );
+add_action( 'admin_head-update-core.php', 'classicpress_clear_stale_data' );
