@@ -236,6 +236,9 @@ function classicpress_override_upgrade_page() {
 		// override with our own data.
 		wp_version_check( array(), true );
 
+		// Save a flag indicating that we've just done a migration.
+		set_site_transient( 'classicpress_migrated', true, 5 * 60 );
+
 		// Finished overriding the upgrade, now let it proceed in
 		// wp-admin/update-core.php (see `do_core_upgrade`).
 		return;
