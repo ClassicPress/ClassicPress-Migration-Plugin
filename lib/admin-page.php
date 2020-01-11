@@ -817,7 +817,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
 			<?php esc_html_e(
 				'Do the custom migration now!',
-				'migrate-to-classicpress'
+				'switch-to-classicpress'
 			); ?>
 		</button>
 	</form>
