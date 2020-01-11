@@ -195,7 +195,7 @@ function classicpress_override_wp_checksums_api( $preempt, $r, $url ) {
 /**
  * Determine whether the current request looks like a migration.
  *
- * @since 1.1.1
+ * @since 1.2.0
  */
 function classicpress_is_migration_request() {
 	return (
@@ -293,7 +293,7 @@ add_action( 'admin_head-update-core.php', 'classicpress_override_upgrade_page' )
  *
  * "WordPress _custom_migration is available! Please update now."
  *
- * @since 1.1.1
+ * @since 1.2.0
  */
 function classicpress_disable_invalid_upgrade_notices() {
 	// Bail if currently doing a migration.
