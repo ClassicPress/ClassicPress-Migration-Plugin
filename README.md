@@ -162,3 +162,10 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Load the supported WordPress version and the target ClassicPress version from
   a remote API endpoint, so that a new release of the migration plugin is not
   required with every new WordPress or ClassicPress release.
+
+### 1.1.0
+
+- Change pre-existing `composer.json` from an error to a warning
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/61))
+- Minor fix for disorganized/jumbled output in some cases
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/59#issuecomment-495459514))
