@@ -1,16 +1,16 @@
-# Copyright (C) 2019 ClassicPress
+# Copyright (C) 2020 ClassicPress
 # This file is distributed under the same license as the Switch to ClassicPress plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Switch to ClassicPress 1.0.1\n"
-"Report-Msgid-Bugs-To: https://forums.classicpress.net/c/support/migration-plugin\n"
+"Project-Id-Version: Switch to ClassicPress 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ClassicPress-Migration-Plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-22T20:28:37+03:00\n"
-"PO-Revision-Date: 2019-07-22T22:08:37+03:00\n"
+"POT-Creation-Date: 2020-01-13T16:22:26+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: switch-to-classicpress\n"
 
@@ -100,174 +100,182 @@ msgid "<strong class=\"cp-emphasis\">Proceed at your own risk!</strong>"
 msgstr ""
 
 #. translators: current WordPress version
-#: lib/admin-page.php:430
+#: lib/admin-page.php:431
 msgid "You are running WordPress version <strong>%s</strong>."
 msgstr ""
 
-#: lib/admin-page.php:437
+#: lib/admin-page.php:438
 msgid "Migration is supported, but content edited in the new WordPress block editor may not be fully compatible with ClassicPress."
 msgstr ""
 
-#: lib/admin-page.php:442
+#: lib/admin-page.php:443
 msgid "After the migration, we recommend reviewing each recently edited post or page and restoring to an earlier revision if needed."
 msgstr ""
 
 #. translators: minimum supported PHP version
-#: lib/admin-page.php:461
+#: lib/admin-page.php:462
 msgid "ClassicPress supports PHP versions <strong>%1$s</strong> and <strong>newer</strong>."
 msgstr ""
 
 #. translators: current PHP version
-#: lib/admin-page.php:467
+#: lib/admin-page.php:468
 msgid "You are using PHP version <strong>%s</strong>."
 msgstr ""
 
-#: lib/admin-page.php:485
+#: lib/admin-page.php:486
 msgid "ClassicPress only supports communicating with the ClassicPress.net API over SSL."
 msgstr ""
 
-#: lib/admin-page.php:491
+#: lib/admin-page.php:492
 msgid "This site supports making outgoing connections securely using SSL."
 msgstr ""
 
-#: lib/admin-page.php:496
+#: lib/admin-page.php:497
 msgid "This site <strong class=\"cp-emphasis\">does not</strong> support making outgoing connections securely using SSL."
 msgstr ""
 
+#: lib/admin-page.php:511
+msgid "An existing <code>composer.json</code> file was detected on your site. This file will be <strong class=\"cp-emphasis\">overwritten</strong> during migration."
+msgstr ""
+
 #: lib/admin-page.php:516
-msgid "No conflicting files were found."
+msgid "If you have previously installed ClassicPress on this site, then you can ignore this warning."
 msgstr ""
 
 #: lib/admin-page.php:521
-msgid "Conflicting files detected. These are files that would be <strong class=\"cp-emphasis\">unexpectedly overwritten</strong> during migration."
+msgid "If you are using <code>composer.json</code> to manage dependencies for this site, then you should <strong class=\"cp-emphasis\">back up this file</strong> before continuing, and restore it after the migration."
 msgstr ""
 
-#: lib/admin-page.php:526
-msgid "If you have JavaScript enabled, you can see a list of conflicting files <strong>in your browser console</strong>."
-msgstr ""
-
-#: lib/admin-page.php:546
+#: lib/admin-page.php:537
 msgid "Your WordPress core files will be overwritten."
 msgstr ""
 
-#: lib/admin-page.php:552
+#: lib/admin-page.php:543
 msgid "<strong class=\"cp-emphasis\">Unable to determine whether core files were modified</strong>."
 msgstr ""
 
-#: lib/admin-page.php:557
+#: lib/admin-page.php:548
 msgid "This is most likely because you are running a development version of WordPress."
 msgstr ""
 
-#: lib/admin-page.php:562
+#: lib/admin-page.php:553
 msgid "You have not modified any core files."
 msgstr ""
 
-#: lib/admin-page.php:568
+#: lib/admin-page.php:559
 msgid "Modified core files detected. These customisations will be lost."
 msgstr ""
 
-#: lib/admin-page.php:573
+#: lib/admin-page.php:564
 msgid "If you have JavaScript enabled, you can see a list of modified files <strong>in your browser console</strong>."
 msgstr ""
 
-#: lib/admin-page.php:590
+#: lib/admin-page.php:581
 msgid "Multisite installation detected."
 msgstr ""
 
-#: lib/admin-page.php:595
+#: lib/admin-page.php:586
 msgid "Migrating to ClassicPress is supported, but it is <strong class=\"cp-emphasis\">very important</strong> that you perform a backup first."
 msgstr ""
 
-#: lib/admin-page.php:600
+#: lib/admin-page.php:591
 msgid "It would also be a good idea to try the migration on a development or staging site first."
 msgstr ""
 
-#: lib/admin-page.php:635
+#: lib/admin-page.php:625
 msgid "It looks like you're ready to switch to ClassicPress!"
 msgstr ""
 
-#: lib/admin-page.php:638
+#: lib/admin-page.php:628
 msgid "First things first, just in case something does not go as planned, <strong class=\"cp-emphasis\">please make a backup of your site files and database</strong>."
 msgstr ""
 
-#: lib/admin-page.php:641
+#: lib/admin-page.php:631
 msgid "After clicking the button below, the migration process will start."
 msgstr ""
 
-#: lib/admin-page.php:668
+#: lib/admin-page.php:644
+msgid "Switch this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!"
+msgstr ""
+
+#: lib/admin-page.php:649
+msgid "Switch this site to ClassicPress <strong>now</strong>!"
+msgstr ""
+
+#: lib/admin-page.php:658
 msgid "More Details"
 msgstr ""
 
-#: lib/admin-page.php:671
+#: lib/admin-page.php:661
 msgid "All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while."
 msgstr ""
 
-#: lib/admin-page.php:674
+#: lib/admin-page.php:664
 msgid "We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that."
 msgstr ""
 
-#: lib/admin-page.php:677
+#: lib/admin-page.php:667
 msgid "Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project."
 msgstr ""
 
-#: lib/admin-page.php:680
+#: lib/admin-page.php:670
 msgid "We thank you for switching from WordPress to ClassicPress!<br>The business-focused CMS. Powerful. Versatile. Predictable."
 msgstr ""
 
-#: lib/admin-page.php:697
+#: lib/admin-page.php:687
 msgid "Sorry, we can't switch this site to ClassicPress at this time."
 msgstr ""
 
-#: lib/admin-page.php:704
+#: lib/admin-page.php:694
 msgid "If you're not sure how to fix the issues above, contact your hosting provider for help."
 msgstr ""
 
-#: lib/admin-page.php:729
+#: lib/admin-page.php:719
 msgid "Show advanced controls"
 msgstr ""
 
-#: lib/admin-page.php:744
+#: lib/admin-page.php:734
 msgid "Switch to any version of ClassicPress or WordPress"
 msgstr ""
 
-#: lib/admin-page.php:753
+#: lib/admin-page.php:743
 msgid "Warning 1:"
 msgstr ""
 
-#: lib/admin-page.php:760
+#: lib/admin-page.php:750
 msgid "Use this form to switch to other versions of WordPress, or ClassicPress <strong class=\"cp-emphasis\">migration builds</strong>!"
 msgstr ""
 
-#: lib/admin-page.php:766
+#: lib/admin-page.php:756
 msgid "Official release builds of ClassicPress <strong class=\"cp-emphasis\">will not work</strong>."
 msgstr ""
 
 #. translators: link to ClassicPress migration builds
-#: lib/admin-page.php:773
+#: lib/admin-page.php:763
 msgid "You can find ClassicPress migration builds <a href=\"%s\">on GitHub</a>."
 msgstr ""
 
-#: lib/admin-page.php:787
+#: lib/admin-page.php:777
 msgid "Warning 2:"
 msgstr ""
 
-#: lib/admin-page.php:789
+#: lib/admin-page.php:779
 msgid "Warning:"
 msgstr ""
 
-#: lib/admin-page.php:794
+#: lib/admin-page.php:784
 msgid "As long as the regular requirements for your target version are met, like the preflight checks for ClassicPress, then we haven't been able to break this yet. However, that doesn't mean it works under all circumstances!"
 msgstr ""
 
-#: lib/admin-page.php:800
+#: lib/admin-page.php:790
 msgid "Please, definitely <strong class=\"cp-emphasis\">take a backup of your site</strong> before using this feature."
 msgstr ""
 
-#: lib/admin-page.php:810
+#: lib/admin-page.php:800
 msgid "Build URL:"
 msgstr ""
 
-#: lib/admin-page.php:828
+#: lib/admin-page.php:818
 msgid "Do the custom migration now!"
 msgstr ""
 

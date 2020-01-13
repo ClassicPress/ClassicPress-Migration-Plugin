@@ -643,12 +643,12 @@ function classicpress_show_migration_controls() {
 	if ( is_multisite() ) {
 		_e(
 			'Switch this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!',
-			'migrate-to-classicpress'
+			'switch-to-classicpress'
 		);
 	} else {
 		_e(
 			'Switch this site to ClassicPress <strong>now</strong>!',
-			'migrate-to-classicpress'
+			'switch-to-classicpress'
 		);
 	}
 ?>
