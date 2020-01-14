@@ -169,3 +169,14 @@ supports migrating multisite WordPress installations to ClassicPress.
   ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/61))
 - Minor fix for disorganized/jumbled output in some cases
   ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/59#issuecomment-495459514))
+
+### 1.2.0
+
+- Add translation files and translate the plugin into Russian
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/pull/60))
+- Fix an issue with incorrect upgrade notices appearing immediately after a
+  custom migration
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/62))
+- Fix an issue with stale WordPress news items appearing in the dashboard after
+  migrating to ClassicPress
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/67))
