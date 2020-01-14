@@ -3,17 +3,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Switch to ClassicPress 1.0.1\n"
-"Report-Msgid-Bugs-To: https://forums.classicpress.net/c/support/migration-"
-"plugin\n"
-"POT-Creation-Date: 2019-07-22T20:28:37+03:00\n"
-"PO-Revision-Date: 2019-07-22 22:38+03:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ClassicPress-"
+"Migration-Plugin\n"
+"POT-Creation-Date: 2020-01-13T16:22:26+03:00\n"
+"PO-Revision-Date: 2020-01-13 16:55+0300\n"
 "Last-Translator: Ilya Ivanov <czweerwolf@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Domain: switch-to-classicpress\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: lib/admin-page.php:154 lib/admin-page.php:155 lib/admin-page.php:170
 #: lib/admin-page.php:171 lib/admin-page.php:192
 msgid "Switch to ClassicPress"
-msgstr "Переход на ClassicPress"
+msgstr "Перейти на ClassicPress"
 
 #. Plugin URI of the plugin
 msgid "https://github.com/ClassicPress/ClassicPress-Migration-Plugin"
@@ -30,7 +30,7 @@ msgstr "https://github.com/ClassicPress/ClassicPress-Migration-Plugin"
 
 #. Description of the plugin
 msgid "Switch your WordPress installation to ClassicPress."
-msgstr "Смените свою инсталляцию WordPress на ClassicPress."
+msgstr "Перейдите со своей инсталляции WordPress на ClassicPress."
 
 #. Author of the plugin
 msgid "ClassicPress"
@@ -134,11 +134,11 @@ msgstr ""
 "<strong class=\"cp-emphasis\">Продолжайте на свой страх и риск!</strong>"
 
 #. translators: current WordPress version
-#: lib/admin-page.php:430
+#: lib/admin-page.php:431
 msgid "You are running WordPress version <strong>%s</strong>."
 msgstr "Вы используете WordPress в версии <strong>%s</strong>."
 
-#: lib/admin-page.php:437
+#: lib/admin-page.php:438
 msgid ""
 "Migration is supported, but content edited in the new WordPress block editor "
 "may not be fully compatible with ClassicPress."
@@ -146,7 +146,7 @@ msgstr ""
 "Миграция поддерживается, но контент, который редактировался в новом блочном "
 "редакторе WordPress, может не оказаться полностью совместимым с ClassicPress."
 
-#: lib/admin-page.php:442
+#: lib/admin-page.php:443
 msgid ""
 "After the migration, we recommend reviewing each recently edited post or "
 "page and restoring to an earlier revision if needed."
@@ -155,7 +155,7 @@ msgstr ""
 "страницы и при необходимости восстановить более ранние ревизии."
 
 #. translators: minimum supported PHP version
-#: lib/admin-page.php:461
+#: lib/admin-page.php:462
 msgid ""
 "ClassicPress supports PHP versions <strong>%1$s</strong> and <strong>newer</"
 "strong>."
@@ -164,11 +164,11 @@ msgstr ""
 "strong>."
 
 #. translators: current PHP version
-#: lib/admin-page.php:467
+#: lib/admin-page.php:468
 msgid "You are using PHP version <strong>%s</strong>."
 msgstr "Вы используете PHP версии <strong>%s</strong>."
 
-#: lib/admin-page.php:485
+#: lib/admin-page.php:486
 msgid ""
 "ClassicPress only supports communicating with the ClassicPress.net API over "
 "SSL."
@@ -176,12 +176,12 @@ msgstr ""
 "ClassicPress поддерживает взаимодействие с ClassicPress.net API только через "
 "SSL."
 
-#: lib/admin-page.php:491
+#: lib/admin-page.php:492
 msgid "This site supports making outgoing connections securely using SSL."
 msgstr ""
 "Этот сайт поддерживает безопасные исходящие соединения посредством SSL."
 
-#: lib/admin-page.php:496
+#: lib/admin-page.php:497
 msgid ""
 "This site <strong class=\"cp-emphasis\">does not</strong> support making "
 "outgoing connections securely using SSL."
@@ -189,31 +189,39 @@ msgstr ""
 "Этот сайт <strong class=\"cp-emphasis\">не</strong> поддерживает безопасные "
 "исходящие соединения посредством SSL."
 
+#: lib/admin-page.php:511
+msgid ""
+"An existing <code>composer.json</code> file was detected on your site. This "
+"file will be <strong class=\"cp-emphasis\">overwritten</strong> during "
+"migration."
+msgstr ""
+"На вашем сайте обнаружен существующий файл <code>composer.json</code>. Он "
+"будет <strong class=\"cp-emphasis\">перезаписан</strong> во время миграции."
+
 #: lib/admin-page.php:516
-msgid "No conflicting files were found."
-msgstr "Конфликтующие файлы не обнаружены."
+msgid ""
+"If you have previously installed ClassicPress on this site, then you can "
+"ignore this warning."
+msgstr ""
+"Если ранее вы уже установили ClassicPress на этом сайте, то можете "
+"проигнорировать это предупреждение."
 
 #: lib/admin-page.php:521
 msgid ""
-"Conflicting files detected. These are files that would be <strong class=\"cp-"
-"emphasis\">unexpectedly overwritten</strong> during migration."
+"If you are using <code>composer.json</code> to manage dependencies for this "
+"site, then you should <strong class=\"cp-emphasis\">back up this file</"
+"strong> before continuing, and restore it after the migration."
 msgstr ""
-"Обнаружены конфликтующие файлы. Это файлы, которые будут <strong class=\"cp-"
-"emphasis\">непредвиденно перезаписаны</strong> во время миграции."
+"Если вы используете <code>composer.json</code> для управления зависимостями "
+"этого сайта, то перед тем как продолжить, вам нужно <strong class=\"cp-"
+"emphasis\">сделать резервную копию этого файла</strong>, а затем "
+"восстановить его после миграции."
 
-#: lib/admin-page.php:526
-msgid ""
-"If you have JavaScript enabled, you can see a list of conflicting files "
-"<strong>in your browser console</strong>."
-msgstr ""
-"Если у вас включен JavaScript, вы можете увидеть список конфликтующих файлов "
-"<strong>в консоли вашего браузера</strong>."
-
-#: lib/admin-page.php:546
+#: lib/admin-page.php:537
 msgid "Your WordPress core files will be overwritten."
 msgstr "Файлы ядра WordPress будут перезаписаны."
 
-#: lib/admin-page.php:552
+#: lib/admin-page.php:543
 msgid ""
 "<strong class=\"cp-emphasis\">Unable to determine whether core files were "
 "modified</strong>."
@@ -221,7 +229,7 @@ msgstr ""
 "<strong class=\"cp-emphasis\">Невозможно определить, были ли изменены файлы "
 "ядра.</strong>."
 
-#: lib/admin-page.php:557
+#: lib/admin-page.php:548
 msgid ""
 "This is most likely because you are running a development version of "
 "WordPress."
@@ -229,17 +237,17 @@ msgstr ""
 "Скорее всего, это из-за того, что вы используете девелоперскую версию "
 "WordPress."
 
-#: lib/admin-page.php:562
+#: lib/admin-page.php:553
 msgid "You have not modified any core files."
 msgstr "Вы не модифицировали никакие файлы ядра."
 
-#: lib/admin-page.php:568
+#: lib/admin-page.php:559
 msgid "Modified core files detected. These customisations will be lost."
 msgstr ""
 "Обнаружены изменённые файлы ядра. Эти нестандартные модификации будут "
 "потеряны."
 
-#: lib/admin-page.php:573
+#: lib/admin-page.php:564
 msgid ""
 "If you have JavaScript enabled, you can see a list of modified files "
 "<strong>in your browser console</strong>."
@@ -247,11 +255,11 @@ msgstr ""
 "Если у вас включен JavaScript, вы можете увидеть список изменённых файлов "
 "<strong>в консоли вашего браузера</strong>."
 
-#: lib/admin-page.php:590
+#: lib/admin-page.php:581
 msgid "Multisite installation detected."
 msgstr "Обнаружена мультисайтовая установка."
 
-#: lib/admin-page.php:595
+#: lib/admin-page.php:586
 msgid ""
 "Migrating to ClassicPress is supported, but it is <strong class=\"cp-emphasis"
 "\">very important</strong> that you perform a backup first."
@@ -259,18 +267,18 @@ msgstr ""
 "Переход на ClassicPress поддерживается, но <strong class=\"cp-emphasis"
 "\">очень важно</strong>, чтобы вы сначала сделали резервную копию."
 
-#: lib/admin-page.php:600
+#: lib/admin-page.php:591
 msgid ""
 "It would also be a good idea to try the migration on a development or "
 "staging site first."
 msgstr ""
 "Хорошей идеей также будет сначала опробовать миграцию на стендовом сайте."
 
-#: lib/admin-page.php:635
+#: lib/admin-page.php:625
 msgid "It looks like you're ready to switch to ClassicPress!"
 msgstr "Похоже, вы готовы к переходу на ClassicPress!"
 
-#: lib/admin-page.php:638
+#: lib/admin-page.php:628
 msgid ""
 "First things first, just in case something does not go as planned, <strong "
 "class=\"cp-emphasis\">please make a backup of your site files and database</"
@@ -280,15 +288,27 @@ msgstr ""
 "\"cp-emphasis\">сделайте резервную копию файлов и базы данных вашего сайта, "
 "пожалуйста</strong>."
 
-#: lib/admin-page.php:641
+#: lib/admin-page.php:631
 msgid "After clicking the button below, the migration process will start."
 msgstr "После нажатия на кнопку ниже начнётся процесс миграции."
 
-#: lib/admin-page.php:668
+#: lib/admin-page.php:644
+msgid ""
+"Switch this <strong>entire multisite installation</strong> to ClassicPress "
+"<strong>now</strong>!"
+msgstr ""
+"Переключить <strong>установку всего этого мультисайта</strong> на "
+"ClassicPress <strong>сейчас</strong>!"
+
+#: lib/admin-page.php:649
+msgid "Switch this site to ClassicPress <strong>now</strong>!"
+msgstr "Переключить этот сайт на ClassicPress <strong>сейчас</strong>!"
+
+#: lib/admin-page.php:658
 msgid "More Details"
 msgstr "Больше подробностей"
 
-#: lib/admin-page.php:671
+#: lib/admin-page.php:661
 msgid ""
 "All core WordPress files will be replaced with their ClassicPress versions. "
 "Depending on the server this website is hosted on, this process can take a "
@@ -298,26 +318,26 @@ msgstr ""
 "процесс может занять некоторое время, в зависимости от сервера, на котором "
 "размещается этот сайт."
 
-#: lib/admin-page.php:674
+#: lib/admin-page.php:664
 msgid ""
 "We want to emphasise that <strong>all your own content (posts, pages, "
 "themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% "
 "safe</strong> as the migration process is not touching any of that."
 msgstr ""
 "Мы хотим подчеркнуть, что <strong>весь ваш контент (записи, страницы, темы, "
-"плагины, загрузки, файл wp-config.php, файл .htaccess file и т.п.) на 100% в "
-"безопасности</strong>, поскольку процесс миграции не затрагивает ничего из "
+"плагины, загрузки, файл wp-config.php, файл .htaccess file и т.п.) на 100 % "
+"в безопасности</strong>, поскольку процесс миграции не затрагивает ничего из "
 "перечисленного."
 
-#: lib/admin-page.php:677
+#: lib/admin-page.php:667
 msgid ""
 "Once the process has completed, you will see the about page of ClassicPress "
 "where you can read more information about the project."
 msgstr ""
-"Когда процесс завершится, вы увидите страницу о ClassicPress, из которой вы "
+"Когда процесс завершится, вы увидите страницу о ClassicPress, из которой "
 "сможете почерпнуть больше информации о проекте."
 
-#: lib/admin-page.php:680
+#: lib/admin-page.php:670
 msgid ""
 "We thank you for switching from WordPress to ClassicPress!<br>The business-"
 "focused CMS. Powerful. Versatile. Predictable."
@@ -325,11 +345,12 @@ msgstr ""
 "Мы благодарим вас за переход с WordPress на ClassicPress!<br> Бизнес-"
 "ориентированную CMS. Мощную. Универсальную. Предсказуемую."
 
-#: lib/admin-page.php:697
+#: lib/admin-page.php:687
 msgid "Sorry, we can't switch this site to ClassicPress at this time."
-msgstr "Извините, на этот раз мы не можем перевести этот сайт на ClassicPress."
+msgstr ""
+"Извините, в данный момент мы не можем переключить этот сайт на ClassicPress."
 
-#: lib/admin-page.php:704
+#: lib/admin-page.php:694
 msgid ""
 "If you're not sure how to fix the issues above, contact your hosting "
 "provider for help."
@@ -337,19 +358,19 @@ msgstr ""
 "Если вы не уверены в том, как исправить вышеуказанные ошибки, обратитесь за "
 "помощью к своему поставщику хостинга."
 
-#: lib/admin-page.php:729
+#: lib/admin-page.php:719
 msgid "Show advanced controls"
 msgstr "Показать расширенные настройки"
 
-#: lib/admin-page.php:744
+#: lib/admin-page.php:734
 msgid "Switch to any version of ClassicPress or WordPress"
 msgstr "Переход на любую версию ClassicPress или WordPress"
 
-#: lib/admin-page.php:753
+#: lib/admin-page.php:743
 msgid "Warning 1:"
 msgstr "Предупреждение 1:"
 
-#: lib/admin-page.php:760
+#: lib/admin-page.php:750
 msgid ""
 "Use this form to switch to other versions of WordPress, or ClassicPress "
 "<strong class=\"cp-emphasis\">migration builds</strong>!"
@@ -357,7 +378,7 @@ msgstr ""
 "Используйте эту форму, чтобы переключиться на другие версии WordPress или "
 "<strong class=\"cp-emphasis\">миграционные сборки</strong> ClassicPress!"
 
-#: lib/admin-page.php:766
+#: lib/admin-page.php:756
 msgid ""
 "Official release builds of ClassicPress <strong class=\"cp-emphasis\">will "
 "not work</strong>."
@@ -366,22 +387,22 @@ msgstr ""
 "будут работать</strong>."
 
 #. translators: link to ClassicPress migration builds
-#: lib/admin-page.php:773
+#: lib/admin-page.php:763
 msgid ""
 "You can find ClassicPress migration builds <a href=\"%s\">on GitHub</a>."
 msgstr ""
 "Вы можете найти миграционные сборки ClassicPress <a href=\"%s\">на GitHub</"
 "a>."
 
-#: lib/admin-page.php:787
+#: lib/admin-page.php:777
 msgid "Warning 2:"
 msgstr "Предупреждение 2:"
 
-#: lib/admin-page.php:789
+#: lib/admin-page.php:779
 msgid "Warning:"
 msgstr "Предупреждение:"
 
-#: lib/admin-page.php:794
+#: lib/admin-page.php:784
 msgid ""
 "As long as the regular requirements for your target version are met, like "
 "the preflight checks for ClassicPress, then we haven't been able to break "
@@ -392,7 +413,7 @@ msgstr ""
 "этому. Тем не менее, это вовсе не означает, что всё будет работать при любых "
 "обстоятельствах!"
 
-#: lib/admin-page.php:800
+#: lib/admin-page.php:790
 msgid ""
 "Please, definitely <strong class=\"cp-emphasis\">take a backup of your site</"
 "strong> before using this feature."
@@ -400,11 +421,11 @@ msgstr ""
 "Пожалуйста, обязательно <strong class=\"cp-emphasis\">сделайте резервную "
 "копию своего сайта</strong> перед использованием этого инструмента."
 
-#: lib/admin-page.php:810
+#: lib/admin-page.php:800
 msgid "Build URL:"
 msgstr "URL сборки:"
 
-#: lib/admin-page.php:828
+#: lib/admin-page.php:818
 msgid "Do the custom migration now!"
 msgstr "Выполнить произвольную миграцию!"
 
@@ -451,3 +472,13 @@ msgstr "Перейти"
 #: switch-to-classicpress.php:207
 msgid "Could not communicate with the ClassicPress API server"
 msgstr "Не удалось соединиться с сервером API ClassicPress"
+
+#~ msgid "No conflicting files were found."
+#~ msgstr "Конфликтующие файлы не обнаружены."
+
+#~ msgid ""
+#~ "If you have JavaScript enabled, you can see a list of conflicting files "
+#~ "<strong>in your browser console</strong>."
+#~ msgstr ""
+#~ "Если у вас включен JavaScript, вы можете увидеть список конфликтующих "
+#~ "файлов <strong>в консоли вашего браузера</strong>."
