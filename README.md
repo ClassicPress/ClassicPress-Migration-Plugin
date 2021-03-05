@@ -19,6 +19,13 @@ backup before switching a live production site to ClassicPress. Please also
 ensure any known conflicting plugins are **deactivated** (see list
 [here](https://docs.classicpress.net/installing-classicpress/#plugin-conflicts)).
 
+## What version of WordPress does the plugin work with?
+
+As of version 1.2.0, the plugin has been confirmed as working on the following WordPress versions:
+**Minimum: `4.9.x`**
+**Maximum: `5.5.3`**
+If you experience any issues, please let us know in [our support forum](https://forums.classicpress.net/c/support/migration-plugin).
+
 ## Installation
 
 To **install a fresh version of ClassicPress on a new site**, you do not need
