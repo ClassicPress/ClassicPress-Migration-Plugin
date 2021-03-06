@@ -19,6 +19,10 @@ backup before switching a live production site to ClassicPress. Please also
 ensure any known conflicting plugins are **deactivated** (see list
 [here](https://docs.classicpress.net/installing-classicpress/#plugin-conflicts)).
 
+## What version of WordPress does the plugin work with?
+
+You can always see the latest supported version by going to [Get ClassicPress](https://www.classicpress.net/get-classicpress/#switch-to-classicpress).
+
 ## Installation
 
 To **install a fresh version of ClassicPress on a new site**, you do not need
