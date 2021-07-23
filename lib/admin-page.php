@@ -449,6 +449,57 @@ function classicpress_check_can_migrate() {
 	// TODO: Add instructions if WP too old.
 	echo "</td></tr>\n";
 
+	// Check: Conflicting Theme
+	$theme = wp_get_theme();
+	if ( isset( $parameters['themes'] ) && in_array( $theme->stylesheet, (array) $parameters['themes'] ) ) {
+		$preflight_checks['theme'] = false;
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		printf( __(
+			/* translators: active theme name */
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortuantely it is incompatible with ClassicPress.',
+			'switch-to-classicpress'
+		), $theme->name );
+		echo "<br>\n";
+		_e(
+			'Consider switching to a different theme, perhaps an older core theme, and try again.',
+			'switch-to-classicpress'
+		);
+	} else {
+		$preflight_checks['theme'] = true;
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+		printf( __(
+			/* translators: active theme name */
+			'It looks like you are using the <strong>%1$s</strong> theme. We believe it is compatible with ClassicPress.',
+			'switch-to-classicpress'
+		), $theme->name );
+	}
+	echo "</td></tr>\n";
+
+	// Check: Conflicting Plugins
+	$plugins = get_option( 'active_plugins' );
+	if ( isset( $parameters['plugins'] ) && $plugins !== array_diff( $plugins, $parameters['plugins'] ) ) {
+		$preflight_checks['plugins'] = false;
+
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		/* translators: URI to list of conflucting plugins */
+		_e(
+			'We have detected one or more incompatible plugins that prevent migrating your site to ClassicPress. ',
+			'switch-to-classicpress'
+		);
+		echo "<br>\n";
+		printf( __(
+			'Please visit our <a href="%s">Forum</a> for a list of known conflictong plugins.',
+			'switch-to-classicpress'
+		), 'https://docs.classicpress.net/installing-classicpress/#plugin-conflicts' );
+	} else {
+		$preflight_checks['plugins'] = true;
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+		_e(
+			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
+			'switch-to-classicpress'
+		);
+	}
+
 	// Check: Supported PHP version
 	$php_version_min = '5.6';
 	if ( version_compare( PHP_VERSION, $php_version_min, 'lt' ) ) {
@@ -600,6 +651,8 @@ function classicpress_check_can_migrate() {
 
 	if (
 		$preflight_checks['wp_version'] &&
+		$preflight_checks['theme'] &&
+		$preflight_checks['plugins'] &&
 		$preflight_checks['php_version'] &&
 		$preflight_checks['wp_http_supports_ssl']
 	) {
