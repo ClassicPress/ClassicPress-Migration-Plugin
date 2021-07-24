@@ -451,7 +451,10 @@ function classicpress_check_can_migrate() {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
-	if ( isset( $parameters['themes'] ) && in_array( $theme->stylesheet, (array) $parameters['themes'] ) ) {
+	if ( isset( $parameters['themes'] ) &&
+		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
+		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
+	) {
 		$preflight_checks['theme'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
 		printf( __(
@@ -466,10 +469,10 @@ function classicpress_check_can_migrate() {
 		);
 	} else {
 		$preflight_checks['theme'] = true;
-		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. We believe it is compatible with ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. We are not aware of any incompatibilities between this theme and ClassicPress.',
 			'switch-to-classicpress'
 		), $theme->name );
 	}
@@ -480,20 +483,32 @@ function classicpress_check_can_migrate() {
 	if ( isset( $parameters['plugins'] ) && $plugins !== array_diff( $plugins, $parameters['plugins'] ) ) {
 		$preflight_checks['plugins'] = false;
 
+		$conflicting_plugins = array_intersect( $parameters['plugins'], $plugins );
+		$conflicting_plugin_names = array();
+		foreach( $conflicting_plugins as $conflicting_plugin ) {
+			$conflicting_plugin_data[] = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
+			$conflicting_plugin_names[] = $conflicting_plugin_data[0]['Name'];
+		}
+
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
-		/* translators: URI to list of conflucting plugins */
 		_e(
-			'We have detected one or more incompatible plugins that prevent migrating your site to ClassicPress. ',
+			'We have detected one or more incompatible plugins that prevent migrating your site to ClassicPress.',
 			'switch-to-classicpress'
 		);
 		echo "<br>\n";
-		printf( __(
-			'Please visit our <a href="%s">Forum</a> for a list of known conflictong plugins.',
+		 _e(
+			'Please deactivate the following plugins if you wish to continue migrating your site to ClassicPress:',
 			'switch-to-classicpress'
-		), 'https://docs.classicpress.net/installing-classicpress/#plugin-conflicts' );
+		);
+		echo "<br>\n";
+		/* translators: List of conflicting plugin names */
+		printf( __(
+			'<strong>%s<sttong>',
+			'switch-to-classicpress'
+		), implode( ', ', $conflicting_plugin_names ) );
 	} else {
 		$preflight_checks['plugins'] = true;
-		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
 		_e(
 			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
 			'switch-to-classicpress'
