@@ -184,3 +184,10 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Fix an issue with stale WordPress news items appearing in the dashboard after
   migrating to ClassicPress
   ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/67))
+  
+  
+### 1.3.0
+
+- Add Plugin and Theme check sections
+  ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/pull/74))
+
