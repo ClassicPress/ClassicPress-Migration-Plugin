@@ -453,7 +453,8 @@ function classicpress_check_can_migrate() {
 	$theme = wp_get_theme();
 	if ( isset( $parameters['themes'] ) &&
 		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
-		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
+		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) ) ||
+		version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0
 	) {
 		$preflight_checks['theme'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
