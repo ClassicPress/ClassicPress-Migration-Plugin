@@ -190,4 +190,8 @@ supports migrating multisite WordPress installations to ClassicPress.
 
 - Add Plugin and Theme check sections
   ([details](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/pull/74))
+  
+### 1.3.1
+
+- Remove stray files from release
 
