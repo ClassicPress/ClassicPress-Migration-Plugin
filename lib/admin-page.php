@@ -450,7 +450,7 @@ function classicpress_check_can_migrate() {
 	echo "</td></tr>\n";
 
 	// Check: Conflicting Theme
-	$theme = wp_get_theme();
+	g = wp_get_theme();
 	if ( isset( $parameters['themes'] ) &&
 		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
@@ -759,10 +759,15 @@ function classicpress_show_migration_blocked_info() {
 	</h2>
 
 	<p class="cp-migration-info">
-		<?php _e(
-			"If you're not sure how to fix the issues above, contact your hosting provider for help.",
-			'switch-to-classicpress'
-		); ?>
+		<?php printf(
+			__(
+				/* translators: link to ClassicPress migration builds */
+				'If you\'re not sure how to fix the issues above, you can ask for help in our <a href="%s">Support Forum</a>.',
+				'switch-to-classicpress'
+			),
+			'https://forums.classicpress.net/c/support/migration-plugin'
+		);
+		?>
 	</p>
 <?php
 }
