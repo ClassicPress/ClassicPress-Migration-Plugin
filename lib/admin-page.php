@@ -450,7 +450,7 @@ function classicpress_check_can_migrate() {
 	echo "</td></tr>\n";
 
 	// Check: Conflicting Theme
-	g = wp_get_theme();
+	$theme = wp_get_theme();
 	if ( isset( $parameters['themes'] ) &&
 		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
