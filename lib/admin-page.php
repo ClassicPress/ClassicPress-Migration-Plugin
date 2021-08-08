@@ -460,7 +460,7 @@ function classicpress_check_can_migrate() {
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. Unfortuantely it is incompatible with ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it is incompatible with ClassicPress.',
 			'switch-to-classicpress'
 		), $theme->name );
 		echo "<br>\n";
