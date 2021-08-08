@@ -485,7 +485,7 @@ function classicpress_check_can_migrate() {
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
-		$plugin_data = get_file_data( WP_CONTENT_DIR . '/plugins/' . $plugin, $plugin_headers );
+		$plugin_data = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $plugin_headers );
 		if ( version_compare( $plugin_data['RequiresWP'], '5.0' ) >= 0 ) {
 			$declared_incompatible_plugins[ $plugin ] = $plugin_data['Name'];
 		}
