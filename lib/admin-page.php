@@ -759,10 +759,15 @@ function classicpress_show_migration_blocked_info() {
 	</h2>
 
 	<p class="cp-migration-info">
-		<?php _e(
-			"If you're not sure how to fix the issues above, contact your hosting provider for help.",
-			'switch-to-classicpress'
-		); ?>
+		<?php printf(
+			__(
+				/* translators: link to ClassicPress migration builds */
+				'If you\'re not sure how to fix the issues above, you can ask for help in our <a href="%s">Support Forum</a>.',
+				'switch-to-classicpress'
+			),
+			'https://forums.classicpress.net/c/support/migration-plugin'
+		);
+		?>
 	</p>
 <?php
 }
