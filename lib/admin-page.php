@@ -486,13 +486,18 @@ function classicpress_check_can_migrate() {
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
+		if ( isset( $parameters['plugins'] ) && in_array( $plugin, $parameters['plugins'] ) ) {
+			continue;
+		}
+
 		$plugin_data = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $plugin_headers );
+		$plugin_name = $plugin_data['Name'];
 		if ( version_compare( $plugin_data['RequiresWP'], '5.0' ) >= 0 ) {
-			$declared_incompatible_plugins[ $plugin ] = $plugin_data['Name'];
+			$declared_incompatible_plugins[ $plugin ] = $plugin_name;
 		} else {
 			$plugin_files = get_plugin_files( $plugin );
-			$readmes = array_filter( $plugin_files, function( $el ) {
-				return ( stripos( $el, 'readme') !== false );
+			$readmes = array_filter( $plugin_files, function( $files ) {
+				return ( stripos( $files, 'readme') !== false );
 			} );
 			foreach( $readmes as $readme ) {
 				if ( empty( $readme ) ) {
@@ -500,12 +505,17 @@ function classicpress_check_can_migrate() {
 				}
 				$readme_data = get_file_data( WP_PLUGIN_DIR . '/' . $readme, $plugin_headers );
 				if ( version_compare( $readme_data['RequiresWP'], '5.0' ) >= 0 ) {
-					$declared_incompatible_plugins[ $plugin ] = $plugin_data['Name'];
+					$declared_incompatible_plugins[ $plugin ] = $plugin_name;
+					continue;
 				}
 			}
 		}
-		if ( empty( $plugin_data['RequiresWP'] ) && ( empty( $readmes) || empty( $readme_data['RequiresWP'] ) ) ) {
-			$undeclared_compatibility_plugins[ $plugin ] = $plugin_data['Name'];
+		if (
+			empty( $plugin_data['RequiresWP'] ) &&
+			( empty( $readmes ) || empty( $readme_data['RequiresWP'] ) ) &&
+			false === array_key_exists( $plugin, $declared_incompatible_plugins )
+		) {
+			$undeclared_compatibility_plugins[ $plugin ] = $plugin_name;
 		}
 	}
 
