@@ -529,8 +529,8 @@ function classicpress_check_can_migrate() {
 		$conflicting_plugins = array_intersect( $parameters['plugins'], $plugins );
 		$conflicting_plugin_names = array();
 		foreach( $conflicting_plugins as $conflicting_plugin ) {
-			$conflicting_plugin_data[] = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
-			$conflicting_plugin_names[] = $conflicting_plugin_data[0]['Name'];
+			$conflicting_plugin_data = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
+			$conflicting_plugin_names[] = $conflicting_plugin_data['Name'];
 		}
 
 		if ( ! empty( $declared_incompatible_plugins ) ) {
