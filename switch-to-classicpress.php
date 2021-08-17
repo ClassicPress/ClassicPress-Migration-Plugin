@@ -10,7 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
  * Text Domain:       switch-to-classicpress
- *
+ * Requires at least: 4.9
  * @package ClassicPress
  */
 

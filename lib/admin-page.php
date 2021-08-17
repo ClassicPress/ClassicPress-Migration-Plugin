@@ -480,14 +480,63 @@ function classicpress_check_can_migrate() {
 
 	// Check: Conflicting Plugins
 	$plugins = get_option( 'active_plugins' );
-	if ( isset( $parameters['plugins'] ) && $plugins !== array_diff( $plugins, $parameters['plugins'] ) ) {
+	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP'  => 'Requires at least' );
+	$declared_incompatible_plugins = array();
+	$undeclared_compatibility_plugins = array();
+
+	// Start by checking if plugins have declared they require WordPress 5.0 or higher
+	foreach ( $plugins as $plugin ) {
+		if ( isset( $parameters['plugins'] ) && in_array( $plugin, $parameters['plugins'] ) ) {
+			continue;
+		}
+
+		$plugin_data = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $plugin_headers );
+		$plugin_name = $plugin_data['Name'];
+		if ( version_compare( $plugin_data['RequiresWP'], '5.0' ) >= 0 ) {
+			$declared_incompatible_plugins[ $plugin ] = $plugin_name;
+		} else {
+			$plugin_files = get_plugin_files( $plugin );
+			$readmes = array_filter( $plugin_files, function( $files ) {
+				return ( stripos( $files, 'readme') !== false );
+			} );
+			foreach( $readmes as $readme ) {
+				if ( empty( $readme ) ) {
+					continue;
+				}
+				$readme_data = get_file_data( WP_PLUGIN_DIR . '/' . $readme, $plugin_headers );
+				if ( version_compare( $readme_data['RequiresWP'], '5.0' ) >= 0 ) {
+					$declared_incompatible_plugins[ $plugin ] = $plugin_name;
+					continue;
+				}
+			}
+		}
+		if (
+			empty( $plugin_data['RequiresWP'] ) &&
+			( empty( $readmes ) || empty( $readme_data['RequiresWP'] ) ) &&
+			false === array_key_exists( $plugin, $declared_incompatible_plugins )
+		) {
+			$undeclared_compatibility_plugins[ $plugin ] = $plugin_name;
+		}
+	}
+
+	// Compare active plugins with API response of known conflicting plugins
+	if (
+		isset( $parameters['plugins'] ) && $plugins !== array_diff( $plugins, $parameters['plugins'] ) ||
+		! empty( $declared_incompatible_plugins )
+	) {
 		$preflight_checks['plugins'] = false;
 
 		$conflicting_plugins = array_intersect( $parameters['plugins'], $plugins );
 		$conflicting_plugin_names = array();
 		foreach( $conflicting_plugins as $conflicting_plugin ) {
-			$conflicting_plugin_data[] = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
-			$conflicting_plugin_names[] = $conflicting_plugin_data[0]['Name'];
+			$conflicting_plugin_data = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
+			$conflicting_plugin_names[] = $conflicting_plugin_data['Name'];
+		}
+
+		if ( ! empty( $declared_incompatible_plugins ) ) {
+			foreach( $declared_incompatible_plugins as $slug => $name ) {
+				$conflicting_plugin_names[] = $name;
+			}
 		}
 
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
@@ -503,7 +552,7 @@ function classicpress_check_can_migrate() {
 		echo "<br>\n";
 		/* translators: List of conflicting plugin names */
 		printf( __(
-			'<strong>%s<sttong>',
+			'<strong>%s<strong>',
 			'switch-to-classicpress'
 		), implode( ', ', $conflicting_plugin_names ) );
 	} else {
@@ -513,6 +562,27 @@ function classicpress_check_can_migrate() {
 			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
 			'switch-to-classicpress'
 		);
+	}
+	echo "</td></tr>\n";
+
+	if ( ! empty( $undeclared_compatibility_plugins ) ) {
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		_e(
+			'We have detected one or more plugins that fail to declare a minimum compatible WordPress version. They may prevent or impact on migrating your site to ClassicPress.',
+			'switch-to-classicpress'
+		);
+		echo "<br>\n";
+		 _e(
+			'We would recommned deactivating the following plugins if you wish to continue migrating your site to ClassicPress:',
+			'switch-to-classicpress'
+		);
+		echo "<br>\n";
+		/* translators: List of conflicting plugin names */
+		printf( __(
+			'<strong>%s<strong>',
+			'switch-to-classicpress'
+		), implode( ', ', $undeclared_compatibility_plugins ) );
+		echo "</td></tr>\n";
 	}
 
 	// Check: Supported PHP version
