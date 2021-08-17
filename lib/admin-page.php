@@ -459,9 +459,30 @@ function classicpress_check_can_migrate() {
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. Unfortuantely it is incompatible with ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it is incompatible with ClassicPress.',
 			'switch-to-classicpress'
 		), $theme->name );
+		echo "<br>\n";
+		_e(
+			'Consider switching to a different theme, perhaps an older core theme, and try again.',
+			'switch-to-classicpress'
+		);
+	} elseif ( empty ( $theme->get( 'RequiresWP' ) ) ) {
+		$preflight_checks['theme'] = true;
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		printf( __(
+			/* translators: active theme name */
+			'It looks like you are using the <strong>%1$s</strong> theme. We cannot be sure it is compatible with ClassicPress because it is not declaring a minimum required version of WordPress.',
+			'switch-to-classicpress'
+		), $theme->name );
+	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 ) {
+		$preflight_checks['theme'] = false;
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		printf( __(
+			/* translators: active theme name */
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it seems it requires WordPress %2$s or above and it may therefore be incompatible with ClassicPress.',
+			'switch-to-classicpress'
+		), $theme->name, $theme->get( 'RequiresWP' ) );
 		echo "<br>\n";
 		_e(
 			'Consider switching to a different theme, perhaps an older core theme, and try again.',
