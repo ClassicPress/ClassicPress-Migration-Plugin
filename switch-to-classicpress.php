@@ -3,7 +3,7 @@
  * Plugin Name:       Switch to ClassicPress
  * Plugin URI:        https://github.com/ClassicPress/ClassicPress-Migration-Plugin
  * Description:       Switch your WordPress installation to ClassicPress.
- * Version:           1.3.1
+ * Version:           1.4.1
  * Author:            ClassicPress
  * Author URI:        https://www.classicpress.net
  * License:           GPLv2 or later
