@@ -195,3 +195,14 @@ supports migrating multisite WordPress installations to ClassicPress.
 
 - Remove stray files from release
 
+  
+### 1.4.0
+
+- Direct blocking issues to ClassicPress Forum (#82)
+- Add plugin header checking (#83)
+- Add theme header comparison check to compatibility logic (#76)
+  
+### 1.4.1
+
+- Version Bump
+
