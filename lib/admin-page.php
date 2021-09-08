@@ -456,7 +456,7 @@ function classicpress_check_can_migrate() {
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
 	) {
 		$preflight_checks['theme'] = false;
-		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
 			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it is incompatible with ClassicPress.',
@@ -469,7 +469,7 @@ function classicpress_check_can_migrate() {
 		);
 	} elseif ( empty ( $theme->get( 'RequiresWP' ) ) ) {
 		$preflight_checks['theme'] = true;
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
 			'It looks like you are using the <strong>%1$s</strong> theme. We cannot be sure it is compatible with ClassicPress because it is not declaring a minimum required version of WordPress.',
@@ -477,7 +477,7 @@ function classicpress_check_can_migrate() {
 		), $theme->name );
 	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 ) {
 		$preflight_checks['theme'] = false;
-		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
 			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it seems it requires WordPress %2$s or above and it may therefore be incompatible with ClassicPress.',
@@ -490,14 +490,14 @@ function classicpress_check_can_migrate() {
 		);
 	} else {
 		$preflight_checks['theme'] = true;
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
 			'It looks like you are using the <strong>%1$s</strong> theme. We are not aware of any incompatibilities between this theme and ClassicPress.',
 			'switch-to-classicpress'
 		), $theme->name );
 	}
-	echo "</td></tr>\n";
+	echo "</p></td></tr>\n";
 
 	// Check: Conflicting Plugins
 	$plugins = get_option( 'active_plugins' );
@@ -560,7 +560,7 @@ function classicpress_check_can_migrate() {
 			}
 		}
 
-		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		_e(
 			'We have detected one or more incompatible plugins that prevent migrating your site to ClassicPress.',
 			'switch-to-classicpress'
@@ -578,16 +578,16 @@ function classicpress_check_can_migrate() {
 		), implode( ', ', $conflicting_plugin_names ) );
 	} else {
 		$preflight_checks['plugins'] = true;
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		_e(
 			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
 			'switch-to-classicpress'
 		);
 	}
-	echo "</td></tr>\n";
+	echo "</p></td></tr>\n";
 
 	if ( ! empty( $undeclared_compatibility_plugins ) ) {
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n";
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		_e(
 			'We have detected one or more plugins that fail to declare a minimum compatible WordPress version. They may prevent or impact on migrating your site to ClassicPress.',
 			'switch-to-classicpress'
@@ -603,7 +603,7 @@ function classicpress_check_can_migrate() {
 			'<strong>%s<strong>',
 			'switch-to-classicpress'
 		), implode( ', ', $undeclared_compatibility_plugins ) );
-		echo "</td></tr>\n";
+		echo "</p></td></tr>\n";
 	}
 
 	// Check: Supported PHP version
