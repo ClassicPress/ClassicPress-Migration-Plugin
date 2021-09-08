@@ -619,7 +619,7 @@ function classicpress_check_can_migrate() {
 	}
 	echo "<p>\n";
 	printf( __(
-		/* translators: minimum supported PHP version */
+		/* translators: minimum supported PHP version, maximum supported PHP version */
 		'ClassicPress supports PHP versions <strong>%1$s</strong> to <strong>%2$s</strong>.',
 		'switch-to-classicpress'
 	), $parameters['php']['min'], $parameters['php']['max_display'] );
