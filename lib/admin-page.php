@@ -607,8 +607,12 @@ function classicpress_check_can_migrate() {
 	}
 
 	// Check: Supported PHP version
-	$php_version_min = '5.6';
-	if ( version_compare( PHP_VERSION, $php_version_min, 'lt' ) ) {
+	if (
+		isset( $parameters['php'] ) && (
+			version_compare( PHP_VERSION, $parameters['php']['min'], 'lt' ) ||
+			version_compare( PHP_VERSION, $parameters['php']['max'], 'gt' )
+		)
+	) {
 		$preflight_checks['php_version'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
 	} else {
@@ -617,10 +621,10 @@ function classicpress_check_can_migrate() {
 	}
 	echo "<p>\n";
 	printf( __(
-		/* translators: minimum supported PHP version */
-		'ClassicPress supports PHP versions <strong>%1$s</strong> and <strong>newer</strong>.',
+		/* translators: 1: minimum supported PHP version, 2: maximum supported PHP version */
+		'ClassicPress supports PHP versions <strong>%1$s</strong> to <strong>%2$s</strong>.',
 		'switch-to-classicpress'
-	), $php_version_min );
+	), $parameters['php']['min'], $parameters['php']['max_display'] );
 	echo "<br>\n";
 	printf( __(
 		/* translators: current PHP version */
