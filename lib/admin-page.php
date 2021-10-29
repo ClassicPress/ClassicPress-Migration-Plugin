@@ -451,7 +451,12 @@ function classicpress_check_can_migrate() {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
-	if ( isset( $parameters['themes'] ) &&
+	// 'RequiresWP' was introduced in WP 5.4, let's make sure we force a check for older versions of WP
+	$stylesheet = trailingslashit( get_stylesheet_directory() ) . 'style.css';
+	$theme_headers = array( 'Name' => 'Theme Name', 'RequiresWP' => 'Requires at least' );
+	$theme_data = get_file_data( $stylesheet, $theme_headers );
+
+	if (
 		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
 	) {
@@ -467,7 +472,7 @@ function classicpress_check_can_migrate() {
 			'Consider switching to a different theme, perhaps an older core theme, and try again.',
 			'switch-to-classicpress'
 		);
-	} elseif ( empty ( $theme->get( 'RequiresWP' ) ) ) {
+	} elseif ( empty ( $theme->get( 'RequiresWP' ) ) && empty( $theme_data['RequiresWP'] ) ) {
 		$preflight_checks['theme'] = true;
 		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		printf( __(
@@ -475,7 +480,7 @@ function classicpress_check_can_migrate() {
 			'It looks like you are using the <strong>%1$s</strong> theme. We cannot be sure it is compatible with ClassicPress because it is not declaring a minimum required version of WordPress.',
 			'switch-to-classicpress'
 		), $theme->name );
-	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 ) {
+	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 || version_compare( $theme_data['RequiresWP'], '5.0' ) >= 0 ) {
 		$preflight_checks['theme'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		printf( __(
@@ -501,7 +506,7 @@ function classicpress_check_can_migrate() {
 
 	// Check: Conflicting Plugins
 	$plugins = get_option( 'active_plugins' );
-	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP'  => 'Requires at least' );
+	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP' => 'Requires at least' );
 	$declared_incompatible_plugins = array();
 	$undeclared_compatibility_plugins = array();
 
