@@ -117,10 +117,10 @@ table#cp-preflight-checks {
 }
 </style>
 <script>
-jQuery( function( $ ) {
-	$( '#cp-show-advanced-migration-form' ).on( 'click', function() {
-		$( '#cp-advanced-migration-form' ).removeClass( 'hidden' );
-		$( this ).remove();
+document.addEventListener('DOMContentLoaded', function() {
+	document.getElementById( 'cp-show-advanced-migration-form' ).addEventListener( 'click', function() {
+		document.getElementById( 'cp-advanced-migration-form' ).classList.remove( 'hidden' );
+		this.remove();
 	} );
 } );
 </script>
