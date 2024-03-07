@@ -212,11 +212,11 @@ function classicpress_show_admin_page() {
 		<li><?php printf(
 			__(
 				/* translators: 1: link with instructions to join our Forum, 2: link to join ClassicPress Slack */
-				'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Slack group</a>.',
+				'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Zulip chat</a>.',
 				'switch-to-classicpress'
 			),
 			'https://forums.classicpress.net/c/support/migration-plugin',
-			'https://www.classicpress.net/join-slack/'
+			'https://classicpress.zulipchat.com/register/'
 		); ?></li>
 		<li><?php printf(
 			__(
@@ -326,13 +326,13 @@ function classicpress_check_can_migrate() {
 	}
 
 	// Get migration plugin parameters.
-	$parameters = classicpress_migration_parameters();
-	if ( is_wp_error( $parameters ) ) {
+	$cp_api_parameters = classicpress_migration_parameters();
+	if ( is_wp_error( $cp_api_parameters ) ) {
 ?>
 		<div class="notice notice-error">
 			<p>
-				<?php echo $parameters->get_error_message(); ?>
-				<?php echo json_encode( $parameters->get_error_data() ); ?>
+				<?php echo $cp_api_parameters->get_error_message(); ?>
+				<?php echo json_encode( $cp_api_parameters->get_error_data() ); ?>
 			</p>
 		</div>
 <?php
@@ -364,8 +364,8 @@ function classicpress_check_can_migrate() {
 	// Check: Supported WP version
 	// More versions can be added after they are confirmed to work.
 	global $wp_version;
-	$wp_version_min = $parameters['wordpress']['min'];
-	$wp_version_max = $parameters['wordpress']['max'];
+	$wp_version_min = $cp_api_parameters['wordpress']['min'];
+	$wp_version_max = $cp_api_parameters['wordpress']['max'];
 	$wp_version_check_intro_message = sprintf( __(
 		/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
 		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).',
@@ -380,7 +380,7 @@ function classicpress_check_can_migrate() {
 			version_compare( $wp_version, $wp_version_max, 'gt' )
 		) &&
 		// ... and it doesn't match any other acceptable version patterns
-		empty( array_filter( $parameters['wordpress']['other'], function( $pattern ) {
+		empty( array_filter( $cp_api_parameters['wordpress']['other'], function( $pattern ) {
 			global $wp_version;
 			return preg_match( $pattern, $wp_version );
 		} ) )
@@ -452,8 +452,8 @@ function classicpress_check_can_migrate() {
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
 	if (
-		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
-		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
+		in_array( $theme->stylesheet, (array) $cp_api_parameters['themes'] ) ||
+		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $cp_api_parameters['themes'] ) )
 	) {
 		$preflight_checks['theme'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
@@ -507,13 +507,13 @@ function classicpress_check_can_migrate() {
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
-		if ( in_array( $plugin, $parameters['plugins'] ) ) {
+		if ( isset( $cp_api_parameters['plugins'] ) && in_array( $plugin, $cp_api_parameters['plugins'] ) ) {
 			continue;
 		}
 
 		$plugin_data = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $plugin_headers );
 		$plugin_name = $plugin_data['Name'];
-		if ( version_compare( $plugin_data['RequiresWP'], '5.0' ) >= 0 ) {
+		if ( version_compare( $plugin_data['RequiresWP'], '7.0' ) >= 0 ) {
 			$declared_incompatible_plugins[ $plugin ] = $plugin_name;
 		} else {
 			$plugin_files = get_plugin_files( $plugin );
@@ -525,7 +525,7 @@ function classicpress_check_can_migrate() {
 					continue;
 				}
 				$readme_data = get_file_data( WP_PLUGIN_DIR . '/' . $readme, $plugin_headers );
-				if ( version_compare( $readme_data['RequiresWP'], '5.0' ) >= 0 ) {
+				if ( version_compare( $readme_data['RequiresWP'], '7.0' ) >= 0 ) {
 					$declared_incompatible_plugins[ $plugin ] = $plugin_name;
 					continue;
 				}
@@ -542,12 +542,12 @@ function classicpress_check_can_migrate() {
 
 	// Compare active plugins with API response of known conflicting plugins
 	if (
-		$plugins !== array_diff( $plugins, $parameters['plugins'] ) ||
+		isset( $cp_api_parameters['plugins'] ) && $plugins !== array_diff( $plugins, $cp_api_parameters['plugins'] ) ||
 		! empty( $declared_incompatible_plugins )
 	) {
 		$preflight_checks['plugins'] = false;
 
-		$conflicting_plugins = array_intersect( $parameters['plugins'], $plugins );
+		$conflicting_plugins = array_intersect( $cp_api_parameters['plugins'], $plugins );
 		$conflicting_plugin_names = array();
 		foreach( $conflicting_plugins as $conflicting_plugin ) {
 			$conflicting_plugin_data = get_plugin_data( WP_CONTENT_DIR . '/plugins/' . $conflicting_plugin );
@@ -608,8 +608,10 @@ function classicpress_check_can_migrate() {
 
 	// Check: Supported PHP version
 	if (
-		version_compare( PHP_VERSION, $parameters['php']['min'], 'lt' ) ||
-		version_compare( PHP_VERSION, $parameters['php']['max'], 'gt' )
+		isset( $cp_api_parameters['php'] ) && (
+			version_compare( PHP_VERSION, $cp_api_parameters['php']['min'], 'lt' ) ||
+			version_compare( PHP_VERSION, $cp_api_parameters['php']['max'], 'gt' )
+		)
 	) {
 		$preflight_checks['php_version'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
@@ -618,11 +620,11 @@ function classicpress_check_can_migrate() {
 		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n";
 	}
 	echo "<p>\n";
-	printf( __(
+		printf( __(
 		/* translators: 1: minimum supported PHP version, 2: maximum supported PHP version */
-		'ClassicPress supports PHP versions <strong>%1$s</strong> to <strong>%2$s</strong>.',
+		'ClassicPress supports PHP versions <strong>%1$s</strong> through <strong>%2$s</strong>.',
 		'switch-to-classicpress'
-	), $parameters['php']['min'], $parameters['php']['max_display'] );
+	), $cp_api_parameters['php']['min'], $cp_api_parameters['php']['max_display'] );
 	echo "<br>\n";
 	printf( __(
 		/* translators: current PHP version */
@@ -678,7 +680,7 @@ function classicpress_check_can_migrate() {
 		);
 		echo "<br>\n";
 		_e(
-			'If you are using <code>composer.json</code> to manage dependencies for this site, then you should <strong class="cp-emphasis">back up this file</strong> before continuing, and restore it after the migration.',
+			'If you are using <code>composer.json</code> to manage dependencies for this site, then you should <strong class="cp-emphasis">back up this file</strong> now, and restore it after the migration.',
 			'switch-to-classicpress'
 		);
 		echo "\n</p>\n";
@@ -781,12 +783,14 @@ function classicpress_check_can_migrate() {
  * @since 0.1.0
  */
 function classicpress_show_migration_controls() {
+	$cp_api_parameters = classicpress_migration_parameters();
+	$cp_cv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
 ?>
 	<h2 class="cp-migration-info cp-migration-ready">
-		<?php _e( "It looks like you're ready to switch to ClassicPress!", 'switch-to-classicpress' ); ?>
+		<?php _e( "It looks like you're ready to switch to ClassicPress v", 'switch-to-classicpress' ); echo $cp_cv."!";?>
 	</h2>
 	<p class="cp-migration-info">
-		<?php _e( 'First things first, just in case something does not go as planned, <strong class="cp-emphasis">please make a backup of your site files and database</strong>.', 'switch-to-classicpress' ); ?>
+		<?php _e( '<strong class="cp-emphasis">Please make a Complete Backup of your Site Files and Database now!</strong>.', 'switch-to-classicpress' ); ?>
 	</p>
 	<p class="cp-migration-info">
 		<?php _e( 'After clicking the button below, the migration process will start.', 'switch-to-classicpress' ); ?>
@@ -875,6 +879,12 @@ function classicpress_show_migration_blocked_info() {
  *           hide the "advanced controls" button if preflight checks failed.
  */
 function classicpress_show_advanced_migration_controls( $ok = true ) {
+	$cp_api_parameters = classicpress_migration_parameters();
+	// Get versions for drop down value names here
+		$cp_pv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
+		$cp_v1 = substr($cp_api_parameters['links']['ClassicPress v1'], 119, -23);
+		$wp_v6 = substr($cp_api_parameters['links']['WordPress 6.2.x'], 32, -4);
+		$wp_v4 = substr($cp_api_parameters['links']['WordPress 4.9.x'], 32, -4);
 	$is_wp = ! function_exists( 'classicpress_version' );
 
 	if ( $ok ) { ?>
@@ -883,7 +893,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 			class="button button-large hide-if-no-js"
 		>
 			<?php esc_html_e(
-				'Show advanced controls',
+				'Show Advanced Controls',
 				'switch-to-classicpress'
 			); ?>
 		</button>
@@ -902,6 +912,16 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 				'switch-to-classicpress'
 			); ?>
 		</h2>
+		<p>
+<?php /*			
+$cp_versions = get_cp_versions();
+var_dump($cp_versions);
+echo "</p><p>";
+$myversion = "1.7.1";
+$cp_url = get_migration_from_cp_version($myversion);
+echo $cp_url;
+*/ ?>
+		</p>
 		<table class="form-table">
 			<?php if ( $is_wp ) { ?>
 				<tr>
@@ -914,13 +934,13 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					<td>
 						<p>
 							<?php _e(
-								'Use this form to switch to other versions of WordPress, or ClassicPress <strong class="cp-emphasis">migration builds</strong>!',
+								'Use this tool to install another version of WordPress or ClassicPress <strong class="cp-emphasis">Migration Builds!</strong>',
 								'switch-to-classicpress'
 							); ?>
 						</p>
 						<p>
 							<?php _e(
-								'Official release builds of ClassicPress <strong class="cp-emphasis">will not work</strong>.',
+								'Official Release Builds of ClassicPress <strong class="cp-emphasis"><u>will not work</u></strong> for migration.',
 								'switch-to-classicpress'
 							); ?>
 						</p>
@@ -928,7 +948,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 							<?php printf(
 								__(
 									/* translators: link to ClassicPress migration builds */
-									'You can find ClassicPress migration builds <a href="%s">on GitHub</a>.',
+									'You can find ClassicPress Migration Builds <a href="%s">on GitHub</a>.',
 									'switch-to-classicpress'
 								),
 								'https://github.com/ClassyBot/ClassicPress-nightly/releases'
@@ -947,18 +967,44 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 				</th>
 				<td>
 					<p>
-						<?php esc_html_e(
-							"As long as the regular requirements for your target version are met, like the preflight checks for ClassicPress, then we haven't been able to break this yet. However, that doesn't mean it works under all circumstances!",
+						<?php _e(
+							"If all requirements for your custom version have been met, then migration should complete.<br>However, that doesn't mean it will be successful in all cases!",
 							'switch-to-classicpress'
 						); ?>
 					</p>
 					<p>
 						<?php _e(
-							'Please, definitely <strong class="cp-emphasis">take a backup of your site</strong> before using this feature.',
+							'Please, make a <strong class="cp-emphasis">Complete Backup of your Site</strong> before using this feature <strong class="cp-emphasis">with caution!</strong>',
 							'switch-to-classicpress'
 						); ?>
 					</p>
+					<?php
+					$php_version_49 = '7.5';
+					if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) ) {
+						_e(
+							'<p><strong class="cp-emphasis">* MIGRATING TO WP v4.9 SHOULD BE A LAST RESORT AND IS DONE AT YOUR OWN RISK!</strong></p>',
+							'switch-to-classicpress'
+						);
+					}
+					?>
 				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<select id="picker" onchange="SelectVersion()">
+						<option value="">Enter or Select a Custom Build URL</option>
+						<option value="<?php echo $cp_api_parameters['links']['ClassicPress v2']; ?>">ClassicPress v<?php echo $cp_pv; ?></option>
+    					<option value="<?php echo $cp_api_parameters['links']['ClassicPress v1']; ?>">ClassicPress v<?php echo $cp_v1; ?></option>
+						<hr>
+						<option value="<?php echo $cp_api_parameters['links']['WordPress Latest']; ?>">WordPress v<?php echo $cp_api_parameters['wordpress']['max']; ?></option>
+    					<option value="<?php echo $cp_api_parameters['links']['WordPress 6.2.x']; ?>">WordPress v<?php echo $wp_v6; ?></option>
+<?php 	// WPv4.9 DOES NOT WORK with php8 - Block the option here
+	if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) ) {
+?>
+    					<option value="<?php echo $cp_api_parameters['links']['WordPress 4.9.x']; ?>">WordPress v<?php echo $wp_v4; ?></option>
+<?php } ?>
+					</select>
+				</th>
 			</tr>
 			<tr>
 				<th scope="row">
@@ -970,22 +1016,23 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					</label>
 				</th>
 				<td>
-					<input
-						type="text"
-						id="cp-build-url"
-						name="_build_url"
-						value=""
-					/>
+					<input type="text" id="cp-build-url" name="_build_url">
 				</td>
 			</tr>
 		</table>
 		<?php wp_nonce_field( 'upgrade-core' ); ?>
 		<button class="button button-primary button-hero" type="submit" name="upgrade">
 			<?php esc_html_e(
-				'Do the custom migration now!',
+				'Perform the Custom Migration now!',
 				'switch-to-classicpress'
 			); ?>
 		</button>
 	</form>
+<script>
+function SelectVersion() {
+  var txt = document.getElementById("picker").value;
+  document.getElementById("cp-build-url").value = txt;
+}
+</script>
 <?php
 }
