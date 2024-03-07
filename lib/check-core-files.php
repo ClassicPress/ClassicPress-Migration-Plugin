@@ -29,8 +29,11 @@ function classicpress_check_core_files( $locale = 'en_US' ) {
 
 	$modified = array();
 	foreach ( $checksums as $file => $checksum ) {
-		// Skip plugins, themes, etc.
-		if ( 'wp-content' == substr( $file, 0, 10 ) ) {
+		// Skip sample config, plugins, themes, etc.
+		if (
+			'wp-content' == substr( $file, 0, 10 ) ||
+			'wp-config-sample.php' == substr( $file, 0, 20 )
+		) {
 			continue;
 		}
 		if (
