@@ -451,7 +451,7 @@ function classicpress_check_can_migrate() {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
-	if ( isset( $parameters['themes'] ) &&
+	if (
 		in_array( $theme->stylesheet, (array) $parameters['themes'] ) ||
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $parameters['themes'] ) )
 	) {
@@ -507,7 +507,7 @@ function classicpress_check_can_migrate() {
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
-		if ( isset( $parameters['plugins'] ) && in_array( $plugin, $parameters['plugins'] ) ) {
+		if ( in_array( $plugin, $parameters['plugins'] ) ) {
 			continue;
 		}
 
@@ -542,7 +542,7 @@ function classicpress_check_can_migrate() {
 
 	// Compare active plugins with API response of known conflicting plugins
 	if (
-		isset( $parameters['plugins'] ) && $plugins !== array_diff( $plugins, $parameters['plugins'] ) ||
+		$plugins !== array_diff( $plugins, $parameters['plugins'] ) ||
 		! empty( $declared_incompatible_plugins )
 	) {
 		$preflight_checks['plugins'] = false;
@@ -608,10 +608,8 @@ function classicpress_check_can_migrate() {
 
 	// Check: Supported PHP version
 	if (
-		isset( $parameters['php'] ) && (
-			version_compare( PHP_VERSION, $parameters['php']['min'], 'lt' ) ||
-			version_compare( PHP_VERSION, $parameters['php']['max'], 'gt' )
-		)
+		version_compare( PHP_VERSION, $parameters['php']['min'], 'lt' ) ||
+		version_compare( PHP_VERSION, $parameters['php']['max'], 'gt' )
 	) {
 		$preflight_checks['php_version'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
