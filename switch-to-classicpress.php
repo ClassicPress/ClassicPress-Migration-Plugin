@@ -222,7 +222,6 @@ function classicpress_migration_parameters() {
  *
  * @return array|false Array of CP versions or false on API failure.
  */
-/*
 function get_cp_versions() {
 	$cp_versions = get_transient( 'classicpress_release_versions' );
 
@@ -299,4 +298,41 @@ function get_migration_from_cp_version($version) {
 	$url        = 'https://github.com/ClassyBot/ClassicPress-v'.$major.'-nightly/releases/download/'.$version.'%2Bmigration.'.$day.'/ClassicPress-nightly-'.$version.'-migration.'.$day.'.zip';
 	return $url;
 }
-*/
+
+/**
+ * Get release URL.
+ *
+ * @param string $version  Version to retrive migration URL.
+ *
+ * @return string          URL for release.
+ */
+function getReleaseFromCPVersion($version) {
+	return 'https://github.com/ClassicPress/ClassicPress-release/archive/refs/tags/'.$version.'.zip';
+}
+
+/**
+ * Get previous release version.
+ *
+ * @param string $version   Version to get previous release.
+ * @param array  $versions  Array of ClassicPress versions as
+ *                          returned by getCPVersions().
+ *                          Used for caching.
+ *
+ * @return string|bool      Previous version. False if not found.
+ */
+function get_previous_version($version, $versions = []) {
+	if (empty($versions)) {
+//		$versions = self::getCPVersions();
+		$versions = get_cp_versions();
+	} else {
+		usort($versions, 'version_compare');
+	}
+	if(!in_array($version, $versions)) {
+		return false;
+	}
+	$pos = array_search($version, $versions, true);
+	if(!isset($versions[$pos - 1])) {
+		return false;
+	}
+	return $versions[$pos - 1];;
+}

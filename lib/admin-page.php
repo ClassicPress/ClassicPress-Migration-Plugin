@@ -253,24 +253,42 @@ function classicpress_check_can_migrate() {
 
 	// Check: Are we already on ClassicPress?
 	if ( function_exists( 'classicpress_version' ) ) {
+		global $cp_version;
 		if ( is_multisite() ) {
 			$delete_plugin_url = network_admin_url( 'plugins.php' );
+			$reinstall_url = network_admin_url( 'update-core.php' );
 		} else {
 			$delete_plugin_url = admin_url( 'plugins.php' );
+			$reinstall_url = admin_url( 'update-core.php' );
 		}
 ?>
 		<div class="notice notice-success">
-			<p>
+			<h3>
 				<?php esc_html_e(
-					"Hey, good job, you're already running ClassicPress!",
+					"Good job, you're already running ClassicPress v".preg_replace('#[+-].*$#', '', $cp_version)."!",
+					'switch-to-classicpress'
+				); ?>
+			</h3>
+<?php
+if (str_contains($cp_version, 'migration')) { 
+	_e(
+		"<strong class='cp-emphasis'>You must visit the <a href='".$reinstall_url."'>Updates Page</a> and Press the Re-Install Now button to complete the switch to ClassicPress!</strong>",
+		'switch-to-classicpress'
+	);
+}
+?>
+			<p>
+				<?php _e(
+					"<strong>This Plugin is also an Advanced Version Control Tool for Development and Troubleshooting.</strong>",
 					'switch-to-classicpress'
 				); ?>
 			</p>
 			<p>
 				<?php echo sprintf(
+					// DELETE THIS PART?
 					/* translators: %s: URL to plugins page */
 					__(
-						'You can <a href="%s">delete this plugin</a> now.',
+						'If no longer needed. you can <a href="%s">delete the plugin</a>.',
 						'switch-to-classicpress'
 					),
 					$delete_plugin_url
@@ -507,7 +525,7 @@ function classicpress_check_can_migrate() {
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
-		if ( isset( $cp_api_parameters['plugins'] ) && in_array( $plugin, $cp_api_parameters['plugins'] ) ) {
+		if ( in_array( $plugin, $cp_api_parameters['plugins'] ) ) {
 			continue;
 		}
 
@@ -542,7 +560,7 @@ function classicpress_check_can_migrate() {
 
 	// Compare active plugins with API response of known conflicting plugins
 	if (
-		isset( $cp_api_parameters['plugins'] ) && $plugins !== array_diff( $plugins, $cp_api_parameters['plugins'] ) ||
+		$plugins !== array_diff( $plugins, $cp_api_parameters['plugins'] ) ||
 		! empty( $declared_incompatible_plugins )
 	) {
 		$preflight_checks['plugins'] = false;
@@ -608,10 +626,8 @@ function classicpress_check_can_migrate() {
 
 	// Check: Supported PHP version
 	if (
-		isset( $cp_api_parameters['php'] ) && (
-			version_compare( PHP_VERSION, $cp_api_parameters['php']['min'], 'lt' ) ||
-			version_compare( PHP_VERSION, $cp_api_parameters['php']['max'], 'gt' )
-		)
+		version_compare( PHP_VERSION, $cp_api_parameters['php']['min'], 'lt' ) ||
+		version_compare( PHP_VERSION, $cp_api_parameters['php']['max'], 'gt' )
 	) {
 		$preflight_checks['php_version'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
@@ -790,10 +806,13 @@ function classicpress_show_migration_controls() {
 		<?php _e( "It looks like you're ready to switch to ClassicPress v", 'switch-to-classicpress' ); echo $cp_cv."!";?>
 	</h2>
 	<p class="cp-migration-info">
-		<?php _e( '<strong class="cp-emphasis">Please make a Complete Backup of your Site Files and Database now!</strong>.', 'switch-to-classicpress' ); ?>
+		<?php _e( '<strong class="cp-emphasis">Please make a Complete Backup of your Site Files and Database before you continue!</strong>.', 'switch-to-classicpress' ); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php _e( 'After clicking the button below, the migration process will start.', 'switch-to-classicpress' ); ?>
+		<?php _e( '<strong class="cp-emphasis">After the Initial Migration, you must visit the Updates Page and Press the Re-Install Now button!</strong><br>This is needed to complete the switch to ClassicPress and to insure you get the latest updates.', 'switch-to-classicpress' ); ?>
+	</p>
+	<p class="cp-migration-info">
+		<?php _e( 'Once you click the button below, the migration process will start.', 'switch-to-classicpress' ); ?>
 	</p>
 
 	<form
@@ -880,12 +899,34 @@ function classicpress_show_migration_blocked_info() {
  */
 function classicpress_show_advanced_migration_controls( $ok = true ) {
 	$cp_api_parameters = classicpress_migration_parameters();
-	// Get versions for drop down value names here
-		$cp_pv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
+	$cp_versions = get_cp_versions();
+	// Get version information here
+		$cp_cv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
+		$v2_previous = get_previous_version($cp_cv, $cp_versions);
+		$v2_prev_url = get_migration_from_cp_version($v2_previous);
 		$cp_v1 = substr($cp_api_parameters['links']['ClassicPress v1'], 119, -23);
+		$v1_previous = get_previous_version($cp_v1, $cp_versions);
+		$v1_prev_url = get_migration_from_cp_version($v1_previous);
 		$wp_v6 = substr($cp_api_parameters['links']['WordPress 6.2.x'], 32, -4);
 		$wp_v4 = substr($cp_api_parameters['links']['WordPress 4.9.x'], 32, -4);
 	$is_wp = ! function_exists( 'classicpress_version' );
+	global $wp_version;
+	if (!$is_wp) {
+		global $cp_version;
+		$my_cp = preg_replace('#[+-].*$#', '', $cp_version);
+		// Build Proper URL here (ClassicPress can use Release)
+		$cp_cv_build = getReleaseFromCPVersion($cp_cv);
+		$cp_p2_build = getReleaseFromCPVersion($v2_previous);
+		$cp_v1_build = getReleaseFromCPVersion($cp_v1);
+		$cp_p1_build = getReleaseFromCPVersion($v1_previous);
+	} else {
+		$my_cp = "";
+		// Build Proper URL here (WordPress must use Migration)
+		$cp_cv_build = $cp_api_parameters['links']['ClassicPress v2'];
+		$cp_p2_build = $v2_prev_url;
+		$cp_v1_build = $cp_api_parameters['links']['ClassicPress v1'];
+		$cp_p1_build = $v1_prev_url;
+	}
 
 	if ( $ok ) { ?>
 		<button
@@ -893,7 +934,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 			class="button button-large hide-if-no-js"
 		>
 			<?php esc_html_e(
-				'Show Advanced Controls',
+				'Show Advanced Version Control',
 				'switch-to-classicpress'
 			); ?>
 		</button>
@@ -908,39 +949,29 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 	>
 		<h2>
 			<?php esc_html_e(
-				'Switch to any version of ClassicPress or WordPress',
+				'Advanced Version Control Tool',
 				'switch-to-classicpress'
 			); ?>
 		</h2>
-		<p>
-<?php /*			
-$cp_versions = get_cp_versions();
-var_dump($cp_versions);
-echo "</p><p>";
-$myversion = "1.7.1";
-$cp_url = get_migration_from_cp_version($myversion);
-echo $cp_url;
-*/ ?>
-		</p>
+
 		<table class="form-table">
-			<?php if ( $is_wp ) { ?>
 				<tr>
 					<th scope="row" class="cp-emphasis">
 						<?php esc_html_e(
-							'Warning 1:',
+							'Notice:',
 							'switch-to-classicpress'
 						); ?>
 					</th>
 					<td>
 						<p>
 							<?php _e(
-								'Use this tool to install another version of WordPress or ClassicPress <strong class="cp-emphasis">Migration Builds!</strong>',
+								'You can use this tool to install another version of ClassicPress or WordPress.',
 								'switch-to-classicpress'
 							); ?>
 						</p>
 						<p>
 							<?php _e(
-								'Official Release Builds of ClassicPress <strong class="cp-emphasis"><u>will not work</u></strong> for migration.',
+								'Release Builds of ClassicPress <strong class="cp-emphasis"><u>do not work</u></strong> for migration from WordPress.',
 								'switch-to-classicpress'
 							); ?>
 						</p>
@@ -956,25 +987,20 @@ echo $cp_url;
 						</p>
 					</td>
 				</tr>
-			<?php } ?>
 			<tr>
 				<th scope="row" class="cp-emphasis">
-					<?php if ( $is_wp ) {
-						esc_html_e( 'Warning 2:', 'switch-to-classicpress' );
-					} else {
-						esc_html_e( 'Warning:', 'switch-to-classicpress' );
-					} ?>
+						<?php esc_html_e( 'WARNING:', 'switch-to-classicpress' ); ?>
 				</th>
 				<td>
 					<p>
 						<?php _e(
-							"If all requirements for your custom version have been met, then migration should complete.<br>However, that doesn't mean it will be successful in all cases!",
+							'If all requirements for your custom version have been met, then migration should complete.</p><p>That does not mean it will be successful in every case and<strong class="cp-emphasis"> Older Versions May Not be Secure!</strong></p>',
 							'switch-to-classicpress'
 						); ?>
 					</p>
 					<p>
 						<?php _e(
-							'Please, make a <strong class="cp-emphasis">Complete Backup of your Site</strong> before using this feature <strong class="cp-emphasis">with caution!</strong>',
+							'Please, make a <strong class="cp-emphasis">Complete Backup of your Site</strong> before using this tool<strong class="cp-emphasis"> At Your Own Risk!</strong>',
 							'switch-to-classicpress'
 						); ?>
 					</p>
@@ -993,16 +1019,35 @@ echo $cp_url;
 				<th colspan="2">
 					<select id="picker" onchange="SelectVersion()">
 						<option value="">Enter or Select a Custom Build URL</option>
-						<option value="<?php echo $cp_api_parameters['links']['ClassicPress v2']; ?>">ClassicPress v<?php echo $cp_pv; ?></option>
-    					<option value="<?php echo $cp_api_parameters['links']['ClassicPress v1']; ?>">ClassicPress v<?php echo $cp_v1; ?></option>
-						<hr>
+					<optgroup label="ClassicPress Builds">
+<?php if ($my_cp != $cp_cv) { ?>
+						<option value="<?php echo $cp_cv_build; ?>">ClassicPress v<?php echo $cp_cv; ?></option>
+<?php }
+if ($my_cp != $v2_previous && substr($v2_previous, 0, 1) == substr($cp_cv, 0, 1)) { ?>
+    					<option value="<?php echo $cp_p2_build; ?>">ClassicPress v<?php echo $v2_previous; ?></option>
+<?php }
+if ($my_cp != $cp_v1) { ?>
+    					<option value="<?php echo $cp_v1_build; ?>">ClassicPress v<?php echo $cp_v1; ?></option>
+<?php }
+if ($my_cp != $v1_previous) { ?>
+    					<option value="<?php echo $cp_p1_build; ?>">ClassicPress v<?php echo $v1_previous; ?></option>
+<?php } ?>
+					</optgroup>
+					<optgroup label="WordPress Builds">
+<?php if ($wp_version != $cp_api_parameters['wordpress']['max']) { ?>
 						<option value="<?php echo $cp_api_parameters['links']['WordPress Latest']; ?>">WordPress v<?php echo $cp_api_parameters['wordpress']['max']; ?></option>
+<?php }
+if (!$is_wp && $wp_v6 == $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
+if ($wp_check != $wp_v6) { ?>
     					<option value="<?php echo $cp_api_parameters['links']['WordPress 6.2.x']; ?>">WordPress v<?php echo $wp_v6; ?></option>
+<?php } ?>
 <?php 	// WPv4.9 DOES NOT WORK with php8 - Block the option here
-	if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) ) {
+if (!$is_wp && $wp_v4 == $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
+if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) && $wp_check != $wp_v4 ) {
 ?>
     					<option value="<?php echo $cp_api_parameters['links']['WordPress 4.9.x']; ?>">WordPress v<?php echo $wp_v4; ?></option>
 <?php } ?>
+					</optgroup>
 					</select>
 				</th>
 			</tr>
