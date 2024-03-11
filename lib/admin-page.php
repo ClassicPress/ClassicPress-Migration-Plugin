@@ -115,6 +115,10 @@ table#cp-preflight-checks {
 	width: 100%;
 	max-width: 50em;
 }
+#picker-label {
+    display: block;
+    margin-bottom: 0.75em;
+}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -346,11 +350,12 @@ if (str_contains($cp_version, 'migration')) {
 	// Get migration plugin parameters.
 	$cp_api_parameters = classicpress_migration_parameters();
 	if ( is_wp_error( $cp_api_parameters ) ) {
+		$cp_api_object = (object) $cp_api_parameters;
 ?>
 		<div class="notice notice-error">
 			<p>
-				<?php echo $cp_api_parameters->get_error_message(); ?>
-				<?php echo json_encode( $cp_api_parameters->get_error_data() ); ?>
+				<?php echo $cp_api_object->get_error_message(); ?>
+				<?php echo json_encode( $cp_api_object->get_error_data() ); ?>
 			</p>
 		</div>
 <?php
@@ -469,6 +474,11 @@ if (str_contains($cp_version, 'migration')) {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
+	$theme_name = 'Twenty Sixteen';
+	$theme_url = 'https://wordpress.org/themes/twentysixteen/';
+	$default_theme = " <a href='$theme_url'>$theme_name</a> ";
+	$theme_info = "<li>The safest way of switching to ClassicPress is by (temporarily) installing and activating the theme <strong>$default_theme</strong>, which works in ClassicPress and WordPress.</li>";
+	$fse_info = "<br>Block themes may work in ClassicPress but Full Screen Editor themes will not, you will have to test the theme(s) you plan to use and verify that they work correctly.";
 	if (
 		in_array( $theme->stylesheet, (array) $cp_api_parameters['themes'] ) ||
 		( is_child_theme() && in_array( $theme->parent()->stylesheet, (array) $cp_api_parameters['themes'] ) )
@@ -477,43 +487,49 @@ if (str_contains($cp_version, 'migration')) {
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it is incompatible with ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately, %1$s is known to be incompatible with ClassicPress.%2$s',
 			'switch-to-classicpress'
-		), $theme->name );
+		), $theme->name, $fse_info );
 		echo "<br>\n";
 		_e(
-			'Consider switching to a different theme, perhaps an older core theme, and try again.',
+			$theme_info,
 			'switch-to-classicpress'
 		);
-	} elseif ( empty ( $theme->get( 'RequiresWP' ) ) ) {
-		$preflight_checks['theme'] = true;
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
-		printf( __(
-			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. We cannot be sure it is compatible with ClassicPress because it is not declaring a minimum required version of WordPress.',
-			'switch-to-classicpress'
-		), $theme->name );
-	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 ) {
+//	} elseif ( version_compare( $theme->get( 'RequiresWP' ), '5.0' ) >= 0 ) {
+	} elseif ( in_array( 'full-site-editing', $theme->tags ) ) {
 		$preflight_checks['theme'] = false;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately it seems it requires WordPress %2$s or above and it may therefore be incompatible with ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. Unfortunately, %1$s is probably using FSE functions and may not be compatible with ClassicPress.%2$s',
 			'switch-to-classicpress'
-		), $theme->name, $theme->get( 'RequiresWP' ) );
+//		), $theme->name, $theme->get( 'RequiresWP' ) );
+		), $theme->name, $fse_info );
 		echo "<br>\n";
 		_e(
-			'Consider switching to a different theme, perhaps an older core theme, and try again.',
+			$theme_info,
 			'switch-to-classicpress'
 		);
+	} elseif ( $theme->name == $theme_name ) {
+		$preflight_checks['theme'] = true;
+		echo "<tr>\n<td>$icon_preflight_pass</td>\n<td>\n<p>\n";
+		printf( __(
+			'It looks like you are using the <strong>%1$s</strong> theme.<br>%1$s is the suggested theme to use when migrating from ClassicPress to WordPress.',
+			'switch-to-classicpress'
+		), $theme->name );
 	} else {
 		$preflight_checks['theme'] = true;
 		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		printf( __(
 			/* translators: active theme name */
-			'It looks like you are using the <strong>%1$s</strong> theme. We are not aware of any incompatibilities between this theme and ClassicPress.',
+			'It looks like you are using the <strong>%1$s</strong> theme. We are not aware of any incompatibilities between %1$s and ClassicPress.',
 			'switch-to-classicpress'
 		), $theme->name );
+		echo "<br>\n";
+		_e(
+			$theme_info,
+			'switch-to-classicpress'
+		);
 	}
 	echo "</p></td></tr>\n";
 
@@ -522,17 +538,17 @@ if (str_contains($cp_version, 'migration')) {
 	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP'  => 'Requires at least' );
 	$declared_incompatible_plugins = array();
 	$undeclared_compatibility_plugins = array();
+	$plugin_info = "<br>Plugins that require Blocks might not work in ClassicPress, you should test the plugins you plan to use and verify that they work correctly.";
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
 		if ( in_array( $plugin, $cp_api_parameters['plugins'] ) ) {
 			continue;
 		}
-
 		$plugin_data = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $plugin_headers );
 		$plugin_name = $plugin_data['Name'];
-		if ( version_compare( $plugin_data['RequiresWP'], '7.0' ) >= 0 ) {
-			$declared_incompatible_plugins[ $plugin ] = $plugin_name;
+		if ( version_compare( $plugin_data['RequiresWP'], '5.0' ) >= 0 ) {
+			$undeclared_compatibility_plugins[ $plugin ] = $plugin_name;
 		} else {
 			$plugin_files = get_plugin_files( $plugin );
 			$readmes = array_filter( $plugin_files, function( $files ) {
@@ -543,8 +559,8 @@ if (str_contains($cp_version, 'migration')) {
 					continue;
 				}
 				$readme_data = get_file_data( WP_PLUGIN_DIR . '/' . $readme, $plugin_headers );
-				if ( version_compare( $readme_data['RequiresWP'], '7.0' ) >= 0 ) {
-					$declared_incompatible_plugins[ $plugin ] = $plugin_name;
+				if ( version_compare( $readme_data['RequiresWP'], '5.0' ) >= 0 ) {
+					$undeclared_compatibility_plugins[ $plugin ] = $plugin_name;
 					continue;
 				}
 			}
@@ -564,7 +580,6 @@ if (str_contains($cp_version, 'migration')) {
 		! empty( $declared_incompatible_plugins )
 	) {
 		$preflight_checks['plugins'] = false;
-
 		$conflicting_plugins = array_intersect( $cp_api_parameters['plugins'], $plugins );
 		$conflicting_plugin_names = array();
 		foreach( $conflicting_plugins as $conflicting_plugin ) {
@@ -577,10 +592,9 @@ if (str_contains($cp_version, 'migration')) {
 				$conflicting_plugin_names[] = $name;
 			}
 		}
-
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n<p>\n";
 		_e(
-			'We have detected one or more incompatible plugins that prevent migrating your site to ClassicPress.',
+			'We have detected one or more known incompatible plugins that prevent migrating your site to ClassicPress.',
 			'switch-to-classicpress'
 		);
 		echo "<br>\n";
@@ -594,25 +608,16 @@ if (str_contains($cp_version, 'migration')) {
 			'<strong>%s<strong>',
 			'switch-to-classicpress'
 		), implode( ', ', $conflicting_plugin_names ) );
-	} else {
+		} elseif ( ! empty( $undeclared_compatibility_plugins ) ) {
 		$preflight_checks['plugins'] = true;
 		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		_e(
-			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
-			'switch-to-classicpress'
-		);
-	}
-	echo "</p></td></tr>\n";
-
-	if ( ! empty( $undeclared_compatibility_plugins ) ) {
-		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
-		_e(
-			'We have detected one or more plugins that fail to declare a minimum compatible WordPress version. They may prevent or impact on migrating your site to ClassicPress.',
+			'We have detected one or more plugins that may require Blocks or fail to declare a minimum compatible WordPress version.'.$plugin_info,
 			'switch-to-classicpress'
 		);
 		echo "<br>\n";
 		 _e(
-			'We would recommned deactivating the following plugins if you wish to continue migrating your site to ClassicPress:',
+			'We suggest (temporarily) deactivating the following plugins to safetly migrate your site to ClassicPress:',
 			'switch-to-classicpress'
 		);
 		echo "<br>\n";
@@ -622,7 +627,15 @@ if (str_contains($cp_version, 'migration')) {
 			'switch-to-classicpress'
 		), implode( ', ', $undeclared_compatibility_plugins ) );
 		echo "</p></td></tr>\n";
-	}
+		} else {
+		$preflight_checks['plugins'] = true;
+		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
+		_e(
+			'We are not aware that any of your active plugins are incompatible with ClassicPress.',
+			'switch-to-classicpress'
+		);
+		}
+	echo "</p></td></tr>\n";
 
 	// Check: Supported PHP version
 	if (
@@ -1017,8 +1030,9 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 			</tr>
 			<tr>
 				<th colspan="2">
+				<label for="picker" id="picker-label">Enter or Select a Custom Build URL</label>
 					<select id="picker" onchange="SelectVersion()">
-						<option value="">Enter or Select a Custom Build URL</option>
+						<option value="">-- Please Select an Option --</option>
 					<optgroup label="ClassicPress Builds">
 <?php if ($my_cp != $cp_cv) { ?>
 						<option value="<?php echo $cp_cv_build; ?>">ClassicPress v<?php echo $cp_cv; ?></option>
