@@ -259,7 +259,7 @@ if ( ! $cp_versions ) {
 
 	// Get only stable releases
 	foreach ($cp_versions as $key => $version) {
-		if(!str_contains($version, 'nightly') && !str_contains($version, 'rc') && !str_contains($version, 'alpha') && !str_contains($version, 'beta')) {
+		if(!strpos($version, 'nightly') && !strpos($version, 'rc') && !strpos($version, 'alpha') && !strpos($version, 'beta')) {
 			continue;
 		}
 		unset($cp_versions[$key]);
