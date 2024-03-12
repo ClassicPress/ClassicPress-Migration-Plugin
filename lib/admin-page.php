@@ -477,10 +477,11 @@ if (strpos($cp_version, 'migration')) {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
+	// TEMPORARY HARD CODED DEFAULT THEME
 	$theme_name = 'Twenty Sixteen';
 	$theme_url = 'https://wordpress.org/themes/twentysixteen/';
-	$default_theme = " <a href='$theme_url'>$theme_name</a> ";
-	$theme_info = "<li>The safest way of switching to ClassicPress is by (temporarily) installing and activating the theme <strong>$default_theme</strong>, which works in ClassicPress and WordPress.</li>";
+	$default_theme = "<a href='$theme_url'>$theme_name</a>";
+	$theme_info = "<li>The safest way of switching to ClassicPress is by (temporarily) installing and activating the fully compatible theme <strong>$default_theme</strong>.</li>";
 	$fse_info = "<br>Block themes may work in ClassicPress but Full Screen Editor themes will not, you will have to test the theme(s) you plan to use and verify that they work correctly.";
 	if (
 		in_array( $theme->stylesheet, (array) $cp_api_parameters['themes'] ) ||
@@ -541,7 +542,7 @@ if (strpos($cp_version, 'migration')) {
 	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP'  => 'Requires at least' );
 	$declared_incompatible_plugins = array();
 	$undeclared_compatibility_plugins = array();
-	$plugin_info = "<br>Plugins that require Blocks might not work in ClassicPress, you should test the plugins you plan to use and verify that they work correctly.";
+	$plugin_info = "<br>Plugins that require Blocks might not work in ClassicPress, you should test the plugins you plan to use and verify they work correctly.";
 
 	// Start by checking if plugins have declared they require WordPress 5.0 or higher
 	foreach ( $plugins as $plugin ) {
@@ -615,15 +616,15 @@ if (strpos($cp_version, 'migration')) {
 		$preflight_checks['plugins'] = true;
 		echo "<tr>\n<td>$icon_preflight_warn</td>\n<td>\n<p>\n";
 		_e(
-			'We have detected one or more plugins that may require Blocks or fail to declare a minimum compatible WordPress version.'.$plugin_info,
+			'We have detected one or more plugins that may require Blocks or fail to declare a compatible WordPress version.'.$plugin_info,
 			'switch-to-classicpress'
 		);
 		echo "<br>\n";
 		 _e(
-			'We suggest (temporarily) deactivating the following plugins would be the safest way to migrate your site to ClassicPress:',
+			'<li>The safest way of switching to ClassicPress is to (temporarily) deactivate the following plugin(s):</li>',
 			'switch-to-classicpress'
 		);
-		echo "<br>\n";
+		//echo "<br>\n";
 		/* translators: List of conflicting plugin names */
 		printf( __(
 			'<strong>%s<strong>',
