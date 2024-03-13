@@ -916,8 +916,14 @@ function classicpress_show_migration_blocked_info() {
  */
 function classicpress_show_advanced_migration_controls( $ok = true ) {
 	$cp_api_parameters = classicpress_migration_parameters();
+	$cp_api_error = false;
+	if (is_wp_error( $cp_api_parameters ) ) {
+		$cp_api_parameters = [];
+		$cp_api_error = true;
+	}
 	$cp_versions = get_cp_versions();
 	// Get version information here
+	if ( $cp_api_error === false ) {
 		$cp_cv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
 		$v2_previous = get_previous_version($cp_cv, $cp_versions);
 		$v2_prev_url = get_migration_from_cp_version($v2_previous);
@@ -926,6 +932,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 		$v1_prev_url = get_migration_from_cp_version($v1_previous);
 		$wp_v6 = substr($cp_api_parameters['links']['WordPress 6.2.x'], 32, -4);
 		$wp_v4 = substr($cp_api_parameters['links']['WordPress 4.9.x'], 32, -4);
+	}
 	$is_wp = ! function_exists( 'classicpress_version' );
 	global $wp_version;
 	if (!$is_wp) {
@@ -936,10 +943,12 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 			$my_cp = preg_replace('#[+-].*$#', '', $cp_version);
 		}
 		// Build Proper URL here (ClassicPress can use Release)
-		$cp_cv_build = getReleaseFromCPVersion($cp_cv);
-		$cp_p2_build = getReleaseFromCPVersion($v2_previous);
-		$cp_v1_build = getReleaseFromCPVersion($cp_v1);
-		$cp_p1_build = getReleaseFromCPVersion($v1_previous);
+		if ( $cp_api_error === false ) {
+			$cp_cv_build = getReleaseFromCPVersion($cp_cv);
+			$cp_p2_build = getReleaseFromCPVersion($v2_previous);
+			$cp_v1_build = getReleaseFromCPVersion($cp_v1);
+			$cp_p1_build = getReleaseFromCPVersion($v1_previous);
+		}
 	} else {
 		$my_cp = "0.0.0";
 		// Build Proper URL here (WordPress must use Migration)
@@ -1036,6 +1045,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					?>
 				</td>
 			</tr>
+			<?php if ( $cp_api_error === false ) : ?>
 			<tr>
 				<th colspan="2">
 				<label for="picker" id="picker-label">Enter or Select a Custom Build URL</label>
@@ -1082,6 +1092,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					</select>
 				</th>
 			</tr>
+			<?php endif; ?>
 			<tr>
 				<th scope="row">
 					<label for="cp-build-url">
