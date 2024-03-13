@@ -669,8 +669,10 @@ if (strpos($cp_version, 'migration')) {
 	echo "</td></tr>\n";
 
 	// Check: Support for outgoing HTTPS requests
-	if ( ! wp_http_supports( array( 'ssl' ) ) ) {
+	if (  wp_http_supports( array( 'ssl' ) ) ) {
 		$preflight_checks['wp_http_supports_ssl'] = false;
+		global $allow_avc;
+		$allow_avc = true;
 		echo "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n";
 	} else {
 		$preflight_checks['wp_http_supports_ssl'] = true;
@@ -915,6 +917,8 @@ function classicpress_show_migration_blocked_info() {
  *           hide the "advanced controls" button if preflight checks failed.
  */
 function classicpress_show_advanced_migration_controls( $ok = true ) {
+	global $allow_avc;
+	if ( $allow_avc == true ) { $ok = true; }
 	$cp_api_parameters = classicpress_migration_parameters();
 	$cp_versions = get_cp_versions();
 	// Get version information here
