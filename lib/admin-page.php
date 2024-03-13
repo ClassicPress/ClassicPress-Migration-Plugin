@@ -669,7 +669,7 @@ if (strpos($cp_version, 'migration')) {
 	echo "</td></tr>\n";
 
 	// Check: Support for outgoing HTTPS requests
-	if (  wp_http_supports( array( 'ssl' ) ) ) {
+	if ( ! wp_http_supports( array( 'ssl' ) ) ) {
 		$preflight_checks['wp_http_supports_ssl'] = false;
 		global $allow_avc;
 		$allow_avc = true;
