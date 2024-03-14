@@ -477,7 +477,6 @@ if (strpos($cp_version, 'migration')) {
 
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
-	// TEMPORARY HARD CODED DEFAULT THEME
 	$theme_name = $cp_api_parameters['defaults']['theme_name'];
 	$theme_url = $cp_api_parameters['defaults']['theme_url'];
 	$default_theme = "<a href='$theme_url'>$theme_name</a>";
