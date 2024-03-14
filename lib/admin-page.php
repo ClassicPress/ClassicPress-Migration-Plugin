@@ -265,7 +265,6 @@ function classicpress_check_can_migrate() {
 			$delete_plugin_url = admin_url( 'plugins.php' );
 			$reinstall_url = admin_url( 'update-core.php' );
 		}
-
 ?>
 		<div class="notice notice-success">
 <?php
