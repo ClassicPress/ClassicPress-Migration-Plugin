@@ -3,7 +3,7 @@
  * Plugin Name:       Switch to ClassicPress
  * Plugin URI:        https://github.com/ClassicPress/ClassicPress-Migration-Plugin
  * Description:       Switch your WordPress installation to ClassicPress.
- * Version:           1.4.1
+ * Version:           1.5.0
  * Author:            ClassicPress
  * Author URI:        https://www.classicpress.net
  * License:           GPLv2 or later
@@ -178,11 +178,11 @@ add_filter(
  * }
  */
 function classicpress_migration_parameters() {
-	$parameters = get_transient( 'classicpress_migration_parameters' );
+	$cp_api_parameters = get_transient( 'classicpress_migration_parameters' );
 
-	if ( ! $parameters ) {
+	if ( ! $cp_api_parameters ) {
 		$response   = wp_remote_get( 'https://api-v1.classicpress.net/migration/' );
-		$parameters = null;
+		$cp_api_parameters = null;
 
 		if ( is_wp_error( $response ) ) {
 			$status = $response->get_error_message();
@@ -191,17 +191,17 @@ function classicpress_migration_parameters() {
 		}
 
 		if ( $status === 200 ) {
-			$parameters = json_decode( wp_remote_retrieve_body( $response ), true );
-			if ( is_array( $parameters ) ) {
+			$cp_api_parameters = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( is_array( $cp_api_parameters ) ) {
 				set_transient(
 					'classicpress_migration_parameters',
-					$parameters,
+					$cp_api_parameters,
 					1 * HOUR_IN_SECONDS
 				);
 			}
 		}
 
-		if ( ! is_array( $parameters ) ) {
+		if ( ! is_array( $cp_api_parameters ) ) {
 			return new WP_Error(
 				'classicpress_server_error',
 				__(
@@ -213,5 +213,126 @@ function classicpress_migration_parameters() {
 		}
 	}
 
-	return $parameters;
+	return $cp_api_parameters;
+}
+
+
+/**
+ * Get a list of ClassicPress released versions from api-v1.classicpress.net.
+ *
+ * @return array|false Array of CP versions or false on API failure.
+ */
+function get_cp_versions() {
+	$cp_versions = get_transient( 'classicpress_release_versions' );
+
+if ( ! $cp_versions ) {
+	$response = wp_remote_get('https://api-v1.classicpress.net/v1/upgrade/index.php', ['timeout'=>3]);
+	if ( is_wp_error( $response ) ) {
+		$status = $response->get_error_message();
+	} else {
+		$status = wp_remote_retrieve_response_code( $response );
+	}
+
+	if ( $status === 200 ) {
+		$cp_versions = json_decode( wp_remote_retrieve_body( $response ), true );
+		if ( is_array( $cp_versions ) ) {
+			set_transient(
+				'classicpress_release_versions',
+				$cp_versions,
+				1 * HOUR_IN_SECONDS
+			);
+		}
+	}
+
+	if ( ! is_array( $cp_versions ) ) {
+		return new WP_Error(
+			'classicpress_server_error',
+			__(
+				'Could not communicate with the ClassicPress API server',
+				'switch-to-classicpress'
+			),
+			array( 'status' => $status )
+		);
+	}
+}
+//	$versions = json_decode(wp_remote_retrieve_body($response));
+
+	// Get only stable releases
+	foreach ($cp_versions as $key => $version) {
+		if(!strpos($version, 'nightly') && !strpos($version, 'rc') && !strpos($version, 'alpha') && !strpos($version, 'beta')) {
+			continue;
+		}
+		unset($cp_versions[$key]);
+	}
+
+	// Strip .json from version
+	$cp_versions = array_map(
+		function($v) {
+			return substr($v, 0, -5);
+		},
+		$cp_versions
+	);
+
+	// Sort using SemVer
+	usort($cp_versions, 'version_compare');
+
+	return array_values($cp_versions);
+
+}
+
+function get_migration_from_cp_version($version) {
+	$response = wp_remote_get('https://api.github.com/repos/ClassicPress/ClassicPress-release/releases/tags/'.$version, ['timeout'=>3]);
+	if (is_wp_error($response) || empty($response)) {
+		return false;
+	}
+
+	$data = json_decode(wp_remote_retrieve_body($response), true);
+	if(isset($data['message']) && $data['message'] === 'Not Found') {
+		return '';
+	}
+
+	$created_at = new \DateTime($data['created_at']);
+	$day        = $created_at->format('Ymd');
+	$exploded   = explode('.', $version);
+	$major      = $exploded[0];
+	$url        = 'https://github.com/ClassyBot/ClassicPress-v'.$major.'-nightly/releases/download/'.$version.'%2Bmigration.'.$day.'/ClassicPress-nightly-'.$version.'-migration.'.$day.'.zip';
+	return $url;
+}
+
+/**
+ * Get release URL.
+ *
+ * @param string $version  Version to retrive migration URL.
+ *
+ * @return string          URL for release.
+ */
+function getReleaseFromCPVersion($version) {
+	return 'https://github.com/ClassicPress/ClassicPress-release/archive/refs/tags/'.$version.'.zip';
+}
+
+/**
+ * Get previous release version.
+ *
+ * @param string $version   Version to get previous release.
+ * @param array  $versions  Array of ClassicPress versions as
+ *                          returned by getCPVersions().
+ *                          Used for caching.
+ *
+ * @return string|bool      Previous version. False if not found.
+ */
+function get_previous_version($version, $versions = []) {
+	if (empty($versions)) {
+//		$versions = self::getCPVersions();
+		$versions = get_cp_versions();
+	} else {
+		usort($versions, 'version_compare');
+	}
+	if(!in_array($version, $versions)) {
+		return false;
+	}
+	$pos = array_search($version, $versions, true);
+	if(!isset($versions[$pos - 1])) {
+		return false;
+	}
+	return $versions[$pos - 1];;
 }
