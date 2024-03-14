@@ -292,10 +292,9 @@ if (strpos($cp_version, 'migration')) {
 			</p>
 			<p>
 				<?php echo sprintf(
-					// DELETE THIS PART?
 					/* translators: %s: URL to plugins page */
 					__(
-						'If no longer needed. you can <a href="%s">delete the plugin</a>.',
+						'If no longer needed you can <a href="%s">delete the plugin</a>.',
 						'switch-to-classicpress'
 					),
 					$delete_plugin_url
