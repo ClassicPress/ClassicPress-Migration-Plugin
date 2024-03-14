@@ -478,8 +478,8 @@ if (strpos($cp_version, 'migration')) {
 	// Check: Conflicting Theme
 	$theme = wp_get_theme();
 	// TEMPORARY HARD CODED DEFAULT THEME
-	$theme_name = $cp_api_parameters['defaults']['theme_name'];
-	$theme_url = $cp_api_parameters['defaults']['theme_url'];
+	$theme_name = 'Twenty Sixteen';
+	$theme_url = 'https://wordpress.org/themes/twentysixteen/';
 	$default_theme = "<a href='$theme_url'>$theme_name</a>";
 	$theme_info = "<li>The safest way of switching to ClassicPress is by (temporarily) installing and activating the fully compatible theme <strong>$default_theme</strong>.</li>";
 	$fse_info = "<br>Block themes may work in ClassicPress but Full Screen Editor themes will not, you will have to test the theme(s) you plan to use and verify that they work correctly.";
