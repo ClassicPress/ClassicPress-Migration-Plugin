@@ -201,8 +201,23 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Direct blocking issues to ClassicPress Forum (#82)
 - Add plugin header checking (#83)
 - Add theme header comparison check to compatibility logic (#76)
-  
+
+
 ### 1.4.1
 
 - Version Bump
+
+
+### 1.5.0
+
+- Add smart drop down to Advanced Controls
+- Implement PHP version checking based on migration API endpoint
+- Adjust checks, notifications and information text as needed for CP v2
+- Warn that Migration requires Re-Install (reminder if you go back into the plugin)
+- Chat link changed from Slack to Zulip
+- Offer CP v1 & v2 current and one version back (unless no previous as with 2 right now)
+- Offer WP current, 6.3.x and 4.9.x (4.9 offered only if running php7)
+- Offer release version if running CP migration version
+- Will not offer what you already have
+- Suggest CP Default theme
 
