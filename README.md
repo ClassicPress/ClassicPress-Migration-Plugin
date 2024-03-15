@@ -5,14 +5,14 @@
 This is a WordPress plugin that switches a WordPress installation to
 [ClassicPress](https://www.classicpress.net).
 
-ClassicPress is for businesses seeking a powerful and versatile solution for
-their website needs. Built on the firm foundation of WordPress 4.9.x,
+This is also, starting from version 1.5, a version switcher tool for ClassicPress
+that can be used to install other versions, test nightly builds and even revert your
+site to WordPress.
+
+## The CMS for Creators
 ClassicPress takes your website to the next level with the same features and
 functionality that you enjoyed with WordPress, but with more attention to the
 most common needs of a business website.
-
-ClassicPress is compatible with all plugins and themes that work in WordPress
-`4.9.x`, so migration is easy.
 
 **PLEASE NOTE:** ClassicPress is stable software, but it is important to take a
 backup before switching a live production site to ClassicPress. Please also
@@ -59,8 +59,9 @@ If something is wrong, please let us know in
 
 ### Will my current plugins and themes work in ClassicPress?
 
-If your current plugins work in WordPress 4.9.x, they will work in ClassicPress
-too.  If you’re seeing something otherwise, that may be a bug with
+Plugins that require Blocks might not work in ClassicPress, you should test the plugins 
+you plan to use and verify they work correctly.
+If you’re seeing something otherwise, that may be a bug with
 ClassicPress, and we’d appreciate you reporting it on
 [our support forum](https://forums.classicpress.net/c/support/)
 or
@@ -95,7 +96,7 @@ Like all of ClassicPress, our support is a volunteer effort by the community.
 If you need help with something, please let us know in
 [our support forum](https://forums.classicpress.net/c/support/)
 or
-[Slack group](https://www.classicpress.net/join-slack/).
+[Zulip chat](https://classicpress.zulipchat.com/register/).
 
 ## Screenshots
 
