@@ -2,17 +2,17 @@
 
 ![](assets/banner-772x250.png)
 
-This is a WordPress plugin that switches a WordPress installation to
+This is a plugin for WordPress that switches your installation to
 [ClassicPress](https://www.classicpress.net).
 
-ClassicPress is for businesses seeking a powerful and versatile solution for
-their website needs. Built on the firm foundation of WordPress 4.9.x,
+Version 1.5 of this plugin also added a switcher tool for ClassicPress
+that can be used to install other versions, test nightly builds and even revert your
+site to WordPress.
+
+## The CMS for Creators
 ClassicPress takes your website to the next level with the same features and
 functionality that you enjoyed with WordPress, but with more attention to the
 most common needs of a business website.
-
-ClassicPress is compatible with all plugins and themes that work in WordPress
-`4.9.x`, so migration is easy.
 
 **PLEASE NOTE:** ClassicPress is stable software, but it is important to take a
 backup before switching a live production site to ClassicPress. Please also
@@ -59,9 +59,10 @@ If something is wrong, please let us know in
 
 ### Will my current plugins and themes work in ClassicPress?
 
-If your current plugins work in WordPress 4.9.x, they will work in ClassicPress
-too.  If you’re seeing something otherwise, that may be a bug with
-ClassicPress, and we’d appreciate you reporting it on
+Plugins that require Blocks might not work well in ClassicPress, you should test
+any plugins you plan to use and verify they work correctly.
+If you see something unusual it may be a bug with
+ClassicPress, and you can get help on
 [our support forum](https://forums.classicpress.net/c/support/)
 or
 [GitHub](https://github.com/ClassicPress).
@@ -95,7 +96,7 @@ Like all of ClassicPress, our support is a volunteer effort by the community.
 If you need help with something, please let us know in
 [our support forum](https://forums.classicpress.net/c/support/)
 or
-[Slack group](https://www.classicpress.net/join-slack/).
+[Zulip chat](https://classicpress.zulipchat.com/register/).
 
 ## Screenshots
 
@@ -201,8 +202,23 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Direct blocking issues to ClassicPress Forum (#82)
 - Add plugin header checking (#83)
 - Add theme header comparison check to compatibility logic (#76)
-  
+
+
 ### 1.4.1
 
 - Version Bump
+
+
+### 1.5.0
+
+- Add smart drop down to Advanced Controls
+- Implement PHP version checking based on migration API endpoint
+- Adjust checks, notifications and information text as needed for CP v2
+- Warn that Migration requires Re-Install (reminder if you go back into the plugin)
+- Chat link changed from Slack to Zulip
+- Offer CP v1 & v2 current and one version back (unless no previous as with 2 right now)
+- Offer WP current, 6.3.x and 4.9.x (4.9 offered only if running PHP 7)
+- Offer release version if running CP migration version
+- Will not offer re-installation
+- Suggest a ClassicPress Default theme
 
