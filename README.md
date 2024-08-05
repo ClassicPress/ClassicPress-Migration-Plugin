@@ -222,3 +222,7 @@ supports migrating multisite WordPress installations to ClassicPress.
 - Will not offer re-installation
 - Suggest a ClassicPress Default theme
 
+### 1.5.1
+
+- Restrict Access to 'can update core'
+- Update GitHub Link

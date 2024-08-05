@@ -173,13 +173,15 @@ function classicpress_register_network_admin_menu() {
  * @since 0.1.0
  */
 function classicpress_register_admin_page() {
-	add_management_page(
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-		__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
-		'read',
-		'switch-to-classicpress',
-		'classicpress_show_admin_page'
-	);
+	if ( current_user_can( 'update_core' ) ) {
+		add_management_page(
+			__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+			__( 'Switch to ClassicPress', 'switch-to-classicpress' ),
+			'read',
+			'switch-to-classicpress',
+			'classicpress_show_admin_page'
+		);
+	}
 }
 
 if ( is_multisite() ) {
@@ -1010,10 +1012,10 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 							<?php printf(
 								__(
 									/* translators: link to ClassicPress migration builds */
-									'You can find ClassicPress Migration Builds <a href="%s">on GitHub</a>.',
+									'You can find ClassicPress Nightly Migration & Nightly Update Builds on <a href="%s">GitHub</a>.',
 									'switch-to-classicpress'
 								),
-								'https://github.com/ClassyBot/ClassicPress-nightly/releases'
+								'https://github.com/ClassyBot'
 							); ?>
 						</p>
 					</td>
