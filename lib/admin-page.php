@@ -122,10 +122,13 @@ table#cp-preflight-checks {
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById( 'cp-show-advanced-migration-form' ).addEventListener( 'click', function() {
-		document.getElementById( 'cp-advanced-migration-form' ).classList.remove( 'hidden' );
-		this.remove();
-	} );
+	var showForm = document.getElementById( 'cp-show-advanced-migration-form' );
+	if ( showForm != null ) {
+		showForm.addEventListener( 'click', function() {
+			document.getElementById( 'cp-advanced-migration-form' ).classList.remove( 'hidden' );
+			this.remove();
+		} );
+	}
 } );
 </script>
 <?php
