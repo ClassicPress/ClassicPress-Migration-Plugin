@@ -1,0 +1,34 @@
+name: ClassicPress Directory Coding Standard checks.
+
+on: [pull_request, push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+      name: CPCS
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: CPCS get rules
+          run: |
+            wget -O phpcs.xml https://raw.githubusercontent.com/ClassicPress/ClassicPress-Coding-Standards/main/phpcs.xml
+            sed -i '/^\t<!-- start config -->.*/a\
+              <file>.</file>
+              ' phpcs.xml
+            sed -i '/MY_DOMAIN/ s//switch-to-classicpress/' phpcs.xml
+            mv phpcs.xml phpcs.xml.dist
+        - name: CPCS checks
+          uses: 10up/wpcs-action@stable
+          with:
+            use_local_config: 'true'
+            enable_warnings: 'true'
+            extra_args: '--report-json=./phpcs.json'
+        - name: Update summary
+          run: |
+            npm i -g github:10up/phpcs-json-to-md
+            phpcs-json-to-md --path ./phpcs.json --output ./phpcs.md
+            cat phpcs.md >> $GITHUB_STEP_SUMMARY
+          if: always()
