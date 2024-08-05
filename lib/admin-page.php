@@ -273,7 +273,7 @@ function classicpress_check_can_migrate() {
 <?php
 if (strpos($cp_version, 'migration')) {
 			_e(
-				"<h3>You're almost done switching to ClassicPress v".preg_replace('#[+-].*$#', '', $cp_version)."!</h3>",
+				"<h2>You're almost done switching to ClassicPress v".preg_replace('#[+-].*$#', '', $cp_version)."!</h2>",
 				'switch-to-classicpress'
 			);
 			_e(
@@ -282,7 +282,7 @@ if (strpos($cp_version, 'migration')) {
 			);
 } else {
 			_e(
-				"<h3>Good job, you're running ClassicPress v".preg_replace('#[+-].*$#', '', $cp_version)."!</h3>",
+				"<h2>Good job, you're running ClassicPress v".preg_replace('#[+-].*$#', '', $cp_version)."!</h2>",
 				'switch-to-classicpress'
 			);
 }
