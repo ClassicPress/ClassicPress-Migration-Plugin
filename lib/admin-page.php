@@ -733,7 +733,7 @@ if (strpos($cp_version, 'migration')) {
 	}
 
 	// Check: Core files checksums
-	$modified_files = classicpress_check_core_files();
+	$modified_files = classicpress_check_core_files( get_locale() );
 	if ( $modified_files === false || ! empty( $modified_files ) ) {
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_warn) . "</td>\n<td>\n";
 	} else {
@@ -1066,19 +1066,19 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					<optgroup label="ClassicPress Builds">
 <?php if ($my_cp !== $cp_cv) { ?>
 						<option value="<?php echo esc_url($cp_cv_build); ?>">ClassicPress v<?php echo esc_html($cp_cv); ?></option>
-<?php 
+<?php
 	}
-	if ($my_cp !== $v2_previous && substr($v2_previous, 0, 1) === substr($cp_cv, 0, 1)) { 
+	if ($my_cp !== $v2_previous && substr($v2_previous, 0, 1) === substr($cp_cv, 0, 1)) {
 ?>
 						<option value="<?php echo esc_url($cp_p2_build); ?>">ClassicPress v<?php echo esc_html($v2_previous); ?></option>
-<?php 
+<?php
 	}
-	if ($my_cp !== $cp_v1) { 
+	if ($my_cp !== $cp_v1) {
 ?>
 						<option value="<?php echo esc_url($cp_v1_build); ?>">ClassicPress v<?php echo esc_html($cp_v1); ?></option>
-<?php 
+<?php
 	}
-	if ($my_cp !== $v1_previous) { 
+	if ($my_cp !== $v1_previous) {
 ?>
 						<option value="<?php echo esc_url($cp_p1_build); ?>">ClassicPress v<?php echo esc_html($v1_previous); ?></option>
 <?php } ?>
@@ -1089,10 +1089,10 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 <?php
 	}
 	if (!$is_wp && $wp_v6 === $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
-	if ($wp_check !== $wp_v6) { 
+	if ($wp_check !== $wp_v6) {
 ?>
 						<option value="<?php echo esc_url($cp_api_parameters['links']['WordPress 6.2.x']); ?>">WordPress v<?php echo esc_html($wp_v6); ?></option>
-<?php 
+<?php
 	}
 // WPv4.9 DOES NOT WORK with php8 - Block the option here
 	if (!$is_wp && $wp_v4 === $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
