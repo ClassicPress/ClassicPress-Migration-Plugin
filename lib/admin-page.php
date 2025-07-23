@@ -210,7 +210,6 @@ function classicpress_show_admin_page() {
 
 ?>
 	<h2><?php esc_html_e( 'Feedback and Support', 'switch-to-classicpress' ); ?></h2>
-
 	<p class="cp-migration-info">
 		<?php esc_html_e(
 			"Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We'd love to know what you think!",
@@ -246,6 +245,46 @@ function classicpress_show_admin_page() {
 </div><!-- .wrap -->
 <?php
 }
+
+/**
+ * Add an option under General Settings to ignore wp_version on migration.
+ *
+ * @since 1.6.0
+ */
+function classicpress_ignore_wp_version_settings_init() {
+	if ( function_exists( 'classicpress_version' ) ) {
+		return;
+	}
+	add_settings_field(
+		'classicpress_ignore_wp_version',
+		'Ignore WordPress version',
+		'classicpress_ignore_wp_version_checkbox_callback',
+		'general',
+		'default'
+	);
+	register_setting( 'general', 'classicpress_ignore_wp_version' );
+}
+
+/**
+ * Render an option under General Settings to ignore wp_version on migration.
+ *
+ * @since 1.6.0
+ */
+function classicpress_ignore_wp_version_checkbox_callback() {
+	$option = get_option( 'classicpress_ignore_wp_version' );
+	echo '<input type="checkbox" id="classicpress_ignore_wp_version" name="classicpress_ignore_wp_version" value="1" ' . checked( 1, $option, false ) . '>';
+	printf(
+		esc_html__(
+			/* translators: 1: markup for the link at the migration page, 2: closing markup */
+			'Ignore WordPress version when migrating to ClassicPress using the %1$sClassicPress Migration Plugin%2$s.',
+			'switch-to-classicpress'
+		),
+		'<a href="' . admin_url( 'tools.php?page=switch-to-classicpress' ) . '">' ,
+		'</a>'
+	);
+}
+ 
+add_action( 'admin_init', 'classicpress_ignore_wp_version_settings_init' );
 
 /**
  * Determine whether this WP install can be migrated to ClassicPress.
@@ -428,7 +467,7 @@ if (strpos($cp_version, 'migration')) {
 		 *
 		 * @param bool $ignore Ignore the WP version check. Defaults to false.
 		 */
-		if ( apply_filters( 'classicpress_ignore_wp_version', false ) ) {
+		if ( apply_filters( 'classicpress_ignore_wp_version', false ) || get_option( 'classicpress_ignore_wp_version' ) === '1' ) {
 			$preflight_checks['wp_version'] = true;
 			echo "<tr>\n<td>" . wp_kses_post($icon_preflight_warn) . "</td>\n<td>\n";
 			echo "<p>\n";
@@ -453,9 +492,15 @@ if (strpos($cp_version, 'migration')) {
 			echo wp_kses_post( "<tr>\n<td>$icon_preflight_fail</td>\n<td>\n" );
 			echo "<p>\n";
 			echo wp_kses_post( $wp_version_check_intro_message );
-			echo wp_kses_post( "You can enable migration from this version of WordPress <strong class='cp-emphasis'>At Your
-		Own Risk</strong><br>Use the following code in your current theme's
-		`functions.php` file or a mu-plugin to allow migration:<br><code>add_filter( 'classicpress_ignore_wp_version', '__return_true' );</code>" );
+			printf(
+				esc_html__(
+					/* translators: 1: markup for the link at the general settings page, 2: closing markup */
+					'You can enable migration from this version of WordPress At Your Own Risk activating "Ignore WordPress version" in the %1$sGeneral options%2$s.',
+					'switch-to-classicpress'
+				),
+				'<a href="' . admin_url( 'options-general.php' ) . '">' ,
+			'</a>'
+			);
 		}
 	} else {
 		$preflight_checks['wp_version'] = true;
