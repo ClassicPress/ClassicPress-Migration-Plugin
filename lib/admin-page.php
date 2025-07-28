@@ -279,7 +279,7 @@ function classicpress_ignore_wp_version_checkbox_callback() {
 			'Ignore WordPress version when migrating to ClassicPress using the %1$sClassicPress Migration Plugin%2$s.',
 			'switch-to-classicpress'
 		),
-		'<a href="' . esc_url_raw( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' ,
+		'<a href="' . sanitize_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' ,
 		'</a>'
 	);
 }
@@ -498,7 +498,7 @@ if (strpos($cp_version, 'migration')) {
 					'You can enable migration from this version of WordPress At Your Own Risk activating "Ignore WordPress version" in the %1$sGeneral options%2$s.',
 					'switch-to-classicpress'
 				),
-				'<a href="' . esc_url_raw( admin_url( 'options-general.php' ) ) . '">' ,
+				'<a href="' . sanitize_url( admin_url( 'options-general.php' ) ) . '">' ,
 			'</a>'
 			);
 		}
