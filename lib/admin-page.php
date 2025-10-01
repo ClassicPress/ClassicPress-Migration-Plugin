@@ -530,8 +530,10 @@ if (strpos($cp_version, 'migration')) {
 	$theme_name = $cp_api_parameters['defaults']['theme_name'];
 	$theme_url = $cp_api_parameters['defaults']['theme_url'];
 	$default_theme = "<a href='$theme_url'>$theme_name</a>";
-	$theme_info = __( "<strong>The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>$default_theme</em>.</strong>
-	<br>You can <strong class='cp-emphasis'>Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.", 'switch-to-classicpress' );	
+	$theme_info = sprintf(
+		__("<strong>The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>%s</em>.</strong><br>You can <strong class='cp-emphasis'>Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.", 'switch-to-classicpress'),
+		$default_theme
+	);	
 // THEME CHECKS DISABLED / WARN ONLY (Since v1.6)
 	if ( $theme->name === $theme_name ) {
 		$preflight_checks['theme'] = true;
