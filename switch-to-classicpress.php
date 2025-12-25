@@ -94,7 +94,7 @@ add_action( 'admin_head', 'classicpress_ensure_network_activated' );
  */
 function classicpress_deactivated_notice() {
 	echo '<div class="error"><p>';
-	wp_kses_post(
+	echo wp_kses_post(
 		__( 'The "Switch to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
 		'switch-to-classicpress' )
 	);
