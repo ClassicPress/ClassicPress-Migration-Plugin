@@ -369,8 +369,8 @@ if (strpos($cp_version, 'migration')) {
 			</p>
 			<p>
 				<?php echo wp_kses_post(
-					'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
-					'switch-to-classicpress'
+					__( 'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
+					'switch-to-classicpress' )
 				); ?>
 			</p>
 		</div>
