@@ -212,16 +212,16 @@ function classicpress_show_admin_page() {
 	<h2><?php esc_html_e( 'Feedback and Support', 'switch-to-classicpress' ); ?></h2>
 	<p class="cp-migration-info">
 		<?php esc_html_e(
-			"Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We'd love to know what you think!",
+			'Do you have feedback about this plugin, or about ClassicPress itself? Need help with something? We\'d love to know what you think!',
 			'switch-to-classicpress'
 		); ?>
 	</p>
 	<ul class="cp-migration-info">
 		<li><?php printf(
-		/* translators: 1: link with instructions to join our Forum, 2: link to join ClassicPress Slack */
+		/* translators: 1: link with instructions to join our Forum, 2: link to join ClassicPress Zulip */
 			wp_kses_post(
-				'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Zulip chat</a>.',
-				'switch-to-classicpress'
+				__( 'For support, suggestions for improvement, or general discussion about how the plugin works, visit us in our <a href="%1$s">support forum</a> or <a href="%2$s">Zulip chat</a>.',
+				'switch-to-classicpress' )
 			),
 			'https://forums.classicpress.net/tags/c/plugins/9/migration-plugin',
 			'https://classicpress.zulipchat.com/register/'
@@ -229,8 +229,8 @@ function classicpress_show_admin_page() {
 		<li><?php printf(
 		/* translators: link to create a new GitHub issue for this plugin */
 			wp_kses_post(
-				'For <strong>specific</strong> bug reports or suggestions, <a href="%s">add a new issue on GitHub</a>.',
-				'switch-to-classicpress'
+				__( 'For <strong>specific</strong> bug reports or suggestions, <a href="%s">add a new issue on GitHub</a>.',
+				'switch-to-classicpress' )
 			),
 			'https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues/new'
 		); ?></li>
@@ -257,7 +257,7 @@ function classicpress_ignore_wp_version_settings_init() {
 	}
 	add_settings_field(
 		'classicpress_ignore_wp_version',
-		'Ignore WordPress version',
+		__( 'Ignore WordPress version', 'switch-to-classicpress' ),
 		'classicpress_ignore_wp_version_checkbox_callback',
 		'general',
 		'default'
@@ -279,7 +279,7 @@ function classicpress_ignore_wp_version_checkbox_callback() {
 			'Ignore WordPress version when migrating to ClassicPress using the %1$sClassicPress Migration Plugin%2$s.',
 			'switch-to-classicpress'
 		),
-		'<a href="' . sanitize_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">' , //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.WP.DeprecatedFunctions.sanitize_urlFound
+		'<a href="' . sanitize_url( admin_url( 'tools.php?page=switch-to-classicpress' ) ) . '">', //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.WP.DeprecatedFunctions.sanitize_urlFound
 		'</a>'
 	);
 }
@@ -312,27 +312,27 @@ function classicpress_check_can_migrate() {
 ?>
 		<div class="notice notice-success">
 <?php
-if (strpos($cp_version, 'migration')) {
-			printf(
-				'<h2>%s</h2>',
-				wp_kses_post( "You're almost done switching to ClassicPress v" . preg_replace('#[+-].*$#', '', $cp_version) . "!", 'switch-to-classicpress' )
-			);
-			printf(
-				wp_kses_post(
-					"<strong class='cp-emphasis'>You must visit the <a href='%s'>Updates Page</a> and Press the Re-Install Now button to complete the migration process!</strong>",
-					'switch-to-classicpress'
-				),
-				esc_url( $reinstall_url )
-			);
-} else {
-			printf(
-				wp_kses_post(
-					'<h2>Good job, you\'re running ClassicPress v%s!</h2>',
-					'switch-to-classicpress'
-				),
-				esc_html( preg_replace( '#[+-].*$#', '', $cp_version ) )
-			);
-}
+			if (strpos($cp_version, 'migration')) {
+				printf(
+					wp_kses_post(
+						'<h2>' . __( 'You\'re almost done switching to ClassicPress v%s!', 'switch-to-classicpress' ) . '</h2>'
+					),
+					esc_html( preg_replace( '#[+-].*$#', '', $cp_version ) )
+				);
+				printf(
+					wp_kses_post(
+						'<strong class="cp-emphasis">' . __( 'You must visit the <a href="%s">Updates Page</a> and Press the Re-Install Now button to complete the migration process!', 'switch-to-classicpress' ) . '</strong>'
+					),
+					esc_url( $reinstall_url )
+				);
+			} else {
+				printf(
+					wp_kses_post(
+						'<h2>' . __( 'Good job, you\'re running ClassicPress v%s!', 'switch-to-classicpress' ) . '</h2>'
+					),
+					esc_html( preg_replace( '#[+-].*$#', '', $cp_version ) )
+				);
+			}
 ?>
 			<p>
 				<strong><?php esc_html_e(
@@ -344,8 +344,8 @@ if (strpos($cp_version, 'migration')) {
 				<?php printf(
 					/* translators: %s: URL to plugins page */
 					wp_kses_post(
-						'If no longer needed you can <a href="%s">delete the plugin</a>.',
-						'switch-to-classicpress'
+						__( 'If no longer needed you can <a href="%s">delete the plugin</a>.',
+						'switch-to-classicpress' )
 					),
 					esc_url( $delete_plugin_url )
 				); ?>
@@ -363,14 +363,14 @@ if (strpos($cp_version, 'migration')) {
 		<div class="notice notice-error">
 			<p>
 				<?php esc_html_e(
-					"Sorry, this plugin doesn't support sites hosted on WordPress.com.",
+					'Sorry, this plugin doesn\'t support sites hosted on WordPress.com.',
 					'switch-to-classicpress'
 				); ?>
 			</p>
 			<p>
 				<?php wp_kses_post(
-					'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
-					'switch-to-classicpress'
+					__( 'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
+					'switch-to-classicpress' )
 				); ?>
 			</p>
 		</div>
@@ -384,13 +384,13 @@ if (strpos($cp_version, 'migration')) {
 		<div class="notice notice-error">
 			<p>
 				<?php esc_html_e(
-					"Sorry, you're not allowed to perform this action.",
+					'Sorry, you\'re not allowed to perform this action.',
 					'switch-to-classicpress'
 				); ?>
 			</p>
 			<p>
 				<?php esc_html_e(
-					"Please contact a site administrator for more information.",
+					'Please contact a site administrator for more information.',
 					'switch-to-classicpress'
 				); ?>
 			</p>
@@ -441,7 +441,7 @@ if (strpos($cp_version, 'migration')) {
 	global $wp_version;
 	$wp_version_min = $cp_api_parameters['wordpress']['min'];
 	$wp_version_max = $cp_api_parameters['wordpress']['max'];
-	/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version */
+	/* translators: 1: minimum supported WordPress version, 2: maximum supported WordPress version, 3: current WordPress version */
 	$wp_version_check_intro_message = sprintf( __(
 		'This plugin supports WordPress versions <strong>%1$s</strong> to <strong>%2$s</strong> (and some newer development versions).<br>You are running WordPress version <strong>%3$s</strong>.',
 		'switch-to-classicpress'
@@ -473,8 +473,8 @@ if (strpos($cp_version, 'migration')) {
 			echo "<p>\n";
 			echo wp_kses_post( $wp_version_check_intro_message );
 			echo wp_kses_post(
-				'The check for supported WordPress versions has been <strong class="cp-emphasis">Manually Disabled</strong>.',
-				'switch-to-classicpress'
+				__( 'The check for supported WordPress versions has been <strong class="cp-emphasis">Manually Disabled</strong>.',
+				'switch-to-classicpress' )
 			);
 			echo "<br>\n";
 			esc_html_e(
@@ -483,8 +483,7 @@ if (strpos($cp_version, 'migration')) {
 			);
 			echo "<br>\n";
 			echo wp_kses_post(
-				'<strong class="cp-emphasis">Proceed At Your Own Risk!</strong>',
-				'switch-to-classicpress'
+				'<strong class="cp-emphasis">' . __( 'Proceed At Your Own Risk!', 'switch-to-classicpress' ) . '</strong>'
 			);
 			echo "<br>\n";
 		} else {
@@ -529,24 +528,29 @@ if (strpos($cp_version, 'migration')) {
 	$theme = wp_get_theme();
 	$theme_name = $cp_api_parameters['defaults']['theme_name'];
 	$theme_url = $cp_api_parameters['defaults']['theme_url'];
-	$default_theme = "<a href='$theme_url'>$theme_name</a>";
-	$theme_info = "<strong>The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>$default_theme</em>.</strong>
-	<br>You can <strong class='cp-emphasis'>Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.";	
-// THEME CHECKS DISABLED / WARN ONLY (Since v1.6)
+	$default_theme = '<a href="'.$theme_url.'">'.$theme_name.'</a>';
+	$theme_info = printf( wp_kses_post(
+		// translators: default theme
+		'<strong>' . __( 'The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>%1$s</em>.', 'switch-to-classicpress' ) . '</strong><br>' .
+		__( 'You can <strong class="cp-emphasis">Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.', 'switch-to-classicpress' )
+		), $default_theme
+	);
+	// THEME CHECKS DISABLED / WARN ONLY (Since v1.6)
 	if ( $theme->name === $theme_name ) {
 		$preflight_checks['theme'] = true;
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_pass) . "</td>\n<td>\n<p>\n";
 		printf( wp_kses_post(
-			'It looks like you are using the <strong>%1$s</strong> theme.<br>%1$s is the suggested theme to use when migrating from ClassicPress to WordPress.',
-			'switch-to-classicpress'
+			// translators: default theme name
+			__( 'It looks like you are using the <strong>%1$s</strong> theme.<br>%1$s is the suggested theme to use when migrating from ClassicPress to WordPress.',
+			'switch-to-classicpress' )
 		), esc_html( $theme->name ) );
 	} else {
 		$preflight_checks['theme'] = true;
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_warn) . "</td>\n<td>\n<p>\n";
 		printf( wp_kses_post(
 			// translators: active theme name
-			'It looks like you are using the theme <strong>%1$s</strong>, you should test the theme(s) you plan to use after migration and verify that they work correctly.',
-			'switch-to-classicpress'
+			__( 'It looks like you are using the theme <strong>%1$s</strong>, you should test the theme(s) you plan to use after migration and verify that they work correctly.',
+			'switch-to-classicpress' )
 		), esc_html( $theme->name ) );
 		echo "<br>\n";
 		echo wp_kses_post(
@@ -561,7 +565,7 @@ if (strpos($cp_version, 'migration')) {
 	$plugin_headers = array( 'Name' => 'Plugin Name', 'RequiresWP'  => 'Requires at least' );
 	$declared_incompatible_plugins = array();
 	$undeclared_compatibility_plugins = array();
-	$plugin_info = "It looks like you have active plugins, you should test the plugins you plan to use after migration and verify they work correctly.";
+	$plugin_info = __( 'It looks like you have active plugins, you should test the plugins you plan to use after migration and verify they work correctly.', 'switch-to-classicpress' );
 
 		if ( count($plugins) > 1 ) {
 		$preflight_checks['plugins'] = true;
@@ -572,9 +576,8 @@ if (strpos($cp_version, 'migration')) {
 		);
 		echo "<br>\n";
 		echo wp_kses_post(
-			"<strong>The safest way of switching to ClassicPress is to (temporarily) deactivate your plugins, except <em>Switch to ClassicPress</em>.</strong>
-			<br>You can <strong class='cp-emphasis'>Continue at Your Own Risk</strong> with active plugins, but you may experience issues if any plugins are not compatible with ClassicPress.",
-			'switch-to-classicpress'
+			'<strong>' . __( 'The safest way of switching to ClassicPress is to (temporarily) deactivate your plugins, except <em>Switch to ClassicPress</em>.', 'switch-to-classicpress' ) . '</strong><br>' .
+			__( 'You can <strong class="cp-emphasis">Continue at Your Own Risk</strong> with active plugins, but you may experience issues if any plugins are not compatible with ClassicPress.', 'switch-to-classicpress' )
 		);
 		echo "</p></td></tr>\n";
 		} else {
@@ -602,15 +605,15 @@ if (strpos($cp_version, 'migration')) {
 	}
 	echo "<p>\n";
 		printf( wp_kses_post(
-		/* translators: 1: minimum supported PHP version, 2: maximum supported PHP version */
-		'ClassicPress supports PHP versions <strong>%1$s</strong> through <strong>%2$s</strong>.',
-		'switch-to-classicpress'
-	), esc_html( $cp_api_parameters['php']['min'] ), esc_html( $cp_api_parameters['php']['max_display'] ) );
+			/* translators: 1: minimum supported PHP version, 2: maximum supported PHP version */
+			__( 'ClassicPress supports PHP versions <strong>%1$s</strong> through <strong>%2$s</strong>.',
+			'switch-to-classicpress' )
+		), esc_html( $cp_api_parameters['php']['min'] ), esc_html( $cp_api_parameters['php']['max_display'] ) );
 	echo "<br>\n";
 	printf( wp_kses_post(
 		/* translators: current PHP version */
-		'You are using PHP version <strong>%s</strong>' . $php_message,
-		'switch-to-classicpress'
+		__( 'You are using PHP version <strong>%s</strong>' . $php_message,
+		'switch-to-classicpress' )
 	), PHP_VERSION );
 	echo "\n</p>\n";
 	// TODO: Add instructions if PHP too old.
@@ -637,8 +640,8 @@ if (strpos($cp_version, 'migration')) {
 		);
 	} else {
 		echo wp_kses_post(
-			'This site <strong class="cp-emphasis">does not</strong> support making outgoing connections securely using SSL.',
-			'switch-to-classicpress'
+			__( 'This site <strong class="cp-emphasis">does not</strong> support making outgoing connections securely using SSL.',
+			'switch-to-classicpress' )
 		);
 		// TODO: Add instructions if SSL not supported.
 	}
@@ -651,8 +654,8 @@ if (strpos($cp_version, 'migration')) {
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_warn) . "</td>\n<td>\n";
 		echo "<p>\n";
 		echo wp_kses_post(
-			'An existing <code>composer.json</code> file was detected on your site. This file will be <strong class="cp-emphasis">overwritten</strong> during migration.',
-			'switch-to-classicpress'
+			__( 'An existing <code>composer.json</code> file was detected on your site. This file will be <strong class="cp-emphasis">overwritten</strong> during migration.',
+			'switch-to-classicpress' )
 		);
 		echo "<br>\n";
 		esc_html_e(
@@ -661,8 +664,8 @@ if (strpos($cp_version, 'migration')) {
 		);
 		echo "<br>\n";
 		echo wp_kses_post(
-			'If you are using <code>composer.json</code> to manage dependencies for this site, then you should <strong class="cp-emphasis">back up this file</strong> now, and restore it after the migration.',
-			'switch-to-classicpress'
+			__( 'If you are using <code>composer.json</code> to manage dependencies for this site, then you should <strong class="cp-emphasis">back up this file</strong> now, and restore it after the migration.',
+			'switch-to-classicpress' )
 		);
 		echo "\n</p>\n";
 		echo "</td></tr>\n";
@@ -683,8 +686,7 @@ if (strpos($cp_version, 'migration')) {
 	echo "\n<br>\n";
 	if ( $modified_files === false ) {
 		echo wp_kses_post(
-			'<strong class="cp-emphasis">Unable to determine whether core files were modified</strong>.',
-			'switch-to-classicpress'
+			'<strong class="cp-emphasis">' . __( 'Unable to determine whether core files were modified.', 'switch-to-classicpress' ) . '</strong>'
 		);
 		echo "\n<br>\n";
 		esc_html_e(
@@ -724,8 +726,8 @@ if (strpos($cp_version, 'migration')) {
 		);
 		echo "\n<br>\n";
 		echo wp_kses_post(
-			'Migrating to ClassicPress is supported, but it is <strong class="cp-emphasis">very important</strong> that you perform a backup first.',
-			'switch-to-classicpress'
+			__( 'Migrating to ClassicPress is supported, but it is <strong class="cp-emphasis">very important</strong> that you perform a backup first.',
+			'switch-to-classicpress' )
 		);
 		echo "\n<br>\n";
 		esc_html_e(
@@ -766,16 +768,27 @@ function classicpress_show_migration_controls() {
 	$cp_cv = substr($cp_api_parameters['classicpress']['version'], 0, strpos($cp_api_parameters['classicpress']['version'], '+'));
 ?>
 	<h2 class="cp-migration-info cp-migration-ready">
-		<?php echo wp_kses_post( sprintf( "It looks like you're ready to switch to ClassicPress v%s!", $cp_cv ) ); ?>
+		<?php echo wp_kses_post( sprintf(
+			__( 'It looks like you\'re ready to switch to ClassicPress v%s!', 'switch-to-classicpress' ),
+			$cp_cv
+		) ); ?>
 	</h2>
 	<p class="cp-migration-info">
-		<?php echo wp_kses_post( '<strong class="cp-emphasis">Please make a Complete Backup of your Site Files and Database before you continue!</strong>.', 'switch-to-classicpress' ); ?>
+		<?php echo wp_kses_post(
+			'<strong class="cp-emphasis">' . __( 'Please make a Complete Backup of your Site Files and Database before you continue!', 'switch-to-classicpress' ) . '</strong>'
+		); ?>	
 	</p>
 	<p class="cp-migration-info">
-		<?php echo wp_kses_post( '<strong class="cp-emphasis">After the Initial Migration, you must visit the Updates Page and Press the Re-Install Now button!</strong><br>This is needed to complete the switch to ClassicPress and to insure you get the latest updates.', 'switch-to-classicpress' ); ?>
+		<?php echo wp_kses_post(
+			'<strong class="cp-emphasis">' . __( 'After the Initial Migration, you must visit the Updates Page and Press the Re-Install Now button!', 'switch-to-classicpress' ) . '</strong><br>' .
+			__( 'This is needed to complete the switch to ClassicPress and to insure you get the latest updates.', 'switch-to-classicpress' )
+		); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php esc_html_e( 'Once you click the button below, the migration process will start.', 'switch-to-classicpress' ); ?>
+		<?php esc_html_e(
+			'Once you click the button below, the migration process will start.',
+			'switch-to-classicpress'
+		); ?>
 	</p>
 
 	<form
@@ -789,13 +802,13 @@ function classicpress_show_migration_controls() {
 <?php
 	if ( is_multisite() ) {
 		echo wp_kses_post(
-			'Switch this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!',
-			'switch-to-classicpress'
+			__( 'Switch this <strong>entire multisite installation</strong> to ClassicPress <strong>now</strong>!',
+			'switch-to-classicpress' )
 		);
 	} else {
 		echo wp_kses_post(
-			'Switch this site to ClassicPress <strong>now</strong>!',
-			'switch-to-classicpress'
+			__( 'Switch this site to ClassicPress <strong>now</strong>!',
+			'switch-to-classicpress' )
 		);
 	}
 ?>
@@ -805,16 +818,28 @@ function classicpress_show_migration_controls() {
 	<h2><?php esc_html_e( 'More Details', 'switch-to-classicpress' ); ?></h2>
 
 	<p class="cp-migration-info">
-		<?php esc_html_e( 'All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while.', 'switch-to-classicpress' ); ?>
+		<?php esc_html_e(
+			'All core WordPress files will be replaced with their ClassicPress versions. Depending on the server this website is hosted on, this process can take a while.',
+			'switch-to-classicpress'
+		); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php echo wp_kses_post( 'We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that.', 'switch-to-classicpress' ); ?>
+		<?php echo wp_kses_post(
+			__( 'We want to emphasise that <strong>all your own content (posts, pages, themes, plugins, uploads, wp-config.php file, .htaccess file, etc.) is 100% safe</strong> as the migration process is not touching any of that.',
+			'switch-to-classicpress' )
+		); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php esc_html_e( 'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.', 'switch-to-classicpress' ); ?>
+		<?php esc_html_e(
+			'Once the process has completed, you will see the about page of ClassicPress where you can read more information about the project.',
+			'switch-to-classicpress'
+		); ?>
 	</p>
 	<p class="cp-migration-info">
-		<?php echo wp_kses_post( 'We thank you for switching from WordPress to ClassicPress!<br>The CMS for Creators. Stable. Lightweight. Instantly Familiar.', 'switch-to-classicpress' ); ?>
+		<?php echo wp_kses_post(
+			__( 'We thank you for switching from WordPress to ClassicPress!<br>The CMS for Creators. Stable. Lightweight. Instantly Familiar.',
+			'switch-to-classicpress' )
+		); ?>
 	</p>
 <?php
 }
@@ -832,7 +857,7 @@ function classicpress_show_migration_blocked_info() {
 ?>
 	<h2 class="cp-migration-info cp-emphasis">
 		<?php esc_html_e(
-			"Sorry, we can't switch this site to ClassicPress at this time.",
+			'Sorry, we can\'t switch this site to ClassicPress at this time.',
 			'switch-to-classicpress'
 		); ?>
 	</h2>
@@ -840,9 +865,9 @@ function classicpress_show_migration_blocked_info() {
 	<p class="cp-migration-info">
 		<?php printf(
 			wp_kses_post(
-				/* translators: link to ClassicPress migration builds */
-				'If you\'re not sure how to fix the issues above, you can ask for help in our <a href="%s">Support Forum</a>.',
-				'switch-to-classicpress'
+				/* translators: link to ClassicPress support forum */
+				__( 'If you\'re not sure how to fix the issues above, you can ask for help in our <a href="%s">Support Forum</a>.',
+				'switch-to-classicpress' )
 			),
 			'https://forums.classicpress.net/tags/c/plugins/9/migration-plugin'
 		);
@@ -947,16 +972,16 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 						</p>
 						<p>
 							<?php echo wp_kses_post(
-								'Release Builds of ClassicPress <strong class="cp-emphasis"><u>do not work</u></strong> for migration from WordPress.',
-								'switch-to-classicpress'
+								__( 'Release Builds of ClassicPress <strong class="cp-emphasis"><u>do not work</u></strong> for migration from WordPress.',
+								'switch-to-classicpress' )
 							); ?>
 						</p>
 						<p>
 							<?php printf(
 								wp_kses_post(
 									/* translators: link to ClassicPress migration builds */
-									'You can find ClassicPress Nightly Migration & Nightly Update Builds on <a href="%s">GitHub</a>.',
-									'switch-to-classicpress'
+									__( 'You can find ClassicPress Nightly Migration & Nightly Update Builds on <a href="%s">GitHub</a>.',
+									'switch-to-classicpress' )
 								),
 								'https://github.com/ClassyBot'
 							); ?>
@@ -965,27 +990,26 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 				</tr>
 			<tr>
 				<th scope="row" class="cp-emphasis">
-						<?php esc_html_e( 'WARNING:', 'switch-to-classicpress' ); ?>
+					<?php esc_html_e( 'WARNING:', 'switch-to-classicpress' ); ?>
 				</th>
 				<td>
 					<p>
 						<?php echo wp_kses_post(
-							'If all requirements for your custom version have been met, then migration should complete.</p><p>That does not mean it will work in every case and<strong class="cp-emphasis"> Older Versions may have Password or Security Issues!</strong></p>',
-							'switch-to-classicpress'
+							__( 'If all requirements for your custom version have been met, then migration should complete.</p><p>That does not mean it will work in every case and<strong class="cp-emphasis"> Older Versions may have Password or Security Issues!</strong></p>',
+							'switch-to-classicpress' )
 						); ?>
 					</p>
 					<p>
 						<?php echo wp_kses_post(
-							'Please, make a <strong class="cp-emphasis">Complete Backup of your Site Files and Database</strong> before using this tool<strong class="cp-emphasis"> At Your Own Risk!</strong>',
-							'switch-to-classicpress'
+							__( 'Please, make a <strong class="cp-emphasis">Complete Backup of your Site Files and Database</strong> before using this tool<strong class="cp-emphasis"> At Your Own Risk!</strong>',
+							'switch-to-classicpress' )
 						); ?>
 					</p>
 					<?php
 					$php_version_49 = '7.5';
 					if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) ) {
 						echo wp_kses_post(
-							'<p><strong class="cp-emphasis">* MIGRATING TO WP v4.9 SHOULD BE A LAST RESORT AND IS DONE AT YOUR OWN RISK!</strong></p>',
-							'switch-to-classicpress'
+							'<p><strong class="cp-emphasis">' . __( '* MIGRATING TO WP v4.9 SHOULD BE A LAST RESORT AND IS DONE AT YOUR OWN RISK!', 'switch-to-classicpress' ) . '</strong></p>'
 						);
 					}
 					?>
@@ -994,10 +1018,10 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 			<?php if ( $cp_api_error === false ) : ?>
 			<tr>
 				<th colspan="2">
-				<label for="picker" id="picker-label">Enter or Select a Custom Build URL</label>
+				<label for="picker" id="picker-label"><?php esc_html_e( 'Enter or Select a Custom Build URL', 'switch-to-classicpress' ); ?></label>
 					<select id="picker" onchange="SelectVersion()">
-						<option value="">-- Please Select an Option --</option>
-					<optgroup label="ClassicPress Builds">
+						<option value="">-- <?php esc_html_e( 'Please Select an Option', 'switch-to-classicpress' ); ?> --</option>
+					<optgroup label="<?php esc_html_e( 'ClassicPress Builds', 'switch-to-classicpress' ); ?>">
 <?php if ($my_cp !== $cp_cv) { ?>
 						<option value="<?php echo esc_url($cp_cv_build); ?>">ClassicPress v<?php echo esc_html($cp_cv); ?></option>
 <?php
@@ -1017,7 +1041,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 						<option value="<?php echo esc_url($cp_p1_build); ?>">ClassicPress v<?php echo esc_html($v1_previous); ?></option>
 <?php } ?>
 					</optgroup>
-					<optgroup label="WordPress Builds">
+					<optgroup label="<?php esc_html_e( 'WordPress Builds', 'switch-to-classicpress' ); ?>">
 <?php if ($wp_version !== $cp_api_parameters['wordpress']['max']) { ?>
 						<option value="<?php echo esc_url($cp_api_parameters['links']['WordPress Latest']); ?>">WordPress v<?php echo esc_html($cp_api_parameters['wordpress']['max']); ?></option>
 <?php
@@ -1028,7 +1052,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 						<option value="<?php echo esc_url($cp_api_parameters['links']['WordPress 6.2.x']); ?>">WordPress v<?php echo esc_html($wp_v6); ?></option>
 <?php
 	}
-// WPv4.9 DOES NOT WORK with php8 - Block the option here
+	// WPv4.9 DOES NOT WORK with php8 - Block the option here
 	if (!$is_wp && $wp_v4 === $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
 	if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) && $wp_check !== $wp_v4 ) {
 ?>
