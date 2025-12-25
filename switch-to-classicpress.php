@@ -95,8 +95,8 @@ add_action( 'admin_head', 'classicpress_ensure_network_activated' );
 function classicpress_deactivated_notice() {
 	echo '<div class="error"><p>';
 	wp_kses_post(
-		'The "Switch to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
-		'switch-to-classicpress'
+		__( 'The "Switch to ClassicPress" plugin must be <strong>network activated</strong> on multisite installations.',
+		'switch-to-classicpress' )
 	);
 	echo '</p><p>';
 	esc_html_e(
@@ -209,10 +209,8 @@ function classicpress_migration_parameters() {
 		if ( ! is_array( $cp_api_parameters ) ) {
 			return new WP_Error(
 				'classicpress_server_error',
-				__(
-					'Could not communicate with the ClassicPress API server',
-					'switch-to-classicpress'
-				),
+				__( 'Could not communicate with the ClassicPress API server',
+				'switch-to-classicpress' ),
 				array( 'status' => $status )
 			);
 		}
@@ -220,7 +218,6 @@ function classicpress_migration_parameters() {
 
 	return $cp_api_parameters;
 }
-
 
 /**
  * Get a list of ClassicPress released versions from api-v1.classicpress.net.
@@ -230,37 +227,35 @@ function classicpress_migration_parameters() {
 function get_cp_versions() {
 	$cp_versions = get_transient( 'classicpress_release_versions' );
 
-if ( ! $cp_versions ) {
-	$response = wp_remote_get('https://api-v1.classicpress.net/v1/upgrade/index.php', array( 'timeout'=>3 ));
-	if ( is_wp_error( $response ) ) {
-		$status = $response->get_error_message();
-	} else {
-		$status = wp_remote_retrieve_response_code( $response );
-	}
+	if ( ! $cp_versions ) {
+		$response = wp_remote_get('https://api-v1.classicpress.net/v1/upgrade/index.php', array( 'timeout'=>3 ));
+		if ( is_wp_error( $response ) ) {
+			$status = $response->get_error_message();
+		} else {
+			$status = wp_remote_retrieve_response_code( $response );
+		}
 
-	if ( $status === 200 ) {
-		$cp_versions = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( is_array( $cp_versions ) ) {
-			set_transient(
-				'classicpress_release_versions',
-				$cp_versions,
-				1 * HOUR_IN_SECONDS
+		if ( $status === 200 ) {
+			$cp_versions = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( is_array( $cp_versions ) ) {
+				set_transient(
+					'classicpress_release_versions',
+					$cp_versions,
+					1 * HOUR_IN_SECONDS
+				);
+			}
+		}
+
+		if ( ! is_array( $cp_versions ) ) {
+			return new WP_Error(
+				'classicpress_server_error',
+				__( 'Could not communicate with the ClassicPress API server',
+				'switch-to-classicpress' ),
+				array( 'status' => $status )
 			);
 		}
 	}
-
-	if ( ! is_array( $cp_versions ) ) {
-		return new WP_Error(
-			'classicpress_server_error',
-			__(
-				'Could not communicate with the ClassicPress API server',
-				'switch-to-classicpress'
-			),
-			array( 'status' => $status )
-		);
-	}
-}
-//  $versions = json_decode(wp_remote_retrieve_body($response));
+	// $versions = json_decode(wp_remote_retrieve_body($response));
 
 	// Get only stable releases
 	foreach ($cp_versions as $key => $version) {
@@ -326,7 +321,7 @@ function getReleaseFromCPVersion($version) {
  */
 function get_previous_version($version, $versions = array()) {
 	if (empty($versions)) {
-//      $versions = self::getCPVersions();
+		// $versions = self::getCPVersions();
 		$versions = get_cp_versions();
 	} else {
 		usort($versions, 'version_compare');
