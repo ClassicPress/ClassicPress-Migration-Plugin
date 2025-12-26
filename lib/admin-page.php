@@ -529,12 +529,6 @@ function classicpress_check_can_migrate() {
 	$theme_name = $cp_api_parameters['defaults']['theme_name'];
 	$theme_url = $cp_api_parameters['defaults']['theme_url'];
 	$default_theme = '<a href="'.$theme_url.'">'.$theme_name.'</a>';
-	$theme_info = printf( wp_kses_post(
-		// translators: default theme
-		'<strong>' . __( 'The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>%1$s</em>.', 'switch-to-classicpress' ) . '</strong><br>' .
-		__( 'You can <strong class="cp-emphasis">Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.', 'switch-to-classicpress' )
-		), $default_theme
-	);
 	// THEME CHECKS DISABLED / WARN ONLY (Since v1.6)
 	if ( $theme->name === $theme_name ) {
 		$preflight_checks['theme'] = true;
@@ -553,9 +547,11 @@ function classicpress_check_can_migrate() {
 			'switch-to-classicpress' )
 		), esc_html( $theme->name ) );
 		echo "<br>\n";
-		echo wp_kses_post(
-			$theme_info,
-			'switch-to-classicpress'
+		printf( wp_kses_post(
+			// translators: default theme
+			'<strong>' . __( 'The safest way of switching to ClassicPress is to install and activate the fully compatible theme <em>%1$s</em>.', 'switch-to-classicpress' ) . '</strong><br>' .
+			__( 'You can <strong class="cp-emphasis">Continue at Your Own Risk</strong> with your current theme, but you may experience issues if the theme is not compatible with ClassicPress.', 'switch-to-classicpress' )
+			), wp_kses_post( $default_theme )
 		);
 	}
 	echo "</p></td></tr>\n";
@@ -597,7 +593,7 @@ function classicpress_check_can_migrate() {
 	) {
 		$preflight_checks['php_version'] = false;
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_fail) . "</td>\n<td>\n";
-		$php_message = ", which prevents migrating your site to ClassicPress.";
+		$php_message = __( ', which prevents migrating your site to ClassicPress.', 'switch-to-classicpress' );
 	} else {
 		$preflight_checks['php_version'] = true;
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_pass) . "</td>\n<td>\n";
@@ -612,8 +608,8 @@ function classicpress_check_can_migrate() {
 	echo "<br>\n";
 	printf( wp_kses_post(
 		/* translators: current PHP version */
-		__( 'You are using PHP version <strong>%s</strong>' . $php_message,
-		'switch-to-classicpress' )
+		__( 'You are using PHP version <strong>%s</strong>',
+		'switch-to-classicpress' ) . $php_message
 	), PHP_VERSION );
 	echo "\n</p>\n";
 	// TODO: Add instructions if PHP too old.
