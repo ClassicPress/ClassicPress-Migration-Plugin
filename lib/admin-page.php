@@ -483,8 +483,7 @@ if (strpos($cp_version, 'migration')) {
 			);
 			echo "<br>\n";
 			echo wp_kses_post(
-				__( '<strong class="cp-emphasis">Proceed At Your Own Risk!</strong>',
-				'switch-to-classicpress' )
+				'<strong class="cp-emphasis">' . __( 'Proceed At Your Own Risk!', 'switch-to-classicpress' ) . '</strong>'
 			);
 			echo "<br>\n";
 		} else {
@@ -1008,8 +1007,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					$php_version_49 = '7.5';
 					if ( version_compare( PHP_VERSION, $php_version_49, 'lt' ) ) {
 						echo wp_kses_post(
-							__( '<p><strong class="cp-emphasis">* MIGRATING TO WP v4.9 SHOULD BE A LAST RESORT AND IS DONE AT YOUR OWN RISK!</strong></p>',
-							'switch-to-classicpress' )
+							'<p><strong class="cp-emphasis">' . __( '* MIGRATING TO WP v4.9 SHOULD BE A LAST RESORT AND IS DONE AT YOUR OWN RISK!', 'switch-to-classicpress' ) . '</strong></p>'
 						);
 					}
 					?>
