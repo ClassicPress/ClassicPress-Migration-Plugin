@@ -368,7 +368,7 @@ function classicpress_check_can_migrate() {
 				); ?>
 			</p>
 			<p>
-				<?php wp_kses_post(
+				<?php echo wp_kses_post(
 					__( 'In order to switch to ClassicPress, you\'ll need to <a href="https://move.wordpress.com/">move to a self-hosted WordPress site</a> first.',
 					'switch-to-classicpress' )
 				); ?>
@@ -567,8 +567,7 @@ function classicpress_check_can_migrate() {
 		$preflight_checks['plugins'] = true;
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_warn) . "</td>\n<td>\n<p>\n";
 		echo wp_kses_post(
-			$plugin_info,
-			'switch-to-classicpress'
+			$plugin_info
 		);
 		echo "<br>\n";
 		echo wp_kses_post(
