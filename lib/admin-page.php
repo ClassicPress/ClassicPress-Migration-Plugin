@@ -283,7 +283,7 @@ function classicpress_ignore_wp_version_checkbox_callback() {
 		'</a>'
 	);
 }
- 
+
 add_action( 'admin_init', 'classicpress_ignore_wp_version_settings_init' );
 
 /**
@@ -368,7 +368,7 @@ function classicpress_check_can_migrate() {
 				); ?>
 			</p>
 			<p>
-				<?php echo esc_html_e(
+				<?php esc_html_e(
 					'In order to switch to ClassicPress, you\'ll need to move to a self-hosted WordPress site first.',
 					'switch-to-classicpress'
 				); ?>
@@ -771,7 +771,7 @@ function classicpress_show_migration_controls() {
 	<p class="cp-migration-info">
 		<?php echo wp_kses_post(
 			'<strong class="cp-emphasis">' . __( 'Please make a Complete Backup of your Site Files and Database before you continue!', 'switch-to-classicpress' ) . '</strong>'
-		); ?>	
+		); ?>
 	</p>
 	<p class="cp-migration-info">
 		<?php echo wp_kses_post(
@@ -989,7 +989,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 				</th>
 				<td>
 					<p>
-						<?php echo esc_html_e(
+						<?php esc_html_e(
 							'If all requirements for your custom version have been met, then migration should complete.',
 							'switch-to-classicpress'
 						); ?>
