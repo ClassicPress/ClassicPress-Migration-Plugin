@@ -369,8 +369,8 @@ function classicpress_check_can_migrate() {
 			</p>
 			<p>
 				<?php echo esc_html_e(
-					__( 'In order to switch to ClassicPress, you\'ll need to move to a self-hosted WordPress site first.',
-					'switch-to-classicpress' )
+					'In order to switch to ClassicPress, you\'ll need to move to a self-hosted WordPress site first.',
+					'switch-to-classicpress'
 				); ?>
 			</p>
 		</div>
@@ -990,8 +990,8 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 				<td>
 					<p>
 						<?php echo esc_html_e(
-							__( 'If all requirements for your custom version have been met, then migration should complete.',
-							'switch-to-classicpress' )
+							'If all requirements for your custom version have been met, then migration should complete.',
+							'switch-to-classicpress'
 						); ?>
 					</p>
 					<p>
