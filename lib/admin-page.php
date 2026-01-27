@@ -542,7 +542,7 @@ function classicpress_check_can_migrate() {
 		echo "<tr>\n<td>" . wp_kses_post($icon_preflight_pass) . "</td>\n<td>\n<p>\n";
 		printf( wp_kses_post(
 			// translators: %s: default theme name
-			__( 'It looks like you are using the <strong>%1$s</strong> theme.',
+			__( 'It looks like you are using the <strong>%s</strong> theme.',
 			'switch-to-classicpress' )
 		), esc_html( $theme->name ) );
 		echo "<br>\n";
