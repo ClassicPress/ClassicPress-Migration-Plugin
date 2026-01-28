@@ -18,8 +18,7 @@ You can always see the latest supported version by going to [Get ClassicPress](h
 
 ## Installation
 
-To **install a fresh version of ClassicPress on a new site**, you do not need this plugin.
-See our [installation instructions](https://docs.classicpress.net/installing-classicpress/) instead.
+To **install a fresh version of ClassicPress on a new site**, you do not need this plugin. See our [installation instructions](https://docs.classicpress.net/user-guides/installing-classicpress/) instead.
 
 To **install ClassicPress on a current WordPress site** (switch a current WordPress site to ClassicPress):
 
@@ -30,21 +29,22 @@ To **install ClassicPress on a current WordPress site** (switch a current WordPr
 5. Go to the settings of the ClassicPress migration plugin at "Tools" -> "Switch to ClassicPress".
 6. To proceed with the switch it is necessary that all pre-flight checks succeed, with a green or yellow check mark. A yellow check mark requires your attention, so read this information carefully.
 7. Press the **Switch this site to ClassicPress now!** button.
-8. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂
+8. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂.
 9. When the process is finished, you should see the ClassicPress About screen.
 10. To complete the migration process you must visit the Updates page and press the **Re-Install Now** button.
 11. You may be prompted to upgrade ClassicPress immediately after switching from WordPress. This is normal, and it is safe to upgrade.
 
 At this point it is safe to delete the “Switch to ClassicPress” plugin.
 
-If something is wrong, please let us know in [our support forum](https://forums.classicpress.net/c/support).
+If something is wrong, please let us know in [our support forum](https://forums.classicpress.net/c/support/).
 
 ## Frequently Asked Questions
 
 ### Will my current plugins and themes work in ClassicPress?
 
 Plugins that require Blocks might not work well in ClassicPress, you should test any plugins you plan to use and verify they work correctly.
-If you see something unusual it may be a bug with ClassicPress, and you can get help on [our support forum](https://forums.classicpress.net/c/support/) or [GitHub](https://github.com/ClassicPress).
+
+If you see something unusual it may be a bug with ClassicPress, and you can get help in [our support forum](https://forums.classicpress.net/c/support/) or [GitHub](https://github.com/ClassicPress).
 
 ### How can I use this plugin with an unsupported version of WordPress?
 
@@ -53,14 +53,17 @@ This plugin currently supports migrating from WordPress versions starting at `4.
 We update the plugin as quickly as possible when a new version of WordPress comes out, but we do need to test each new version for compatibility with the plugin first.
 
 If you would like to migrate from a different version of WordPress **at your own risk**, you can use the following code in your current theme's `functions.php` file or a mu-plugin to enable the migration:
+
 `add_filter( 'classicpress_ignore_wp_version', '__return_true' );`
 
 With each new WordPress release, it's very helpful for us to have multiple reports of whether the migration plugin works with the new version.
+
 You can use the filter above to test the migration process, and you can tell us about the results of your testing [on GitHub](https://github.com/ClassicPress/ClassicPress-Migration-Plugin/issues) or [our support forum](https://forums.classicpress.net/c/support/).
 
 ### I need help with something else, what should I do?
 
 Like all of ClassicPress, our support is a volunteer effort by the community.
+
 If you need help with something, please let us know in [our support forum](https://forums.classicpress.net/c/support/) or [Zulip chat](https://classicpress.zulipchat.com/register/).
 
 ## Screenshots
