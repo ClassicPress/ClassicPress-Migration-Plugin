@@ -32,7 +32,6 @@ To **install ClassicPress on a current WordPress site** (switch a current WordPr
 8. The migration process may take a few minutes depending on your hosting provider, so go grab some water or a beverage of your choice 🙂.
 9. When the process is finished, you should see the ClassicPress About screen.
 10. To complete the migration process you must visit the Updates page and press the **Re-Install Now** button.
-11. You may be prompted to upgrade ClassicPress immediately after switching from WordPress. This is normal, and it is safe to upgrade.
 
 At this point it is safe to delete the “Switch to ClassicPress” plugin.
 
