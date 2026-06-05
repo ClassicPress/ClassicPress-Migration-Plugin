@@ -365,7 +365,7 @@ add_action( 'admin_head-update-core.php', 'classicpress_clear_stale_data' );
  * Migrate settings after migration:
  *
  *  - Change default Blog Info
- *  - Change color cheme
+ *  - Change color scheme
  *
  * @since 1.7.0
  */
@@ -374,7 +374,6 @@ function classicpress_migrate_settings() {
 	$blogdescription = get_option( 'blogdescription' );
 	if ( $blogdescription === 'Just another WordPress site.' ) {
 		update_option( 'blogdescription', 'Just another ClassicPress site.' );
-		trigger_error("updated bd");
 	}
 
 	// Update color scheme
