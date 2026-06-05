@@ -353,6 +353,35 @@ function classicpress_clear_stale_data() {
 
 	// Remove the flag indicating that a migration was recently performed.
 	delete_site_transient( 'classicpress_migrated' );
+
+	// Change needed settings
+	classicpress_migrate_settings();
+
 }
 add_action( 'admin_head-about.php', 'classicpress_clear_stale_data' );
 add_action( 'admin_head-update-core.php', 'classicpress_clear_stale_data' );
+
+/**
+ * Migrate settings after migration:
+ *
+ *  - Change default Blog Info
+ *  - Change color cheme
+ *
+ * @since 1.7.0
+ */
+function classicpress_migrate_settings() {
+	// Update Blog Description
+	$blogdescription = get_option( 'blogdescription' );
+	if ( $blogdescription === 'Just another WordPress site.' ) {
+		update_option( 'blogdescription', 'Just another ClassicPress site.' );
+		trigger_error("updated bd");
+	}
+
+	// Update color scheme
+	$blogusers = get_users();
+	foreach ( $blogusers as $user ) {
+		$user_id     = $user->ID;
+		$admin_color = get_user_meta( $user_id, 'admin_color' );
+		update_user_meta( $user_id, 'admin_color', 'fresh', 'modern' );
+	}
+}
