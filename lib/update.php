@@ -379,8 +379,6 @@ function classicpress_migrate_settings() {
 	// Update color scheme
 	$blogusers = get_users();
 	foreach ( $blogusers as $user ) {
-		$user_id     = $user->ID;
-		$admin_color = get_user_meta( $user_id, 'admin_color' );
-		update_user_meta( $user_id, 'admin_color', 'fresh', 'modern' );
+		update_user_meta( $user->ID, 'admin_color', 'fresh', 'modern' );
 	}
 }
