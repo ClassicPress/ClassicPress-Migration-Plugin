@@ -376,9 +376,14 @@ function classicpress_migrate_settings() {
 		update_option( 'blogdescription', 'Just another ClassicPress site.' );
 	}
 
-	// Update color scheme
-	$blogusers = get_users();
-	foreach ( $blogusers as $user ) {
-		update_user_meta( $user->ID, 'admin_color', 'fresh', 'modern' );
+	$wp_version_was = get_option( 'classicpress_restore_wp_version', '0.0' );
+
+	// Migration from WP >= 7
+	if ( version_compare ( $wp_version_was, '7.0', 'ge' ) ) {
+		// Update color scheme
+		$blogusers = get_users();
+		foreach ( $blogusers as $user ) {
+			update_user_meta( $user->ID, 'admin_color', 'fresh', 'modern' );
+		}
 	}
 }
