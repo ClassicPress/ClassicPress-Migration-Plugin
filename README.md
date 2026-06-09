@@ -198,3 +198,10 @@ The About ClassicPress screen that appears at the end of the migration:
 - Translation related fixes
 - Validate custom migration URL
 - Regenerate POT file
+
+### 1.7.0
+
+- Improve README.md file
+- Improve i18n
+- Change default Tagline on migration
+- Change default Admin Color Scheme on migration from WordPress 7+
