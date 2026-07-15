@@ -1057,7 +1057,7 @@ function classicpress_show_advanced_migration_controls( $ok = true ) {
 					</optgroup>
 					<optgroup label="<?php esc_html_e( 'WordPress Builds', 'switch-to-classicpress' ); ?>">
 <?php if ($wp_version !== $cp_api_parameters['wordpress']['max']) { ?>
-						<option value="<?php echo esc_url($cp_api_parameters['links']['WordPress Latest']); ?>">WordPress v<?php echo esc_html($cp_api_parameters['wordpress']['max']); ?></option>
+						<option value="https://wordpress.org/latest.zip">WordPress Latest</option>
 <?php
 	}
 	if (!$is_wp && $wp_v6 === $wp_version) { $wp_check = "0.0.0"; } else { $wp_check = $wp_version; }
